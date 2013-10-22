@@ -1,59 +1,67 @@
 solution "Claw"
+
+	platforms { "x32" }
+
 	configurations {"Release", "Debug"}
+
 	location "build"
 	targetdir "build"
 	flags { "Symbols" }
 	defines {"_CRT_SECURE_NO_WARNINGS"}
 
+	if os.get() == "windows" then
+		flags {"StaticRuntime"}
+	end
+
 	configuration "Debug"
 		defines {"DEBUG"}
 
-	dofile "../src/putkilib-premake.lua"
-	dofile "../external/libpng/premake.lua"
+	dofile "../ccg-ui/ccg-ui-libs.lua"
 
 	project "claw-putki-lib"
-		kind "StaticLib"
+
+		if os.get() == "windows" then
+			kind "StaticLib"
+		else
+			kind "SharedLib"
+		end
+
 		language "C++"
+
 		targetname "claw-putki-lib"
 		
 		files { "src/types/**.typedef" }
-		files { "_gen/inki/**.cpp", "_gen/inki/**.h" }
-		files { "_gen/data-dll/**.cpp", "_gen/data-dll/**.h" }
+		files {  "_gen/inki/**.h", "_gen/data-dll/**.h" }
+		files { "_gen/*-putki-master.cpp",  }
 
-		includedirs { "../src", "../src/builder", "../src/data-dll" }
+		includedirs { "src", "src/builder", "src/data-dll" }
 		includedirs { "_gen" }
 
-		links {"putki-lib", "jsmn"}
+		includedirs { "../ccg-ui/src", "../ccg-ui/src/builder", "../ccg-ui-/src/data-dll" }
+		includedirs { "../ccg-ui/_gen" }
 
-	project "claw-builder-lib"
-
-		kind "StaticLib"
-		language "C++"
-		targetname "claw-builder-lib"
-
-		includedirs { "_gen" }
-		includedirs { "../src", "../src/builder" }
-
-		files { "src/builder/**.*" }
-
-		links { "claw-putki-lib"}
-		links { "putki-lib" }
-		links { "jsmn" }
+		includedirs { "../src" }
+		includedirs { "../src/data-dll" }
+		
+		links {"ccg-ui-putki-lib"}
 
 	project "claw-databuilder"
+
 		kind "ConsoleApp"
 		language "C++"
 		targetname "claw-databuilder"
 
 		includedirs { "_gen" }
-		includedirs { "../src", "../src/builder" }
+		includedirs { "../ccg-ui/_gen" }
+		includedirs { "../src" }
 
 		files { "src/putki/builder-main.cpp" }
+		files { "src/builder/**.*" }
 
-		links { "putki-lib" }
 		links { "claw-putki-lib"}
-		links { "claw-builder-lib" }
-		links { "jsmn" }
+		links { "ccg-ui-databuilder"}
+		links { "ccg-ui-putki-lib"}
+		links { "putki-lib"}
 
 	project "claw-data-dll"
 
@@ -63,38 +71,38 @@ solution "Claw"
 
 		files { "src/putki/dll-main.cpp" }
 
-		includedirs { "../src/builder/**.*" }
-		includedirs { "../src/data-dll" }
-		includedirs { "../src", "../src/builder/" }
+		includedirs { "../ccg-ui/_gen" }
 		includedirs { "_gen" }
 
-		links { "putki-lib" }
+		includedirs { "../src" }
+		includedirs { "../src/data-dll" }
+
 		links { "claw-putki-lib"}
-		links { "claw-builder-lib" }
-		links { "putki-data-dll-lib" }
-		links { "jsmn" }
+		links { "ccg-ui-databuilder"}
+		links { "ccg-ui-putki-lib"}
+		links { "putki-lib"}
 
-	project "claw-runtime"
-		kind "ConsoleApp"
-		language "C++"
+	project "claw-putked-typelib"
 
-		targetname "claw"
-		files { "../src/cpp-runtime/**.cpp", "../src/cpp-runtime/**.h" }
-		files { "_gen/outki/**.cpp", "_gen/outki/**.h" }
-		files { "src/**.cpp" }
-		files { "src/**.h" }
-
-		excludes { "src/builder/**.*" }
-		excludes { "src/putki/**.*" }
-
-		includedirs { "../src/cpp-runtime/", "_gen", "src" }
+		kind "SharedLib"
+		language "C#"
+		targetname "claw-putked-typelib"
+		files {"_gen/inki_csharp/**.cs"}
+		links {"ccg-ui-putked-typelib"}
+		links {"putked-lib"}
 		
-		configuration {"windows"}
-			excludes {"src/**_osx*"}
-		
-		configuration {"macosx"}
-			excludes {"src/**_win32*"}
-			files {"src/**.mm"}
-			links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
+ if os.get() == "windows" then
+
+	project "claw-csharp"
+
+		kind "WindowedApp"
+		language "C#"
+		targetname "claw-csharp"
+
+		files { "src/viewer/**.cs" }
+		files { "_gen/outki_csharp/**.cs" }
+
+		links { "ccg-ui-csharp" }
+		links { "PresentationFramework", "WindowsBase", "PresentationCore", "System.Xaml", "System" }
 	
-
+	end
