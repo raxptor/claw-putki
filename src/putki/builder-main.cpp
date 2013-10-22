@@ -24,7 +24,7 @@ void app_build_packages(putki::db::data *out, putki::build::packaging_config *pc
 		putki::package::add(pkg, "globalsettings", true);
 		putki::build::commit_package(pkg, pconf, "static.pkg");
 	}
-
+	
 	{
 		putki::package::data *pkg = putki::package::create(out);
 		putki::package::add(pkg, "ui/mainmenu", true);
@@ -37,7 +37,6 @@ int run_putki_builder(int argc, char **argv);
 
 int main(int argc, char **argv)
 {
-	chdir("/Users/dannilsson/git/putki/claw");
 	inki::bind_claw();
 
 	putki::builder::set_builder_configurator(&app_register_handlers);

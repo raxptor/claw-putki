@@ -1,8 +1,8 @@
-#include texture.typedef
+%include types/ccg-ui/Texture.typedef
 
 tilemap [in, out]
 {
-	texture tex
+	Texture tex
 	int tile_width
 	int tile_height
 }

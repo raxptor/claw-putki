@@ -16,7 +16,7 @@ solution "Claw"
 	configuration "Debug"
 		defines {"DEBUG"}
 
-	dofile "../ccg-ui/ccg-ui-libs.lua"
+	dofile "external/putki/ccg-ui/ccg-ui-libs.lua"
 
 	project "claw-putki-lib"
 
@@ -37,11 +37,11 @@ solution "Claw"
 		includedirs { "src", "src/builder", "src/data-dll" }
 		includedirs { "_gen" }
 
-		includedirs { "../ccg-ui/src", "../ccg-ui/src/builder", "../ccg-ui-/src/data-dll" }
-		includedirs { "../ccg-ui/_gen" }
+		includedirs { "external/putki/ccg-ui/src", "external/putki/ccg-ui/src/builder", "external/putki/ccg-ui-/src/data-dll" }
+		includedirs { "external/putki/ccg-ui/_gen" }
 
-		includedirs { "../src" }
-		includedirs { "../src/data-dll" }
+		includedirs { "external/putki/src" }
+		includedirs { "external/putki/src/data-dll" }
 		
 		links {"ccg-ui-putki-lib"}
 
@@ -52,8 +52,8 @@ solution "Claw"
 		targetname "claw-databuilder"
 
 		includedirs { "_gen" }
-		includedirs { "../ccg-ui/_gen" }
-		includedirs { "../src" }
+		includedirs { "external/putki/ccg-ui/_gen" }
+		includedirs { "external/putki/src" }
 
 		files { "src/putki/builder-main.cpp" }
 		files { "src/builder/**.*" }
@@ -71,11 +71,11 @@ solution "Claw"
 
 		files { "src/putki/dll-main.cpp" }
 
-		includedirs { "../ccg-ui/_gen" }
+		includedirs { "external/putki/ccg-ui/_gen" }
 		includedirs { "_gen" }
 
-		includedirs { "../src" }
-		includedirs { "../src/data-dll" }
+		includedirs { "external/putki/src" }
+		includedirs { "external/putki/src/data-dll" }
 
 		links { "claw-putki-lib"}
 		links { "ccg-ui-databuilder"}
@@ -89,20 +89,32 @@ solution "Claw"
 		targetname "claw-putked-typelib"
 		files {"_gen/inki_csharp/**.cs"}
 		links {"ccg-ui-putked-typelib"}
-		links {"putked-lib"}
-		
- if os.get() == "windows" then
+		links {"putked-lib"}		
 
-	project "claw-csharp"
+        project "claw-runtime"
+                kind "ConsoleApp"
+                language "C++"
 
-		kind "WindowedApp"
-		language "C#"
-		targetname "claw-csharp"
+                targetname "claw"
+                files { "external/putki/src/cpp-runtime/**.cpp", "external/putki/src/cpp-runtime/**.h" }
+                files { "_gen/outki/**.cpp", "_gen/outki/**.h" }
+                files { "src/**.cpp" }
+                files { "src/**.h" }
+                files { "src/**.typedef" }
 
-		files { "src/viewer/**.cs" }
-		files { "_gen/outki_csharp/**.cs" }
+                excludes { "src/builder/**.*" }
+                excludes { "src/putki/**.*" }
 
-		links { "ccg-ui-csharp" }
-		links { "PresentationFramework", "WindowsBase", "PresentationCore", "System.Xaml", "System" }
-	
-	end
+                includedirs { "external/putki/src/cpp-runtime/", "_gen", "src" }
+		includedirs { "external/putki/ccg-ui/_gen" }                
+
+		links {"ccg-runtime"}
+
+                configuration {"windows"}
+                        excludes {"src/**_osx*"}
+                
+                configuration {"macosx"}
+                        excludes {"src/**_win32*"}
+                        files {"src/**.mm"}
+                        links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
+

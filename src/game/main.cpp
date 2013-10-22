@@ -6,12 +6,9 @@
 
 #include <claw/appwindow.h>
 #include <claw/render.h>
-#include <claw/color.h>
 #include <claw/log.h>
 
 #include <game/staticdata.h>
-
-#include <outki/types/claw/ui.h>
 
 #include <cassert>
 #include <stdio.h>
@@ -27,13 +24,9 @@ namespace
 	claw::render::data *renderer;
 }
 
-outki::ui_screen *scrn;
-
 void init()
 {
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
-
-	scrn = (outki::ui_screen *) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu");	
 }
 
 
@@ -44,26 +37,7 @@ void frame()
 		claw::appwindow::set_title(window, settings->windowtitle);
 	}
 
-	claw::render::begin(renderer, true, true, claw::rgba2uint(settings->bgcolor));
-
-
-	LIVE_UPDATE(&scrn);
-	for (unsigned int i=0;i<scrn->elements_size;i++)
-	{
-		LIVE_UPDATE(&scrn->elements[i]);
-
-		outki::ui_element *el = scrn->elements[i];
-
-		if (outki::ui_button *button = scrn->elements[i]->exact_cast<outki::ui_button>())
-		{
-				
-		}
-		else if (outki::ui_solidfill *solidfill = scrn->elements[i]->exact_cast<outki::ui_solidfill>())
-		{
-			claw::render::solid_rect(renderer, el->rect.x, el->rect.y, el->rect.x + el->rect.width, el->rect.y + el->rect.height, claw::rgba2uint(solidfill->fillcolor));
-		}
-	}
-
+	claw::render::begin(renderer, true, true, 0xffff00ff);
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);
@@ -85,13 +59,8 @@ void frame()
 
 int main(int argc, char *argv[])
 {
-	chdir("~/git/putki/claw");
 	outki::bind_claw_loaders();
 
-/*
-	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
-	outki::ui_screen *scrn = (outki::ui_screen *) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu");
-*/
 
 	putki::liveupdate::init();
 	
@@ -110,10 +79,6 @@ int main(int argc, char *argv[])
 	claw::appwindow::run_loop(window, &frame);
 
 	claw::render::destroy(renderer);
-
-/*
-	claw::render::destroy(renderer);
-*/	
 	return 0;
 }
 

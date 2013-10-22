@@ -1,0 +1,8 @@
+{
+	type: "globalsettings"
+	data: {
+		window_width: 100,
+		window_height: 100,
+		windowtitle: "bajskorv"
+	}
+}
