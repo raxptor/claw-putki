@@ -29,7 +29,6 @@ void init()
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
 }
 
-
 void frame()
 {
 	if (LIVE_UPDATE(&settings))
@@ -37,7 +36,7 @@ void frame()
 		claw::appwindow::set_title(window, settings->windowtitle);
 	}
 
-	claw::render::begin(renderer, true, true, 0xffff00ff);
+	claw::render::begin(renderer, true, true, 0xff00ff);
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);
@@ -54,7 +53,7 @@ void frame()
 		{
 			putki::liveupdate::update(liveupdate);
 		}
-	}
+	}	
 }
 
 int main(int argc, char *argv[])
@@ -72,7 +71,7 @@ int main(int argc, char *argv[])
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 	renderer = claw::render::create(window);
-	liveupdate = putki::liveupdate::connect();
+//	liveupdate = putki::liveupdate::connect();
 
 	init();
 

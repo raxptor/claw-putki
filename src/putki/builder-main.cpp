@@ -7,14 +7,14 @@
 namespace inki
 {
 	void bind_claw();
+	void bind_ccgui();
 }
+
+void ccg_ui_register_handlers(putki::builder::data *builder);
 
 void app_register_handlers(putki::builder::data *builder)
 {
-	/*
-	static blob_handler bh;
-	add_data_builder(builder, "gurka", 0xff, &bh);
-	*/
+	ccg_ui_register_handlers(builder);
 }
 
 void app_build_packages(putki::db::data *out, putki::build::packaging_config *pconf)
