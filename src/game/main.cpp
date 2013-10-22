@@ -7,6 +7,12 @@
 #include <claw/appwindow.h>
 #include <claw/render.h>
 #include <claw/log.h>
+#include <claw/ccgui-renderer.h>
+
+#include <ccg-ui/uiscreen.h>
+
+#include <outki/types/ccg-ui/Elements.h>
+#include <outki/types/ccg-ui/Screen.h>
 
 #include <game/staticdata.h>
 
@@ -14,7 +20,11 @@
 #include <stdio.h>
 
 // binding up the blob loads.
-namespace outki { void bind_claw_loaders(); }
+namespace outki 
+{
+	void bind_claw_loaders(); 
+	void bind_ccg_ui_loaders(); 
+}
 
 namespace
 {
@@ -22,11 +32,18 @@ namespace
 	putki::liveupdate::data *liveupdate;
 	outki::globalsettings *settings;
 	claw::render::data *renderer;
+	claw::claw_ui_renderer *ui_renderer;
+
+	ccgui::uiscreen::instance *s_current_screen = 0;
 }
 
 void init()
 {
-	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
+	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");	
+	outki::UIScreen *screen = (outki::UIScreen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
+
+	if (screen)
+		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer);
 }
 
 void frame()
@@ -38,8 +55,12 @@ void frame()
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
 
+	ccgui::uiscreen::draw(s_current_screen, 0, 0, 800, 600);
+
 	claw::render::end(renderer);
 	claw::render::present(renderer);
+
+	
 
 	if (liveupdate)
 	{
@@ -58,6 +79,7 @@ void frame()
 int main(int argc, char *argv[])
 {
 	outki::bind_claw_loaders();
+	outki::bind_ccg_ui_loaders();
 
 
 	putki::liveupdate::init();
@@ -70,6 +92,9 @@ int main(int argc, char *argv[])
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 	renderer = claw::render::create(window);
+
+	ui_renderer = new claw::claw_ui_renderer();
+
 //	liveupdate = putki::liveupdate::connect();
 
 	init();

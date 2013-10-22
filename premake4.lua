@@ -106,7 +106,8 @@ solution "Claw"
                 excludes { "src/putki/**.*" }
 
                 includedirs { "external/putki/src/cpp-runtime/", "_gen", "src" }
-		includedirs { "external/putki/ccg-ui/_gen" }                
+		includedirs { "external/putki/ccg-ui/_gen" } 
+                includedirs { "external/putki/ccg-ui/src/cpp-runtime" }
 
 		links {"ccg-runtime"}
 
