@@ -4,6 +4,8 @@
 
 #include <claw/log.h>
 
+#include <outki/types/ccg-ui/Texture.h>
+
 #include <cassert>
 #include <map>
 #include <string>
@@ -25,12 +27,24 @@ namespace claw
 			float x, y, z;
 			DWORD color;
 		};
+
+		struct TexVert
+		{
+			float x, y, z;
+			DWORD color;
+			float u0, v0;
+		};
 #pragma pack(pop)
 
 		struct data
 		{
 			IDirect3D9 *dx;
 			IDirect3DDevice9 *device;
+		};
+
+		struct loaded_texture
+		{
+			IDirect3DTexture9 *texture;
 		};
 
 		data* create(appwindow::data *window)
@@ -131,11 +145,69 @@ namespace claw
 			v[3].color = color;
 
 			d->device->SetRenderState(D3DRS_LIGHTING, false);
-			d->device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+			d->device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 			
 			//d->device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 			//d->device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 			d->device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v, sizeof(SolidVert));
+		}
+
+		void tex_rect(data *d, loaded_texture *tex, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, unsigned int color)
+		{
+			TexVert v[4];
+			v[0].x = x0;
+			v[0].y = y0;
+			v[0].z = 1.0f;
+			v[0].u0 = u0;
+			v[0].v0 = v0;
+			v[0].color = color;
+
+			v[1].x = x1;
+			v[1].y = y0;
+			v[1].z = 1.0f;
+			v[1].u0 = u1;
+			v[1].v0 = v0;
+			v[1].color = color;
+
+			v[2].x = x0;
+			v[2].y = y1;
+			v[2].z = 1.0f;
+			v[2].u0 = u0;
+			v[2].v0 = v1;
+			v[2].color = color;
+
+			v[3].x = x1;
+			v[3].y = y1;
+			v[3].z = 1.0f;
+			v[3].u0 = u1;
+			v[3].v0 = v1;
+			v[3].color = color;
+
+			d->device->SetTexture(0, tex->texture);
+			d->device->SetRenderState(D3DRS_LIGHTING, false);
+			d->device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+			d->device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v, sizeof(TexVert));
+			d->device->SetTexture(0, 0);
+		}
+
+		loaded_texture * load_texture(data *d, outki::Texture *texture)
+		{
+			outki::TextureOutput *output = texture->Output;
+			
+			outki::TextureOutputPng *p = output->exact_cast<outki::TextureOutputPng>();
+			if (p)
+			{
+				IDirect3DTexture9 *texture;
+				std::string fullpath("out/win32/");
+				fullpath.append(p->PngPath);
+				if (D3D_OK == D3DXCreateTextureFromFile(d->device, fullpath.c_str(), &texture))
+				{
+					loaded_texture *lt = new loaded_texture();
+					lt->texture = texture;
+					return lt;
+				}
+			}
+			return 0;
 		}
 
 	}

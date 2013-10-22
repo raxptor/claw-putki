@@ -93,9 +93,9 @@ int main(int argc, char *argv[])
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 	renderer = claw::render::create(window);
 
-	ui_renderer = new claw::claw_ui_renderer();
+	ui_renderer = new claw::claw_ui_renderer(renderer);
 
-//	liveupdate = putki::liveupdate::connect();
+	liveupdate = putki::liveupdate::connect();
 
 	init();
 

@@ -2,8 +2,8 @@
 	type: "UIWidget",
 	data: {
 			"_rtti_type": 16,
-			"width": 800,
-			"height": 600,
+			"width": 512,
+			"height": 288,
 			"handler": "",
 			"layers": [{
 				"elements": ["ui/mainmenu/rootwidget#aohb"]
@@ -20,14 +20,14 @@
 						"layout": {
 							"x": 0,
 							"y": 0,
-							"width": 800,
-							"height": 600
+							"width": 512,
+							"height": 288
 					},
 						"expansion": {
 							"x": 0,
 							"y": 0,
-							"width": 1,
-							"height": 1
+							"width": 0,
+							"height": 0
 					},
 						"color": {
 							"r": 255,

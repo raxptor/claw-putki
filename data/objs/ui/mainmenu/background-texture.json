@@ -5,7 +5,7 @@
 			"Source": "ui/mainmenu/background.png",
 			"Output": "",
 			"id": "",
-			"NoOutput": 1,
+			"NoOutput": 0,
 			"Width": 0,
 			"Height": 0
 	},
