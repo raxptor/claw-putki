@@ -54,8 +54,10 @@ void frame()
 	}
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
-
-	ccgui::uiscreen::draw(s_current_screen, 0, 0, 800, 600);
+	
+	int w, h;
+	if (claw::render::get_size(renderer, &w, &h))
+		ccgui::uiscreen::draw(s_current_screen, 0, 0, (float)w, (float)h);
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);

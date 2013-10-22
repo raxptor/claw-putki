@@ -78,6 +78,16 @@ namespace claw
 			SetWindowTextA(d->window, title);
 		}
 
+		void get_client_rect(data *d, int *x0, int *y0, int *x1, int *y1)
+		{
+			RECT r;
+			GetClientRect(d->window, &r);
+			*x0 = 0;
+			*y0 = 0;
+			*x1 = r.right;
+			*y1 = r.bottom;
+		}
+
 		void run_loop(data *d, updatefunc f)
 		{			
 			do

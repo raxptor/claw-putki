@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 
 #include <claw/log.h>
+#include <claw/appwindow.h>
 
 #include <outki/types/ccg-ui/Texture.h>
 
@@ -40,6 +41,8 @@ namespace claw
 		{
 			IDirect3D9 *dx;
 			IDirect3DDevice9 *device;
+			D3DPRESENT_PARAMETERS d3dpresent;
+			appwindow::data *window;
 		};
 
 		struct loaded_texture
@@ -53,17 +56,18 @@ namespace claw
 
 			CLAW_INFO("Creating DirectX 9 Device");
 			d->dx = Direct3DCreate9(D3D_SDK_VERSION);
+			d->window = window;
 
-			D3DPRESENT_PARAMETERS d3dpresent;
-			memset( &d3dpresent, 0, sizeof( D3DPRESENT_PARAMETERS ) );
-			d3dpresent.Windowed = true;
-			d3dpresent.SwapEffect = D3DSWAPEFFECT_DISCARD;
-			d3dpresent.BackBufferCount = 1;
-			d3dpresent.BackBufferFormat = D3DFMT_X8R8G8B8;
-			d3dpresent.AutoDepthStencilFormat = D3DFMT_D24S8;
-			d3dpresent.EnableAutoDepthStencil = true;
+			
+			memset( &d->d3dpresent, 0, sizeof( D3DPRESENT_PARAMETERS ) );
+			d->d3dpresent.Windowed = true;
+			d->d3dpresent.SwapEffect = D3DSWAPEFFECT_DISCARD;
+			d->d3dpresent.BackBufferCount = 1;
+			d->d3dpresent.BackBufferFormat = D3DFMT_X8R8G8B8;
+			d->d3dpresent.AutoDepthStencilFormat = D3DFMT_D24S8;
+			d->d3dpresent.EnableAutoDepthStencil = true;
 
-			if (FAILED(d->dx->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, (HWND)appwindow::hwnd(window), D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpresent, &d->device )))
+			if (FAILED(d->dx->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, (HWND)appwindow::hwnd(window), D3DCREATE_HARDWARE_VERTEXPROCESSING, &d->d3dpresent, &d->device )))
 			{
 				CLAW_ERROR("Could not create device!");
 				return 0;
@@ -79,11 +83,41 @@ namespace claw
 			delete d;
 		}
 
+		bool get_size(data *d, int *width, int *height)
+		{
+			IDirect3DSurface9 *surface;
+			if (D3D_OK == d->device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface))
+			{
+				D3DSURFACE_DESC desc;
+				surface->GetDesc(&desc);
+				surface->Release();
+
+				*width = (int)desc.Width;
+				*height = (int)desc.Height;
+				return true;
+			}
+
+			return false;
+		}
+
 		void begin(data *d, bool clearcolor, bool cleardepth, unsigned int clear_color)
 		{
 			DWORD flags = 0;
 			if (clearcolor) flags |= D3DCLEAR_TARGET;
 			if (cleardepth) flags |= D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL;
+
+			int w, h;
+			if (get_size(d, &w, &h))
+			{
+				int x0, y0, x1, y1;
+				appwindow::get_client_rect(d->window, &x0, &y0, &x1, &y1);
+				if (x1 != w || y1 != h)
+				{
+					d->d3dpresent.BackBufferWidth = x1;
+					d->d3dpresent.BackBufferHeight = y1;
+					d->device->Reset(&d->d3dpresent);
+				}
+			}
 
 			d->device->Clear(0, 0, flags, (DWORD) clear_color, 1.0f, 0x0);
 
@@ -93,12 +127,12 @@ namespace claw
 			}
 
 			D3DXMATRIX mtx;
-			D3DXMatrixOrthoLH(&mtx, 800, 600, 0.1f, 100.0f);
+			D3DXMatrixOrthoLH(&mtx, (float)w, (float)h, 0.1f, 100.0f);
 			
 			D3DXMATRIX sc;
 			D3DXMatrixScaling(&sc, 1, -1, 1);
 			D3DXMATRIX ofs;
-			D3DXMatrixTranslation(&ofs, -400, -300, 0);
+			D3DXMatrixTranslation(&ofs, (float)-(w - 0.5f)/2.0f, (int)-(h - 0.5f)/2.0f, 0);
 
 			mtx = ofs * sc * mtx;
 			d->device->SetTransform(D3DTS_PROJECTION, &mtx);
@@ -200,7 +234,8 @@ namespace claw
 				IDirect3DTexture9 *texture;
 				std::string fullpath("out/win32/");
 				fullpath.append(p->PngPath);
-				if (D3D_OK == D3DXCreateTextureFromFile(d->device, fullpath.c_str(), &texture))
+				if (D3D_OK == D3DXCreateTextureFromFileEx(d->device, fullpath.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, 0,
+				              D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &texture))
 				{
 					loaded_texture *lt = new loaded_texture();
 					lt->texture = texture;
