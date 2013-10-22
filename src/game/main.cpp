@@ -41,7 +41,6 @@ void frame()
 	claw::render::end(renderer);
 	claw::render::present(renderer);
 
-
 	if (liveupdate)
 	{
 		if (!putki::liveupdate::connected(liveupdate))

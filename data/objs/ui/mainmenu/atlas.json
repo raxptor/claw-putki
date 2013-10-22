@@ -1,0 +1,9 @@
+{
+	type: "Atlas",
+	data: {
+			"Inputs": ["ui/mainmenu/background-texture"],
+			"Outputs": []
+	},
+	aux: [
+	      ]
+}

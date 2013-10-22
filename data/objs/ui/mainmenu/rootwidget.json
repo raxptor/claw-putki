@@ -1,0 +1,43 @@
+{
+	type: "UIWidget",
+	data: {
+			"_rtti_type": 16,
+			"width": 800,
+			"height": 600,
+			"handler": "",
+			"layers": [{
+				"elements": ["ui/mainmenu/rootwidget#aohb"]
+		}]
+	},
+	aux: [
+		{
+			ref: "#aohb",
+			type: "UIBitmapElement",
+			data: {
+					"parent": {
+						"_rtti_type": 19,
+						"id": "",
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 800,
+							"height": 600
+					},
+						"expansion": {
+							"x": 0,
+							"y": 0,
+							"width": 1,
+							"height": 1
+					},
+						"color": {
+							"r": 255,
+							"g": 255,
+							"b": 255,
+							"a": 255
+					}
+				},
+					"texture": "ui/mainmenu/background-texture"
+			}
+		}
+	      ]
+}

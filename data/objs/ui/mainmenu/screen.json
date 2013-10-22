@@ -1,0 +1,11 @@
+{
+	type: "UIScreen",
+	data: {
+			"Config": "ui/screenconfigs/default",
+			"Root": "ui/mainmenu/rootwidget",
+			"Atlases": ["ui/mainmenu/atlas"],
+			"ScalingForSnapping": []
+	},
+	aux: [
+	      ]
+}
