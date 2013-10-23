@@ -14,11 +14,11 @@ maplayer [in, out] rtti
 
 maplayer_graphics : maplayer [in, out]
 {
-	int width
-	int height
+	[hidden] int width
+	[hidden] int height
 
 	ptr tilemap tiles
-	[hidden] byte[] data
+	[hidden] int[] data
 }
 
 map [in, out]

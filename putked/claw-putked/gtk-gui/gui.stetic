@@ -9,12 +9,21 @@
     <widget-library name="../../../external/putki/ccg-ui/putked/ccgui-putked-plugin/bin/Release/ccgui-putked-plugin.exe" />
     <widget-library name="../../../external/putki/putked/putked/bin/Release/PutkEd.exe" />
     <widget-library name="../bin/Release/claw-putked.exe" internal="true" />
+    <widget-library name="../../../../../Program Files (x86)/Xamarin Studio/AddIns/MonoDevelop.GtkCore/libstetic.dll" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="clawputked.MapEditorWindow" design-size="663 624">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">MapEditorWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
     <child>
       <placeholder />
     </child>
