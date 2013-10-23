@@ -2,17 +2,27 @@
 
 tilemap [in, out]
 {
-	Texture tex
+	ptr Texture texture
 	int tile_width
 	int tile_height
 }
 
-tilelayer [in, out]
+maplayer [in, out] rtti
 {
 	string name
+}
+
+maplayer_graphics : maplayer [in, out]
+{
 	int width
 	int height
+
 	ptr tilemap tiles
 	[hidden] byte[] data
+}
+
+map [in, out]
+{
+	auxptr[] maplayer layers
 }
 

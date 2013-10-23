@@ -1,0 +1,22 @@
+{
+	type: "map",
+	data: {
+			"layers": ["maps/testmap/testmap#aohb"]
+	},
+	aux: [
+		{
+			ref: "#aohb",
+			type: "maplayer_graphics",
+			data: {
+					"parent": {
+						"_rtti_type": 403,
+						"name": "Background tile"
+				},
+					"width": 32,
+					"height": 16,
+					"tiles": "tilemaps/testmap",
+					"data": []
+			}
+		}
+	      ]
+}
