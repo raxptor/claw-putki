@@ -21,6 +21,39 @@ namespace clawputked
 
 			AddEvents((int)Gdk.EventMask.PointerMotionMask);
 			AddEvents((int)Gdk.EventMask.ButtonPressMask);
+
+			CalcSize();
+		}
+
+		public void CalcSize()
+		{
+			int maxW = 32;
+			int maxH = 32;
+
+			for (int i=0;i<m_map.get_layers_size();i++)
+			{
+				inki.maplayer ml = m_map.resolve_layers(i);
+				if (ml != null)
+				{
+					inki.maplayer_graphics mlg = ml as inki.maplayer_graphics;
+					if (mlg != null)
+					{
+						inki.tilemap tm = mlg.resolve_tiles();
+						if (tm != null)
+						{
+							int tw = mlg.get_width() * tm.get_tile_width();
+							int th = mlg.get_height() * tm.get_tile_height();
+							if (tw > maxW)
+								maxW = tw;
+							if (th > maxH)
+								maxH = th;
+						}
+					}
+				}
+			}
+
+			// Calculate desired size here.
+			SetSizeRequest(maxW, maxH);
 		}
 
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
@@ -32,7 +65,7 @@ namespace clawputked
 				{
 					if (m_hoverTile < m_hl_layer.get_data_size())
 					{
-						m_hl_layer.set_data(m_hoverTile, 1);
+						m_hl_layer.set_data(m_hoverTile, 0);
 						QueueDraw();
 					}
 				}
@@ -43,7 +76,7 @@ namespace clawputked
 
 		protected override bool OnMotionNotifyEvent(Gdk.EventMotion evnt)
 		{
-			if (evnt.Device.HasCursor)
+			if (evnt.Device.HasCursor) 
 			{
 				for (int i=0;i<m_map.get_layers_size();i++)
 				{
@@ -96,6 +129,7 @@ namespace clawputked
 		{
 			Gdk.GC g = new Gdk.GC(GdkWindow);
 			g.RgbFgColor = new Gdk.Color(32,32,32);
+
 
 			inki.tilemap tl = layer.resolve_tiles();
 			if (tl == null)
@@ -194,13 +228,6 @@ namespace clawputked
 		{
 			base.OnSizeAllocated (allocation);
 			// Insert layout code here.
-		}
-
-		protected override void OnSizeRequested (ref Gtk.Requisition requisition)
-		{
-			// Calculate desired size here.
-			requisition.Height = 128;
-			requisition.Width = 128;
 		}
 	}
 }
