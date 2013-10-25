@@ -55,27 +55,39 @@ namespace clawputked
 			// Calculate desired size here.
 			SetSizeRequest(maxW, maxH);
 		}
+	
+
+		public void PaintTile(bool falsetoerase)
+		{
+			if (m_hoverTile != -1 && m_hl_layer != null)
+			{
+				if (m_hoverTile < m_hl_layer.get_data_size())
+				{
+					if (falsetoerase)
+						m_hl_layer.set_data(m_hoverTile, 0);
+					else
+						m_hl_layer.set_data(m_hoverTile, -1);
+					QueueDraw();
+				}
+			}
+		}
 
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
 		{
-			Console.WriteLine("Set on " + m_hoverTile);
 			if (ev.Device.HasCursor)
 			{
-				if (m_hoverTile != -1 && m_hl_layer != null)
-				{
-					if (m_hoverTile < m_hl_layer.get_data_size())
-					{
-						m_hl_layer.set_data(m_hoverTile, 0);
-						QueueDraw();
-					}
-				}
+				if (ev.Button == 1)
+					PaintTile(true);
+				else if (ev.Button == 3)
+					PaintTile(false);
 			}
-
-			return base.OnButtonPressEvent (ev);		
+			return base.OnButtonPressEvent(ev);
 		}
 
 		protected override bool OnMotionNotifyEvent(Gdk.EventMotion evnt)
 		{
+			QueueDrawArea((int)evnt.X, (int)evnt.Y, (int)evnt.X + 32, (int)evnt.Y + 32);
+
 			if (evnt.Device.HasCursor) 
 			{
 				for (int i=0;i<m_map.get_layers_size();i++)
@@ -95,11 +107,13 @@ namespace clawputked
 								int hovertile = -1;
 
 								if (tile_x < mlg.get_width() && tile_y < mlg.get_height())
-									 hovertile = tile_y * mlg.get_width() + tile_x;
+									 hovertile = tile_y * mlg.get_width() + tile_x;						
 
 								if (m_hoverTile != hovertile)
 								{
 									m_hoverTile = hovertile;
+
+									QueueDrawArea(m_hl_x0, m_hl_y0, m_hl_x1, m_hl_y1);
 
 									if (hovertile != -1)
 									{
@@ -114,7 +128,19 @@ namespace clawputked
 										m_hl_layer = null;
 									}
 
-									QueueDraw();
+									QueueDrawArea(m_hl_x0, m_hl_y0, m_hl_x1, m_hl_y1);
+								}
+
+								if ((evnt.State & Gdk.ModifierType.Button1Mask) != 0 &&
+								    (evnt.State & Gdk.ModifierType.ShiftMask) != 0)
+								{
+									PaintTile(true);
+								}
+
+								if ((evnt.State & Gdk.ModifierType.Button3Mask) != 0 &&
+								    (evnt.State & Gdk.ModifierType.ShiftMask) != 0)
+								{
+									PaintTile(false);
 								}
 							}
 						}
@@ -128,8 +154,8 @@ namespace clawputked
 		private void DrawGraphicsLayer(inki.maplayer_graphics layer, Gdk.EventExpose ev)
 		{
 			Gdk.GC g = new Gdk.GC(GdkWindow);
+		
 			g.RgbFgColor = new Gdk.Color(32,32,32);
-
 
 			inki.tilemap tl = layer.resolve_tiles();
 			if (tl == null)
@@ -166,18 +192,18 @@ namespace clawputked
 
 				int dataIndex = y * layer.get_width();
 
-				if (y1 < ev.Area.Top)
-					continue;
-				if (y0 > ev.Area.Bottom)
-					continue;
+//				if (y1 < ev.Area.Top)
+					//continue;
+//				if (y0 > ev.Area.Bottom)
+				//	continue;
 
 				for (int x=0;x<layer.get_width();x++)
 				{
 					int x0 = x * tl.get_tile_width();
 					int x1 = x0 + tl.get_tile_width();
 
-					if (x1 < ev.Area.Left || x1 > ev.Area.Right)
-						continue;
+//					if (x1 < ev.Area.Left || x1 > ev.Area.Right)
+						//continue;
 				
 					bool highLighted = (m_hoverTile == dataIndex);
 

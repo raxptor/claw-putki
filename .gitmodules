@@ -1,3 +1,6 @@
 [submodule "external/putki"]
 	path = external/putki
 	url = https://github.com/raxptor/putki
+[submodule "external/ccg-ui"]
+	path = external/ccg-ui
+	url = https://github.com/raxptor/ccg-ui
