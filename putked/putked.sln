@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "putked", "..\external\putki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "putki-lib", "..\external\putki\putked\putki-lib\putki-lib.csproj", "{72E9BCF0-B1DA-4789-A676-C2ABAB38FCDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccgui-putked-plugin", "..\external\putki\ccg-ui\putked\ccgui-putked-plugin\ccgui-putked-plugin.csproj", "{7002CF71-62EA-463B-B48B-DC71EBFD2CA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccgui-putked-plugin", "..\external\ccg-ui\putked\ccgui-putked-plugin\ccgui-putked-plugin.csproj", "{7002CF71-62EA-463B-B48B-DC71EBFD2CA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

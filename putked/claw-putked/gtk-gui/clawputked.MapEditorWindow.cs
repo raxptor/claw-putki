@@ -5,6 +5,7 @@ namespace clawputked
 	public partial class MapEditorWindow
 	{
 		private global::Gtk.HBox hbox1;
+		private global::Gtk.VBox vbox1;
 		private global::Gtk.ScrolledWindow m_scrolledWindow;
 		private global::Gtk.VButtonBox vbuttonbox1;
 		private global::Gtk.Button button1;
@@ -21,6 +22,13 @@ namespace clawputked
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
+			this.vbox1 = new global::Gtk.VBox ();
+			this.vbox1.Name = "vbox1";
+			this.vbox1.Spacing = 6;
+			this.hbox1.Add (this.vbox1);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox1]));
+			w1.Position = 0;
+			// Container child hbox1.Gtk.Box+BoxChild
 			this.m_scrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.m_scrolledWindow.CanFocus = true;
 			this.m_scrolledWindow.Name = "m_scrolledWindow";
@@ -28,8 +36,8 @@ namespace clawputked
 			this.m_scrolledWindow.HscrollbarPolicy = ((global::Gtk.PolicyType)(0));
 			this.m_scrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			this.hbox1.Add (this.m_scrolledWindow);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.m_scrolledWindow]));
-			w1.Position = 1;
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.m_scrolledWindow]));
+			w2.Position = 1;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbuttonbox1 = new global::Gtk.VButtonBox ();
 			this.vbuttonbox1.Name = "vbuttonbox1";
@@ -43,14 +51,14 @@ namespace clawputked
 			this.button1.UseUnderline = true;
 			this.button1.Label = global::Mono.Unix.Catalog.GetString ("Save");
 			this.vbuttonbox1.Add (this.button1);
-			global::Gtk.ButtonBox.ButtonBoxChild w2 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.button1]));
-			w2.Expand = false;
-			w2.Fill = false;
-			this.hbox1.Add (this.vbuttonbox1);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbuttonbox1]));
-			w3.Position = 2;
+			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.button1]));
 			w3.Expand = false;
 			w3.Fill = false;
+			this.hbox1.Add (this.vbuttonbox1);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbuttonbox1]));
+			w4.Position = 2;
+			w4.Expand = false;
+			w4.Fill = false;
 			this.Add (this.hbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

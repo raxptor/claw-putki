@@ -65,10 +65,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\external\putki\ccg-ui\putked\ccgui-putked-plugin\ccgui-putked-plugin.csproj">
-      <Project>{7002CF71-62EA-463B-B48B-DC71EBFD2CA0}</Project>
-      <Name>ccgui-putked-plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\external\putki\putked\putked\putked.csproj">
       <Project>{168A9417-EB78-4C88-B52F-A5BC0D5C0D61}</Project>
       <Name>putked</Name>
@@ -76,6 +72,10 @@
     <ProjectReference Include="..\..\external\putki\putked\putki-lib\putki-lib.csproj">
       <Project>{72E9BCF0-B1DA-4789-A676-C2ABAB38FCDD}</Project>
       <Name>putki-lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\external\ccg-ui\putked\ccgui-putked-plugin\ccgui-putked-plugin.csproj">
+      <Project>{7002CF71-62EA-463B-B48B-DC71EBFD2CA0}</Project>
+      <Name>ccgui-putked-plugin</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
