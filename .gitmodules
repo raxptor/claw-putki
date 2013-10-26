@@ -3,4 +3,4 @@
 	url = https://github.com/raxptor/putki
 [submodule "external/ccg-ui"]
 	path = external/ccg-ui
-	url = https://github.com/raxptor/ccg-ui
+	url = https://github.com/raxptor/ccg-ui.git
