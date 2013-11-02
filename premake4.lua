@@ -43,8 +43,8 @@ solution "Claw"
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
 
-		links {"ccg-ui-putki-lib"}
-		links {"putki-lib"}
+		links { PUTKI_LIB_LINKS }
+		links { CCGUI_LIB_LINKS }
 
 
 	project "claw-databuilder"
@@ -59,11 +59,11 @@ solution "Claw"
 		includedirs { "src", "_gen" }
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
-
-		links { "putki-lib"}
-		links { "ccg-ui-putki-lib"}
-		links { "ccg-ui-databuilder"}
+		
 		links { "claw-putki-lib"}
+		
+		links ( CCGUI_LIB_LINKS )
+		links ( PUTKI_LIB_LINKS )
 
 	project "claw-data-dll"
 
@@ -76,38 +76,38 @@ solution "Claw"
 		includedirs { "src", "_gen" }
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
-
-		links { "putki-lib"}
-		links { "ccg-ui-putki-lib"}
-		links { "ccg-ui-databuilder"}
+	
 		links { "claw-putki-lib"}
+		
+		links { PUTKI_LIB_LINKS }
+		links { CCGUI_LIB_LINKS }
 
-        project "claw-runtime"
+    project "claw-runtime"
 
-                kind "ConsoleApp"
-                language "C++"
-                targetname "claw"
+            kind "ConsoleApp"
+            language "C++"
+            targetname "claw"
 
-                files { "_gen/outki/**.cpp", "_gen/outki/**.h" }
-                files { "src/**.cpp" }
-                files { "src/**.h" }
-                files { "src/**.typedef" }
+            files { "_gen/outki/**.cpp", "_gen/outki/**.h" }
+            files { "src/**.cpp" }
+            files { "src/**.h" }
+            files { "src/**.typedef" }
 
-                excludes { "src/builder/**.*" }
-                excludes { "src/putki/**.*" }
+            excludes { "src/builder/**.*" }
+            excludes { "src/putki/**.*" }
 
-		includedirs { "src", "_gen" }
-		includedirs ( PUTKI_RT_INCLUDES )
-		includedirs ( CCGUI_RT_INCLUDES )
+	includedirs { "src", "_gen" }
+	includedirs ( PUTKI_RT_INCLUDES )
+	includedirs ( CCGUI_RT_INCLUDES )
 
-		links {"putki-runtime-lib"}
-		links {"ccg-runtime"}
+	links {"putki-runtime-lib"}
+	links {"ccg-runtime"}
 
-                configuration {"windows"}
-                        excludes {"src/**_osx*"}
-                
-                configuration {"macosx"}
-                        excludes {"src/**_win32*"}
-                        files {"src/**.mm"}
-                        links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
+            configuration {"windows"}
+                    excludes {"src/**_osx*"}
+            
+            configuration {"macosx"}
+                    excludes {"src/**_win32*"}
+                    files {"src/**.mm"}
+                    links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
 
