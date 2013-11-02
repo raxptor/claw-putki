@@ -29,25 +29,6 @@
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.VBox" id="vbox1">
-            <property name="MemberName" />
-            <property name="Spacing">6</property>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
-          </widget>
-          <packing>
-            <property name="Position">0</property>
-            <property name="AutoSize">True</property>
-          </packing>
-        </child>
-        <child>
           <widget class="Gtk.ScrolledWindow" id="m_scrolledWindow">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
@@ -65,34 +46,59 @@
             </child>
           </widget>
           <packing>
-            <property name="Position">1</property>
+            <property name="Position">0</property>
             <property name="AutoSize">True</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.VButtonBox" id="vbuttonbox1">
+          <widget class="Gtk.VBox" id="vbox2">
             <property name="MemberName" />
-            <property name="Spacing">4</property>
-            <property name="BorderWidth">6</property>
-            <property name="Size">1</property>
-            <property name="LayoutStyle">Start</property>
+            <property name="Spacing">6</property>
             <child>
-              <widget class="Gtk.Button" id="button1">
+              <widget class="Gtk.VButtonBox" id="vbuttonbox1">
                 <property name="MemberName" />
-                <property name="CanFocus">True</property>
-                <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Save</property>
-                <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnSaveClicked" />
+                <property name="Spacing">4</property>
+                <property name="BorderWidth">6</property>
+                <property name="Size">1</property>
+                <property name="LayoutStyle">Start</property>
+                <child>
+                  <widget class="Gtk.Button" id="button1">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Type">TextOnly</property>
+                    <property name="Label" translatable="yes">Save</property>
+                    <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnSaveClicked" />
+                  </widget>
+                  <packing>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
               </widget>
               <packing>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
               </packing>
+            </child>
+            <child>
+              <widget class="Gtk.TreeView" id="m_layers">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <signal name="RowActivated" handler="OnRowActivated" />
+                <signal name="CursorChanged" handler="OnCursorchanged" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder />
             </child>
           </widget>
           <packing>
-            <property name="Position">2</property>
+            <property name="Position">1</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
