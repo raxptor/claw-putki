@@ -13,6 +13,7 @@
 
 #include <outki/types/ccg-ui/Elements.h>
 #include <outki/types/ccg-ui/Screen.h>
+#include <outki/types/claw/tiles.h>
 
 #include <game/staticdata.h>
 
@@ -41,6 +42,10 @@ void init()
 {
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");	
 	outki::UIScreen *screen = (outki::UIScreen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
+
+	putki::pkgmgr::loaded_package *level_pkg = putki::pkgloader::from_file("testmap.pkg");	
+	outki::map *map = (outki::map *) putki::pkgmgr::resolve(level_pkg, "maps/testmap/testmap");
+	outki::maplayer_graphics *layer = (outki::maplayer_graphics *) map->layers[0];
 
 	if (screen)
 		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer);

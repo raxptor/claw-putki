@@ -14,6 +14,8 @@ solution "Claw"
 
 	configuration "Debug"
 		defines {"DEBUG"}
+	configuration "Release"
+		flags {"Optimize"}
 
 	
 	------------------------------------
@@ -54,6 +56,7 @@ solution "Claw"
 		targetname "claw-databuilder"
 
 		files { "src/putki/builder-main.cpp" }
+		
 		files { "src/builder/**.*" }
 
 		includedirs { "src", "_gen" }
@@ -72,12 +75,14 @@ solution "Claw"
 		targetname "claw-data-dll"
 
 		files { "src/putki/dll-main.cpp" }
+		files { "src/builder/**.*" }		
 
 		includedirs { "src", "_gen" }
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
 	
 		links { "claw-putki-lib"}
+		links { "claw-databuilder"}
 		
 		links { PUTKI_LIB_LINKS }
 		links { CCGUI_LIB_LINKS }
