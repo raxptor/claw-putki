@@ -11,10 +11,12 @@ namespace inki
 }
 
 void ccg_ui_register_handlers(putki::builder::data *builder);
+void claw_register_handlers(putki::builder::data *builder);
 
 void app_register_handlers(putki::builder::data *builder)
 {
 	ccg_ui_register_handlers(builder);
+	claw_register_handlers(builder);
 }
 
 void app_build_packages(putki::db::data *out, putki::build::packaging_config *pconf)
@@ -29,6 +31,12 @@ void app_build_packages(putki::db::data *out, putki::build::packaging_config *pc
 		putki::package::data *pkg = putki::package::create(out);
 		putki::package::add(pkg, "ui/mainmenu/screen", true);
 		putki::build::commit_package(pkg, pconf, "mainmenu.pkg");
+	}
+
+	{
+		putki::package::data *pkg = putki::package::create(out);
+		putki::package::add(pkg, "maps/testmap/testmap", true);
+		putki::build::commit_package(pkg, pconf, "testmap.pkg");
 	}
 
 }

@@ -12,6 +12,19 @@ maplayer [in, out] rtti
 	string name
 }
 
+map_vertex [in, out] non-instantiable
+{
+	float x
+	float y
+	float u 
+	float v
+}
+
+layer_output [in, out] non-instantiable
+{
+	map_vertex[] trilist
+}
+
 maplayer_graphics : maplayer [in, out]
 {
 	[hidden] int width
@@ -19,10 +32,10 @@ maplayer_graphics : maplayer [in, out]
 
 	ptr tilemap tiles
 	[hidden] int[] data
+	[hidden] auxptr layer_output output
 }
 
 map [in, out]
 {
 	auxptr[] maplayer layers
 }
-

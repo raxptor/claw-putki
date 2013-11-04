@@ -10,11 +10,12 @@ namespace inki
 }
 
 void ccg_ui_register_handlers(putki::builder::data *builder);
+void claw_register_handlers(putki::builder::data *builder);
 
 void setup_builder(putki::builder::data *builder)
 {
-	//
 	ccg_ui_register_handlers(builder);
+	claw_register_handlers(builder);
 }
 
 extern "C"
