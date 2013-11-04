@@ -7,5 +7,6 @@ void register_map_builder(putki::builder::data *builder);
 
 void claw_register_handlers(putki::builder::data *builder)
 {
-		register_map_builder(builder);
+	// $dan: Does not exist now!
+	// register_map_builder(builder);
 }

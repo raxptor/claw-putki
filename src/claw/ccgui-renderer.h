@@ -3,7 +3,7 @@
 #include <claw/render.h>
 
 #include <string>
-#include <hash_map>
+#include <map>
 
 namespace claw
 {
@@ -11,7 +11,7 @@ namespace claw
 	{
 		public:
 
-			typedef std::hash_map< outki::Texture* , render::loaded_texture* > ResolvedTexturesMap; 
+			typedef std::map< outki::Texture* , render::loaded_texture* > ResolvedTexturesMap; 
 
 			claw_ui_renderer(render::data *renderer) : m_renderer(renderer)
 			{
