@@ -2,8 +2,8 @@
 	type: "tilemap",
 	data: {
 			"texture": "tilemaps/testmap-texture",
-			"tile_width": 32,
-			"tile_height": 32
+			"tile_width": 16,
+			"tile_height": 16
 	},
 	aux: [
 	      ]
