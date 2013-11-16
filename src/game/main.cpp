@@ -36,6 +36,8 @@ namespace
 	claw::claw_ui_renderer *ui_renderer;
 
 	ccgui::uiscreen::instance *s_current_screen = 0;
+	
+	ccgui::uicontext s_ui_context;
 }
 
 void init()
@@ -48,10 +50,10 @@ void init()
 	outki::maplayer_graphics *layer = (outki::maplayer_graphics *) map->layers[0];
 
 	if (screen)
-		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer);
+		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer, 0);
 }
 
-void frame()
+void frame(claw::appwindow::input_batch *input)
 {
 	if (LIVE_UPDATE(&settings))
 	{
@@ -63,7 +65,9 @@ void frame()
 	int w, h;
 	if (claw::render::get_size(renderer, &w, &h))
 	{
-		ccgui::uiscreen::draw(s_current_screen, 0, 0, (float)w, (float)h);
+		s_ui_context.input.mouse = &input->mouse;
+		
+		ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
 	}
 
 	claw::render::end(renderer);

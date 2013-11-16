@@ -1,0 +1,11 @@
+{
+	type: "Font",
+	data: {
+			"Source": "",
+			"Characters": [],
+			"PixelSizes": [],
+			"Outputs": []
+	},
+	aux: [
+	      ]
+}

@@ -1,0 +1,11 @@
+{
+	type: "UIButtonStyle",
+	data: {
+			"Normal": "ui/styles/button/fill-normal",
+			"Highlight": "ui/styles/button/fill-mouseover",
+			"Pressed": "ui/styles/button/fill-pressed",
+			"FontStyle": ""
+	},
+	aux: [
+	      ]
+}

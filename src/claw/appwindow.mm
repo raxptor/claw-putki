@@ -3,11 +3,13 @@
 #import <AppKit/AppKit.h>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
+#include <vector>
 
 struct update_info
 {
 	claw::appwindow::updatefunc f;
 	claw::appwindow::data *d;
+	float mousex, mousey;
 };
 
 @interface AppDelegate : NSObject
@@ -35,16 +37,31 @@ struct update_info
 }
 
 -(void)drawRect:(NSRect)rect;
-- (CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime;
+-(CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime;
 
 @end
 
 @implementation TestView
 
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	NSRect r = [self bounds];
+	uinfo.mousex = mouseLoc.x;
+	uinfo.mousey = r.size.height - mouseLoc.y - 1;
+}
+
 -(void)drawRect:(NSRect)rect {
 	[[NSColor blueColor] set];
 	NSRectFill( [self bounds] );
 }
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
+{
+	printf("afm\n");
+	return YES;
+}
+
 
 - (void)prepareOpenGL
 {
@@ -111,7 +128,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 {
 	// Add your drawing codes here
 	if (uinfo.f)
-		uinfo.f();
+	{
+		claw::appwindow::input_batch ib;
+		ib.mouse.x = uinfo.mousex;
+		ib.mouse.y = uinfo.mousey;
+		uinfo.f(&ib);
+	}
 	else
 		printf("Skipped frame\n");
 	return kCVReturnSuccess;
@@ -159,6 +181,8 @@ namespace claw
 			
 			d->view = [[[TestView alloc] initWithFrame:frame] autorelease];
 			d->view->uinfo.d = d;
+			d->view->uinfo.mousex = 0;
+			d->view->uinfo.mousey = 0;
 			
 			[d->window setContentView:d->view];
 			[d->window makeKeyAndOrderFront:nil];
@@ -168,8 +192,18 @@ namespace claw
 			
 			[NSApp setDelegate: (id)d->appdelegate];
 			[d->window setDelegate: (id)d->appdelegate];
-						
+			
+			[d->window setAcceptsMouseMovedEvents: true];
+			[d->window makeFirstResponder: (id)d->view];
+			
+			int opts = (NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved);
+			NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[d->view bounds]
+										 options:opts
+										   owner:(id) d->view
+										userInfo:nil];
+			[d->view addTrackingArea:(id)area];
 			return d;
+			
 		}
 		
 		void destroy(data *d)

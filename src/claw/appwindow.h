@@ -1,10 +1,19 @@
+#pragma once
+
+#include <ccg-ui/uicontext.h>
+
 namespace claw
 {
 	namespace appwindow
 	{
 		struct data;
 		
-		typedef void (*updatefunc)(void);
+		struct input_batch
+		{
+			ccgui::mouse_input mouse;
+		};
+		
+		typedef void (*updatefunc)(input_batch *input);
 
 		data* create(const char *title, int width, int height);
 
