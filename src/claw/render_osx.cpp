@@ -1,22 +1,71 @@
 #include "appwindow.h"
 
 #include <OpenGL/gl.h>
+#include <outki/types/ccg-ui/Texture.h>
+#include <stdio.h>
+
+#include <map>
+#include <string>
 
 namespace claw
 {
 	namespace render
 	{
+		struct loaded_texture
+		{
+			GLuint handle;
+			int refcount;
+		};
+	
+		typedef std::map<std::string, loaded_texture*> LoadedTextures;
+
 		struct data
 		{
-		
+			appwindow::data *window;
+			LoadedTextures textures;
 		};
+		
 
 		data* create(appwindow::data *window)
 		{
 			data *d = new data();
+			d->window = window;
 			return d;
 		}
+		
+		loaded_texture * load_texture(data *d, outki::Texture *texture)
+		{
+			LoadedTextures::iterator i = d->textures.find(texture->id);
+			if (i != d->textures.end())
+			{
+				i->second->refcount++;
+				return i->second;
+			}
+			
+			if (outki::TextureOutputOpenGL *gl_tex = texture->Output->exact_cast<outki::TextureOutputOpenGL>())
+			{
+				loaded_texture *tex = new loaded_texture();
+				tex->refcount = 1;
+
+				glGenTextures(1, &tex->handle);
+				glBindTexture(GL_TEXTURE_2D, tex->handle);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, gl_tex->Width, gl_tex->Height,
+				0, GL_RGBA, GL_UNSIGNED_BYTE, gl_tex->Bytes);
 				
+				printf("Loading OpenGL texture!\n");
+				return tex;
+			}
+			else
+			{
+				printf("Unknown texture encountered [%s]!", texture->id);
+				return 0;
+			}
+		}
+	
 		void destroy(data *d)
 		{
 			delete d;
@@ -24,8 +73,20 @@ namespace claw
 
 		void begin(data *d, bool clearcolor, bool cleardepth, unsigned int clear_color)
 		{
+			int x0, y0, x1, y1;
+			appwindow::get_client_rect(d->window, &x0, &y0, &x1, &y1);
+			glViewport(0, 0, x1, y1);
+		
 			glClearColor(0, 0, 0, 0);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glMatrixMode( GL_MODELVIEW );
+			glLoadIdentity();
+
+			glMatrixMode( GL_PROJECTION );
+			glLoadIdentity();
+			
+			glOrtho(0, (float)x1, (float)y1, 0, -1, 1);
 		}
 		
 		void end(data *d)
@@ -37,10 +98,65 @@ namespace claw
 		{
 		
 		}
-
+		
+		bool get_size(data *d, int * width, int * height)
+		{
+			int x0, y0, x1, y1;
+			appwindow::get_client_rect(d->window, &x0, &y0, &x1, &y1);
+			*width = x1 - x0;
+			*height = y1 - y0;
+			return true;
+		}
+		
+		inline void intColor(unsigned int color)
+		{
+			glColor4ub((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24)&0xff);
+		}
+		
+		void gradient_rect(data *d, float x0, float y0, float x1, float y1, unsigned int tl, unsigned int tr, unsigned int bl, unsigned int br)
+		{
+			glBegin(GL_TRIANGLE_STRIP);
+			intColor(tl);
+			glVertex2f(x0,y0);
+			intColor(tr);
+			glVertex2f(x1,y0);
+			intColor(bl);
+			glVertex2f(x0,y1);
+			intColor(br);
+			glVertex2f(x1,y1);
+			glEnd();		
+		}
+	
 		void solid_rect(data *d, float x0, float y0, float x1, float y1, unsigned int color)
 		{
-		
+			intColor(color);
+			glBegin(GL_TRIANGLE_STRIP);
+			glVertex2f(x0,y0);
+			glVertex2f(x1,y0);
+			glVertex2f(x0,y1);
+			glVertex2f(x1,y1);
+			glEnd();
 		}
+				
+		void tex_rect(data *d, loaded_texture *tex, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, unsigned int color)
+		{
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, tex->handle);
+			
+			glColor4ub((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24)&0xff);
+			glBegin(GL_TRIANGLE_STRIP);
+			glTexCoord2f(u0, v0);
+			glVertex2f(x0,y0);
+			glTexCoord2f(u1, v0);
+			glVertex2f(x1,y0);
+			glTexCoord2f(u0, v1);
+			glVertex2f(x0,y1);
+			glTexCoord2f(u1, v1);
+			glVertex2f(x1,y1);
+			glEnd();
+			
+			glDisable(GL_TEXTURE_2D);
+		}
+		
 	}
 }

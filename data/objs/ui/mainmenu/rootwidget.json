@@ -6,7 +6,7 @@
 			"height": 288,
 			"handler": "",
 			"layers": [{
-				"elements": ["ui/mainmenu/rootwidget#aohb"]
+				"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#hjns", "ui/mainmenu/rootwidget#kmes"]
 		}]
 	},
 	aux: [
@@ -26,6 +26,36 @@
 						"expansion": {
 							"x": 0,
 							"y": 0,
+							"width": 1,
+							"height": 1
+					},
+						"color": {
+							"r": 255,
+							"g": 255,
+							"b": 255,
+							"a": 255
+					}
+				},
+					"texture": "ui/mainmenu/background-texture"
+			}
+		}
+		,
+		{
+			ref: "#hjns",
+			type: "UIFillElement",
+			data: {
+					"parent": {
+						"_rtti_type": 17,
+						"id": "",
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 0,
+							"height": 0
+					},
+						"expansion": {
+							"x": 0,
+							"y": 0,
 							"width": 0,
 							"height": 0
 					},
@@ -36,7 +66,37 @@
 							"a": 255
 					}
 				},
-					"texture": "ui/mainmenu/background-texture"
+					"fill": "ui/fills/testfill"
+			}
+		}
+		,
+		{
+			ref: "#kmes",
+			type: "UIFillElement",
+			data: {
+					"parent": {
+						"_rtti_type": 17,
+						"id": "",
+						"layout": {
+							"x": 0,
+							"y": 0,
+							"width": 0,
+							"height": 0
+					},
+						"expansion": {
+							"x": 0,
+							"y": 0,
+							"width": 0,
+							"height": 0
+					},
+						"color": {
+							"r": 255,
+							"g": 255,
+							"b": 255,
+							"a": 255
+					}
+				},
+					"fill": "ui/fills/testfill"
 			}
 		}
 	      ]

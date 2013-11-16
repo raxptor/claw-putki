@@ -1,0 +1,34 @@
+{
+	type: "UIGradientFill",
+	data: {
+			"parent": {
+				"_rtti_type": 9
+		},
+			"topleft": {
+				"r": 255,
+				"g": 255,
+				"b": 255,
+				"a": 200
+		},
+			"topright": {
+				"r": 50,
+				"g": 50,
+				"b": 50,
+				"a": 255
+		},
+			"bottomleft": {
+				"r": 50,
+				"g": 50,
+				"b": 50,
+				"a": 4
+		},
+			"bottomright": {
+				"r": 100,
+				"g": 100,
+				"b": 100,
+				"a": 90
+		}
+	},
+	aux: [
+	      ]
+}

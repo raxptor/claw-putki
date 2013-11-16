@@ -23,6 +23,11 @@ namespace claw
 			
 			}
 
+			void gradient_rect(float x0, float y0, float x1, float y1, unsigned int tl, unsigned int tr, unsigned int bl, unsigned int br)
+			{
+				claw::render::gradient_rect(m_renderer, x0, y0, x1, y1, tl, tr, bl, br);
+			}
+
 			void tex_rect(outki::Texture *texture, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, unsigned int color)
 			{
 				again:

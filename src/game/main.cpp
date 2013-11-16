@@ -62,12 +62,12 @@ void frame()
 	
 	int w, h;
 	if (claw::render::get_size(renderer, &w, &h))
+	{
 		ccgui::uiscreen::draw(s_current_screen, 0, 0, (float)w, (float)h);
+	}
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);
-
-	
 
 	if (liveupdate)
 	{
@@ -98,6 +98,7 @@ int main(int argc, char *argv[])
 	assert(settings);
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
+
 	renderer = claw::render::create(window);
 
 	ui_renderer = new claw::claw_ui_renderer(renderer);
