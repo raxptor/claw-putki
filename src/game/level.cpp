@@ -67,6 +67,26 @@ namespace claw
 			}
 		}
 		
+		
+		bool line_map_intersection(instance *d, float _x0, float _y0, float _x1, float _y1, intersection *res)
+		{
+			const float dummy = 99999999;
+			res->t = dummy;
+			
+			for (unsigned int i=0;i<d->level->collision_lines_size;i++)
+			{
+				outki::tile_collision_line *line = &d->level->collision_lines[i];
+
+				intersection tmp;
+				if (claw::line_intersection(_x0, _y0, _x1, _y1, line->x0, line->y0, line->x1, line->y1, &tmp))
+				{
+					if (tmp.t < res->t)
+						*res = tmp;
+				}
+			}
+			return res->t != dummy;
+		}
+		
 		void draw(instance *d, draw_info *di, render::data *renderer)
 		{
 			LIVE_UPDATE(&d->level);

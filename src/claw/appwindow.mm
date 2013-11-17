@@ -170,10 +170,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	{
 		claw::appwindow::input_batch ib;
 		ib.mouse = uinfo.mouse;
-		uinfo.f(&ib, 0.005f);
-		
 		uinfo.mouse.primary.wentUp = 0;
 		uinfo.mouse.primary.wentDown = 0;
+		uinfo.f(&ib, 0.005f);
+		
 	}
 	else
 		printf("Skipped frame\n");

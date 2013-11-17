@@ -1,6 +1,7 @@
 #pragma once
 
 #include <claw/render.h>
+#include <ccg-ui/uicontext.h>
 
 namespace claw
 {
@@ -10,7 +11,7 @@ namespace claw
 		
 		instance *create();
 		
-		void update(instance *i, float timedelta);
+		void update(instance *i, ccgui::uicontext *,float timedelta);
 		void draw(instance *i, claw::render::data *renderer);
 		
 		void free(instance *);

@@ -140,7 +140,7 @@ namespace claw
 		
 		void line(data *d, float x0, float y0, float x1, float y1, unsigned int color)
 		{
-			glLineWidth(2.5);
+			glLineWidth(1);
 			intColor(color);
 			glBegin(GL_LINES);
 			glVertex2f(x0,y0);

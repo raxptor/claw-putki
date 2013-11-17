@@ -57,6 +57,8 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	{
 		claw::appwindow::set_title(window, settings->windowtitle);
 	}
+	
+	s_ui_context.input.mouse = &input->mouse;
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
 	
@@ -64,13 +66,12 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	int w, h;
 	if (claw::render::get_size(renderer, &w, &h))
 	{
-		s_ui_context.input.mouse = &input->mouse;
 		
 		ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
 	}
 	*/
 
-	claw::session::update(session, deltatime);
+	claw::session::update(session, &s_ui_context, deltatime);
 	claw::session::draw(session, renderer);
 
 	claw::render::end(renderer);
