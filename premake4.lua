@@ -1,6 +1,9 @@
 solution "Claw"
 
-	platforms { "x32" }
+	if os.get() ~= "linux" then
+		platforms { "x32" }
+	end
+		
 	configurations {"Release", "Debug"}
 
 	location "build"
@@ -12,11 +15,10 @@ solution "Claw"
 		flags {"StaticRuntime"}
 	end
 
---	configuration "Debug"
+	configuration "Debug"
 		defines {"DEBUG"}
---	configuration "Release"
---		flags {"Optimize"}
-
+	configuration "Release"
+		flags {"Optimize"}
 	
 	------------------------------------
 	-- Putki must always come first   --
@@ -41,8 +43,8 @@ solution "Claw"
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
 
-		links { PUTKI_LIB_LINKS }
-		links { CCGUI_LIB_LINKS }
+		links (CCGUI_LIB_LINKS)
+		links (PUTKI_LIB_LINKS)
 
 
 	project "claw-databuilder"
@@ -58,8 +60,7 @@ solution "Claw"
 		includedirs ( PUTKI_LIB_INCLUDES )
 		includedirs ( CCGUI_LIB_INCLUDES )
 		
-		links { "claw-putki-lib"}
-		
+		links { "claw-putki-lib" }
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
@@ -77,11 +78,10 @@ solution "Claw"
 		includedirs ( CCGUI_LIB_INCLUDES )
 	
 		links { "claw-putki-lib"}
-		
-		links { PUTKI_LIB_LINKS }
-		links { CCGUI_LIB_LINKS }
+		links ( CCGUI_LIB_LINKS )
+		links ( PUTKI_LIB_LINKS )
 
-    project "claw-runtime"
+ 	project "claw-runtime"
 
             kind "ConsoleApp"
             language "C++"
@@ -99,8 +99,8 @@ solution "Claw"
 	includedirs ( PUTKI_RT_INCLUDES )
 	includedirs ( CCGUI_RT_INCLUDES )
 
-	links {"putki-runtime-lib"}
 	links {"ccg-runtime"}
+	links {"putki-runtime-lib"}
 
             configuration {"windows"}
                     excludes {"src/**_osx*"}

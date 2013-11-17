@@ -19,8 +19,12 @@ void setup_builder(putki::builder::data *builder)
 }
 
 extern "C"
-{	
+{
+	#if defined(_MSC_VER)	
 	__declspec(dllexport) putki::data_dll_i* __cdecl load_data_dll(const char *data_path)
+	#else
+	putki::data_dll_i* load_data_dll(const char *data_path)
+	#endif
 	{
 		inki::bind_ccg_ui();
 		inki::bind_ccg_ui_dll();
