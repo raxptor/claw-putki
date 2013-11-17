@@ -4,6 +4,7 @@
 #include <claw/render.h>
 
 #include <putki/liveupdate/liveupdate.h>
+#include <memory.h>
 
 namespace claw
 {

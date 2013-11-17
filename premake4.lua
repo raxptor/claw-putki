@@ -81,6 +81,8 @@ solution "Claw"
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
+if os.get() ~= "linux" then
+
  	project "claw-runtime"
 
             kind "ConsoleApp"
@@ -110,3 +112,4 @@ solution "Claw"
                     files {"src/**.mm"}
                     links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
 
+end

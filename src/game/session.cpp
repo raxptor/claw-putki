@@ -60,7 +60,6 @@ namespace claw
 			
 			if (ctx->input.mouse->primary.wentDown)
 			{
-				printf("went down at %f %f\n", ctx->input.mouse->x, ctx->input.mouse->y);
 				particle p;
 				p.px = ctx->input.mouse->x;
 				p.py = ctx->input.mouse->y;
