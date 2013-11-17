@@ -37,9 +37,20 @@ namespace claw
 		void draw_layer(instance *i, unsigned int index, outki::maplayer_graphics *graphics, draw_info *di, render::data *renderer)
 		{
 			outki::tilemap *tiles = graphics->tiles;
+			
+			if (i->layer_textures[index] && (!tiles || LIVE_UPDATE(&tiles->texture)))
+			{
+				render::unload_texture(renderer, i->layer_textures[index]);
+				i->layer_textures[index] = 0;
+			}
 
 			if (!i->layer_textures[index])
+			{
+				if (!tiles || !tiles->texture)
+					return;
+
 				i->layer_textures[index] = render::load_texture(renderer, tiles->texture);
+			}
 
 			render::loaded_texture *tex = i->layer_textures[index];
 			if (!tex)
@@ -94,6 +105,9 @@ namespace claw
 			for (unsigned int i=0;i<d->level->layers_size;i++)
 			{
 				LIVE_UPDATE(&d->level->layers[i]);
+				if (LIVEUPDATE_ISNULL(d->level->layers[i]))
+					continue;
+					
 				if (outki::maplayer_graphics *graphics = d->level->layers[i]->exact_cast<outki::maplayer_graphics>())
 				{
 					draw_layer(d, i, graphics, di, renderer);

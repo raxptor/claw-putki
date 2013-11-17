@@ -16,6 +16,7 @@ namespace claw
 		struct loaded_texture;
 
 		loaded_texture * load_texture(data *d, outki::Texture *texture);
+		void unload_texture(data *d, loaded_texture *tex);
 
 		data* create(appwindow::data *window);
 		void destroy(data *);

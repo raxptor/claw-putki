@@ -20,6 +20,16 @@ struct mapbuilder : putki::builder::handler_i
 	{
 		return x * 10000 + y;
 	}
+	
+	static inline void add(std::vector<inki::tile_collision_line> *out, int x0, int y0, int x1, int y1)
+	{
+		inki::tile_collision_line line;
+		line.x0 = x0;
+		line.y0 = y0;
+		line.x1 = x1;
+		line.y1 = y1;
+		out->push_back(line);
+	}
 
 	virtual bool handle(putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj, putki::db::data *output, int obj_phase)
 	{
@@ -32,8 +42,14 @@ struct mapbuilder : putki::builder::handler_i
 		for (unsigned int i=0;i<tilemap->layers.size();i++)
 		{
 			inki::maplayer *layer = tilemap->layers[i];
+			if (!layer)
+				continue;
+			
 			if (layer->rtti_type_ref() != inki::maplayer_graphics::type_id())
 				continue;
+			
+			// need to rebuild collision map if any of the layers change.
+			putki::build_db::add_input_dependency(record, putki::db::pathof(input, layer));
 					
 			inki::maplayer_graphics *graphics = (inki::maplayer_graphics*) layer;
 			inki::tilemap *tiles = graphics->tiles;
@@ -88,15 +104,34 @@ struct mapbuilder : putki::builder::handler_i
 					inki::tile_collision *cur    = collision_map[pos];
 					if (!cur)
 						continue;
-					/*
-					inki::tile_collision *left   = x > 0 ? collision_map[pos-1] : 0;
-					inki::tile_collision *right  = x < (graphics->width - 1) ? collision_map[pos+1] : 0;
-					inki::tile_collision *top    = y > 0 ? collision_map[pos-graphics->width] : 0;
-					inki::tile_collision *bottom = y < (graphics->height -1) ? collision_map[pos+graphics->width] : 0;
-					*/
-					for (int i=0;i<cur->lines.size();i++)
+						
+					std::vector<inki::tile_collision_line> lines = cur->lines;
+					
+					switch (cur->prefab)
 					{
-						inki::tile_collision_line *l = &cur->lines[i];
+						case inki::TILE_COLLISION_FULLBLOCK:
+							add(&lines, 0, 0, tiles->tile_width, 0);
+							add(&lines, tiles->tile_width, 0, tiles->tile_width, tiles->tile_height);
+							add(&lines, tiles->tile_width, tiles->tile_height, 0, tiles->tile_height);
+							add(&lines, 0, tiles->tile_height, 0, 0);
+							break;
+						case inki::TILE_COLLISION_RAMP_UR:
+							add(&lines, 0, tiles->tile_height, tiles->tile_width, 0);
+							add(&lines, tiles->tile_width, 0, tiles->tile_width, tiles->tile_height);
+							add(&lines, tiles->tile_width, tiles->tile_height, 0, tiles->tile_height);
+							break;
+						case inki::TILE_COLLISION_RAMP_DR:
+							add(&lines, 0, 0, tiles->tile_width, tiles->tile_height);
+							add(&lines, tiles->tile_width, tiles->tile_height, 0, tiles->tile_height);
+							add(&lines, 0, tiles->tile_height, 0, 0);
+							break;
+						case inki::TILE_COLLISION_CUSTOM:
+							break;
+					}
+					
+					for (int i=0;i<lines.size();i++)
+					{
+						inki::tile_collision_line *l = &lines[i];
 						inki::tile_collision_line nl;
 						nl.x0 = ox + l->x0;
 						nl.y0 = oy + l->y0;

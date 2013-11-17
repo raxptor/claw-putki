@@ -8,10 +8,19 @@ tile_collision_line [in, out] non-instantiable
 	int y1
 }
 
+enum tile_collision_predefines
+{
+	TILE_COLLISION_CUSTOM
+	TILE_COLLISION_FULLBLOCK
+	TILE_COLLISION_RAMP_UR
+	TILE_COLLISION_RAMP_DR
+}
+
 tile_collision [in, out] non-instantiable
 {
 	int x
 	int y
+	enum tile_collision_predefines prefab = TILE_COLLISION_CUSTOM
 	tile_collision_line[] lines
 }
 

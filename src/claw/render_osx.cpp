@@ -14,6 +14,7 @@ namespace claw
 		struct loaded_texture
 		{
 			GLuint handle;
+			std::string source;
 			int refcount;
 		};
 	
@@ -33,6 +34,17 @@ namespace claw
 			return d;
 		}
 		
+		void unload_texture(data *d, loaded_texture *tex)
+		{
+			if (tex->refcount-- == 0)
+			{
+				glDeleteTextures(1, &tex->handle);
+				d->textures.erase(d->textures.find(tex->source));
+				delete tex;
+			}
+		}
+
+		
 		loaded_texture * load_texture(data *d, outki::Texture *texture)
 		{
 			LoadedTextures::iterator i = d->textures.find(texture->id);
@@ -46,6 +58,7 @@ namespace claw
 			{
 				loaded_texture *tex = new loaded_texture();
 				tex->refcount = 1;
+				tex->source = texture->id;
 
 				glGenTextures(1, &tex->handle);
 				glBindTexture(GL_TEXTURE_2D, tex->handle);

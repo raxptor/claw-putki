@@ -8,8 +8,9 @@
 #include <ccg-ui/uicontext.h>
 #include <claw/core/line.h>
 
+#include <vector>
+
 #include <math.h>
-#include <vector.h>
 
 namespace claw
 {
