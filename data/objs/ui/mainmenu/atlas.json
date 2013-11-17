@@ -1,7 +1,7 @@
 {
 	type: "Atlas",
 	data: {
-			"Inputs": ["ui/mainmenu/background-texture"],
+			"Inputs": ["ui/mainmenu/background-texture", "ui/buttons/b1-highlight", "ui/buttons/b1-normal"],
 			"Outputs": []
 	},
 	aux: [

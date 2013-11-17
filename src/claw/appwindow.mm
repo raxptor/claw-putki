@@ -3,13 +3,16 @@
 #import <AppKit/AppKit.h>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
+
 #include <vector>
+
+#include <ccg-ui/uicontext.h>
 
 struct update_info
 {
 	claw::appwindow::updatefunc f;
 	claw::appwindow::data *d;
-	float mousex, mousey;
+	ccgui::mouse_input mouse;
 };
 
 @interface AppDelegate : NSObject
@@ -47,8 +50,44 @@ struct update_info
 {
 	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	NSRect r = [self bounds];
-	uinfo.mousex = mouseLoc.x;
-	uinfo.mousey = r.size.height - mouseLoc.y - 1;
+	uinfo.mouse.x = mouseLoc.x;
+	uinfo.mouse.y = r.size.height - mouseLoc.y - 1;
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	NSRect r = [self bounds];
+	uinfo.mouse.x = mouseLoc.x;
+	uinfo.mouse.y = r.size.height - mouseLoc.y - 1;
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	uinfo.mouse.primary.wentDown++;
+	uinfo.mouse.primary.isDown = true;
+	printf("Mouse down!\n");
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+	uinfo.mouse.primary.wentUp++;
+	uinfo.mouse.primary.isDown = false;
+	printf("Mouse up!\n");
+}
+
+- (id)initWithFrame:(NSRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+    }
+    return self;
+}
+
+- (void)resetCursorRects
+{
+    [super resetCursorRects];
+    printf("reset cursor rects\n");
+    [self addCursorRect:self.bounds cursor:[NSCursor crosshairCursor]];
 }
 
 -(void)drawRect:(NSRect)rect {
@@ -111,7 +150,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	NSOpenGLContext *currentContext = [p openGLContext];
 	[currentContext makeCurrentContext];
-	
+
 	// must lock GL context because display link is threaded
 	CGLLockContext((CGLContextObj)[currentContext CGLContextObj]);
 		
@@ -130,9 +169,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	if (uinfo.f)
 	{
 		claw::appwindow::input_batch ib;
-		ib.mouse.x = uinfo.mousex;
-		ib.mouse.y = uinfo.mousey;
-		uinfo.f(&ib);
+		ib.mouse = uinfo.mouse;
+		uinfo.f(&ib, 0.005f);
+		
+		uinfo.mouse.primary.wentUp = 0;
+		uinfo.mouse.primary.wentDown = 0;
 	}
 	else
 		printf("Skipped frame\n");
@@ -169,6 +210,8 @@ namespace claw
 			d->app = [NSApplication sharedApplication];
 			d->appdelegate = [[AppDelegate alloc] autorelease];
 			
+		
+			
 			NSRect frame = NSMakeRect( 100., 100., 100. + (float)width, 100. + (float)height );
 			
 			d->window = [[NSWindow alloc]
@@ -181,8 +224,11 @@ namespace claw
 			
 			d->view = [[[TestView alloc] initWithFrame:frame] autorelease];
 			d->view->uinfo.d = d;
-			d->view->uinfo.mousex = 0;
-			d->view->uinfo.mousey = 0;
+			d->view->uinfo.mouse.x = 0;
+			d->view->uinfo.mouse.y = 0;
+			d->view->uinfo.mouse.primary.wentDown = 0;
+			d->view->uinfo.mouse.primary.wentUp = 0;
+			d->view->uinfo.mouse.primary.isDown = false;
 			
 			[d->window setContentView:d->view];
 			[d->window makeKeyAndOrderFront:nil];
@@ -202,6 +248,7 @@ namespace claw
 										   owner:(id) d->view
 										userInfo:nil];
 			[d->view addTrackingArea:(id)area];
+			
 			return d;
 			
 		}

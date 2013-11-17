@@ -6,9 +6,7 @@
 namespace game
 {
 	void load_static_package();
-
 	outki::globalsettings *get_global_settings();
-
 }
 
 #endif

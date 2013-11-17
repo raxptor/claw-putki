@@ -11,7 +11,7 @@ namespace claw
 
 #include <sstream>
 
-#if _DEBUG
+#if _DEBUG || true
 
 	// Logging enabled.
 	#define CLAW_INFO(stmt) {		           \

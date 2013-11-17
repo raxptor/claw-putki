@@ -9,6 +9,8 @@
 #include <claw/log.h>
 #include <claw/ccgui-renderer.h>
 
+#include <game/session.h>
+
 #include <ccg-ui/uiscreen.h>
 
 #include <outki/types/ccg-ui/Elements.h>
@@ -34,10 +36,10 @@ namespace
 	outki::globalsettings *settings;
 	claw::render::data *renderer;
 	claw::claw_ui_renderer *ui_renderer;
-
 	ccgui::uiscreen::instance *s_current_screen = 0;
-	
 	ccgui::uicontext s_ui_context;
+	
+	claw::session::instance *session = 0;
 }
 
 void init()
@@ -45,15 +47,11 @@ void init()
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");	
 	outki::UIScreen *screen = (outki::UIScreen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
 
-	putki::pkgmgr::loaded_package *level_pkg = putki::pkgloader::from_file("testmap.pkg");	
-	outki::map *map = (outki::map *) putki::pkgmgr::resolve(level_pkg, "maps/testmap/testmap");
-	outki::maplayer_graphics *layer = (outki::maplayer_graphics *) map->layers[0];
-
 	if (screen)
 		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer, 0);
 }
 
-void frame(claw::appwindow::input_batch *input)
+void frame(claw::appwindow::input_batch *input, float deltatime)
 {
 	if (LIVE_UPDATE(&settings))
 	{
@@ -62,6 +60,7 @@ void frame(claw::appwindow::input_batch *input)
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
 	
+	/*
 	int w, h;
 	if (claw::render::get_size(renderer, &w, &h))
 	{
@@ -69,6 +68,10 @@ void frame(claw::appwindow::input_batch *input)
 		
 		ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
 	}
+	*/
+
+	claw::session::update(session, deltatime);
+	claw::session::draw(session, renderer);
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);
@@ -94,12 +97,14 @@ int main(int argc, char *argv[])
 
 
 	putki::liveupdate::init();
-	
 
 	game::load_static_package();
 
 	settings = game::get_global_settings();
 	assert(settings);
+
+	session = claw::session::create();
+
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 
@@ -111,8 +116,10 @@ int main(int argc, char *argv[])
 
 	init();
 
+
 	claw::appwindow::run_loop(window, &frame);
 
+	claw::session::free(session);
 	claw::render::destroy(renderer);
 	return 0;
 }

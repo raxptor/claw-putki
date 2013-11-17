@@ -13,7 +13,7 @@ namespace claw
 			ccgui::mouse_input mouse;
 		};
 		
-		typedef void (*updatefunc)(input_batch *input);
+		typedef void (*updatefunc)(input_batch *input, float deltatime);
 
 		data* create(const char *title, int width, int height);
 

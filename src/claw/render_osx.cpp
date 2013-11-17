@@ -137,6 +137,16 @@ namespace claw
 			glVertex2f(x1,y1);
 			glEnd();
 		}
+		
+		void line(data *d, float x0, float y0, float x1, float y1, unsigned int color)
+		{
+			glLineWidth(2.5);
+			intColor(color);
+			glBegin(GL_LINES);
+			glVertex2f(x0,y0);
+			glVertex2f(x1,y1);
+			glEnd();			
+		}
 				
 		void tex_rect(data *d, loaded_texture *tex, float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, unsigned int color)
 		{

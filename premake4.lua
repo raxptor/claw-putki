@@ -32,11 +32,7 @@ solution "Claw"
 		language "C++"
 		targetname "claw-putki-lib"
 
-		if os.get() == "windows" then
-			kind "StaticLib"
-		else
-			kind "SharedLib"
-		end
+		kind "StaticLib"
 		
 		files { "src/types/**.typedef" }
 		files { "_gen/*putki-master.cpp", "_gen/inki/**.h", "_gen/data-dll/**.h" }

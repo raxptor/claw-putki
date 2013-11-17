@@ -1,10 +1,35 @@
 %include types/ccg-ui/Texture.typedef
 
+tile_collision_line [in, out] non-instantiable
+{
+	int x0
+	int y0
+	int x1
+	int y1
+}
+
+tile_collision [in, out] non-instantiable
+{
+	int x
+	int y
+	tile_collision_line[] lines
+}
+
+tileinfo [in, out] non-instantiable
+{
+	float u0
+	float v0
+	float u1
+	float v1
+}
+
 tilemap [in, out]
 {
 	ptr Texture texture
 	int tile_width
 	int tile_height
+	tile_collision[] collision_tiles
+	[hidden] tileinfo[] tiles
 }
 
 maplayer [in, out] rtti
@@ -20,11 +45,6 @@ map_vertex [in, out] non-instantiable
 	float v
 }
 
-layer_output [in, out] non-instantiable
-{
-	map_vertex[] trilist
-}
-
 maplayer_graphics : maplayer [in, out]
 {
 	[hidden] int width
@@ -32,10 +52,10 @@ maplayer_graphics : maplayer [in, out]
 
 	ptr tilemap tiles
 	[hidden] int[] data
-	[hidden] auxptr layer_output output
 }
 
 map [in, out]
 {
 	auxptr[] maplayer layers
+	[hidden] tile_collision_line[] collision_lines
 }

@@ -1,0 +1,18 @@
+#pragma once
+
+#include <claw/render.h>
+
+namespace claw
+{
+	namespace session
+	{
+		struct instance;
+		
+		instance *create();
+		
+		void update(instance *i, float timedelta);
+		void draw(instance *i, claw::render::data *renderer);
+		
+		void free(instance *);
+	}
+}

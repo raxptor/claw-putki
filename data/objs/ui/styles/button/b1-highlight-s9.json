@@ -1,0 +1,19 @@
+{
+	type: "UISlice9Fill",
+	data: {
+			"parent": {
+				"_rtti_type": 10
+		},
+			"texture": "ui/buttons/b1-highlight",
+			"MarginLeft": 15,
+			"MarginTop": 15,
+			"MarignRight": 15,
+			"MarginBottom": 15,
+			"ExpandLeft": 20,
+			"ExpandTop": 20,
+			"ExpandRight": 20,
+			"ExpandBottom": 20
+	},
+	aux: [
+	      ]
+}

@@ -3,7 +3,73 @@
 	data: {
 			"texture": "tilemaps/mario-texture",
 			"tile_width": 32,
-			"tile_height": 32
+			"tile_height": 32,
+			"collision_tiles": [{
+				"x": 3,
+				"y": 0,
+				"edge_left": 1,
+				"edge_right": 1,
+				"edge_top": 1,
+				"edge_bottom": 1,
+				"lines": [{
+					"x0": 0,
+					"y0": 0,
+					"x1": 32,
+					"y1": 0
+			}, {
+					"x0": 32,
+					"y0": 0,
+					"x1": 32,
+					"y1": 32
+			}, {
+					"x0": 32,
+					"y0": 32,
+					"x1": 0,
+					"y1": 32
+			}, {
+					"x0": 0,
+					"y0": 32,
+					"x1": 0,
+					"y1": 0
+			}]
+		}, {
+				"x": 6,
+				"y": 0,
+				"edge_left": 0,
+				"edge_right": 0,
+				"edge_top": 0,
+				"edge_bottom": 0,
+				"lines": [{
+					"x0": 0,
+					"y0": 32,
+					"x1": 32,
+					"y1": 8
+			}, {
+					"x0": 32,
+					"y0": 32,
+					"x1": 0,
+					"y1": 32
+			}]
+		}, {
+				"x": 7,
+				"y": 0,
+				"edge_left": 0,
+				"edge_right": 0,
+				"edge_top": 0,
+				"edge_bottom": 0,
+				"lines": [{
+					"x0": 0,
+					"y0": 8,
+					"x1": 32,
+					"y1": 32
+			}, {
+					"x0": 32,
+					"y0": 32,
+					"x1": 0,
+					"y1": 32
+			}]
+		}],
+			"tiles": []
 	},
 	aux: [
 	      ]
