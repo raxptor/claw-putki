@@ -156,7 +156,11 @@ struct mapbuilder : putki::builder::handler_i
 					}
 				} // x
 			} // y			
+			
+			// done with this now
+			delete [] collision_map;
 		}
+		
 		
 		// take out all non-cancelled for the merge step.
 		std::vector<inki::tile_collision_line> tomerge;
