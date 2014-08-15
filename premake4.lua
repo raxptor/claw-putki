@@ -64,6 +64,22 @@ solution "Claw"
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
+	project "claw-datatool"
+
+		kind "ConsoleApp"
+		language "C++"
+		targetname "claw-tool"
+
+		files { "src/putki/tool-main.cpp" }
+
+		includedirs { "src", "_gen" }
+		includedirs ( PUTKI_LIB_INCLUDES )
+		includedirs ( CCGUI_LIB_INCLUDES )
+		
+		links { "claw-putki-lib" }
+		links ( CCGUI_LIB_LINKS )
+		links ( PUTKI_LIB_LINKS )
+
 	project "claw-data-dll"
 
 		kind "SharedLib"

@@ -7,6 +7,8 @@
 #include <map>
 #include <string>
 
+#include <claw/log.h>
+
 namespace claw
 {
 	namespace render
@@ -54,6 +56,12 @@ namespace claw
 				return i->second;
 			}
 			
+			if (!texture->Output)
+			{
+				CLAW_ERROR("Trying to load a texture which has no generated output! [" << texture->id << "]");
+				return 0;
+			}
+			
 			if (outki::TextureOutputOpenGL *gl_tex = texture->Output->exact_cast<outki::TextureOutputOpenGL>())
 			{
 				loaded_texture *tex = new loaded_texture();
@@ -69,12 +77,12 @@ namespace claw
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, gl_tex->Width, gl_tex->Height,
 				0, GL_RGBA, GL_UNSIGNED_BYTE, gl_tex->Bytes);
 				
-				printf("Loading OpenGL texture!\n");
+				CLAW_INFO("Bound texture [" << texture->id << "] to handle=" << tex->handle);
 				return tex;
 			}
 			else
 			{
-				printf("Unknown texture encountered [%s]!", texture->id);
+				CLAW_ERROR("Unknown texture encountered" << texture->id);
 				return 0;
 			}
 		}
