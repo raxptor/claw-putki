@@ -274,7 +274,6 @@ namespace claw
 		
 		void run_loop(data *d, updatefunc f)
 		{
-			printf("Set it to %p\n", f);
 			d->view->uinfo.f = f;
 			[d->app run];
 		}

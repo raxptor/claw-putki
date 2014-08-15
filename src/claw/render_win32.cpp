@@ -58,7 +58,7 @@ namespace claw
 			d->dx = Direct3DCreate9(D3D_SDK_VERSION);
 			d->window = window;
 
-			
+
 			memset( &d->d3dpresent, 0, sizeof( D3DPRESENT_PARAMETERS ) );
 			d->d3dpresent.Windowed = true;
 			d->d3dpresent.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -103,8 +103,14 @@ namespace claw
 		void begin(data *d, bool clearcolor, bool cleardepth, unsigned int clear_color)
 		{
 			DWORD flags = 0;
-			if (clearcolor) flags |= D3DCLEAR_TARGET;
-			if (cleardepth) flags |= D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL;
+			if (clearcolor)
+			{
+				flags |= D3DCLEAR_TARGET;
+			}
+			if (cleardepth)
+			{
+				flags |= D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL;
+			}
 
 			int w, h;
 			if (get_size(d, &w, &h))
@@ -128,7 +134,7 @@ namespace claw
 
 			D3DXMATRIX mtx;
 			D3DXMatrixOrthoLH(&mtx, (float)w, (float)h, 0.1f, 100.0f);
-			
+
 			D3DXMATRIX sc;
 			D3DXMatrixScaling(&sc, 1, -1, 1);
 			D3DXMATRIX ofs;
@@ -180,7 +186,7 @@ namespace claw
 
 			d->device->SetRenderState(D3DRS_LIGHTING, false);
 			d->device->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-			
+
 			//d->device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 			//d->device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 			d->device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v, sizeof(SolidVert));
@@ -227,7 +233,7 @@ namespace claw
 		loaded_texture * load_texture(data *d, outki::Texture *texture)
 		{
 			outki::TextureOutput *output = texture->Output;
-			
+
 			outki::TextureOutputPng *p = output->exact_cast<outki::TextureOutputPng>();
 			if (p)
 			{
@@ -235,7 +241,7 @@ namespace claw
 				std::string fullpath("out/win32/");
 				fullpath.append(p->PngPath);
 				if (D3D_OK == D3DXCreateTextureFromFileEx(d->device, fullpath.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, 0,
-				              D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &texture))
+				                                          D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &texture))
 				{
 					loaded_texture *lt = new loaded_texture();
 					lt->texture = texture;

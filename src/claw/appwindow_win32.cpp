@@ -44,9 +44,9 @@ namespace claw
 
 			WNDCLASSEX wc =
 			{
-				sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
-				GetModuleHandle( NULL ), NULL, NULL, NULL, NULL,
-				"CLAW-NG", NULL
+				sizeof( WNDCLASSEX ),    CS_CLASSDC, MsgProc, 0L,   0L,
+				GetModuleHandle( NULL ), NULL,       NULL,    NULL, NULL,
+				"CLAW-NG",               NULL
 			};
 
 			wc.hIcon = 0; // LoadIcon(wc.hInstance, MAKEINTRESOURCE(desc.icon));
@@ -54,10 +54,10 @@ namespace claw
 
 			::RegisterClassEx( &wc );
 
-			RECT rc = { 
-				0, 
-				0, 
-				width, 
+			RECT rc = {
+				0,
+				0,
+				width,
 				height
 			};
 
@@ -65,8 +65,8 @@ namespace claw
 
 			// Create the application's window
 			d->window = ::CreateWindowA("CLAW-NG", title,
-			            WS_OVERLAPPEDWINDOW, 100, 100, rc.right - rc.left, rc.bottom - rc.top,
-			            NULL, NULL, wc.hInstance, NULL );
+			                            WS_OVERLAPPEDWINDOW, 100, 100, rc.right - rc.left, rc.bottom - rc.top,
+			                            NULL, NULL, wc.hInstance, NULL );
 
 			ShowWindow(d->window, true);
 
@@ -89,7 +89,7 @@ namespace claw
 		}
 
 		void run_loop(data *d, updatefunc f)
-		{			
+		{
 			do
 			{
 				MSG m;
@@ -99,7 +99,9 @@ namespace claw
 					DispatchMessage(&m);
 
 					if (m.message == WM_QUIT)
+					{
 						return;
+					}
 				}
 
 				f();

@@ -23,10 +23,10 @@
 #include <stdio.h>
 
 // binding up the blob loads.
-namespace outki 
+namespace outki
 {
-	void bind_claw_loaders(); 
-	void bind_ccg_ui_loaders(); 
+	void bind_claw_loaders();
+	void bind_ccg_ui_loaders();
 }
 
 namespace
@@ -38,17 +38,19 @@ namespace
 	claw::claw_ui_renderer *ui_renderer;
 	ccgui::uiscreen::instance *s_current_screen = 0;
 	ccgui::uicontext s_ui_context;
-	
+
 	claw::session::instance *session = 0;
 }
 
 void init()
 {
-	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");	
+	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
 	outki::UIScreen *screen = (outki::UIScreen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
 
 	if (screen)
+	{
 		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer, 0);
+	}
 }
 
 void frame(claw::appwindow::input_batch *input, float deltatime)
@@ -57,19 +59,19 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	{
 		claw::appwindow::set_title(window, settings->windowtitle);
 	}
-	
+
 	s_ui_context.input.mouse = &input->mouse;
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
-	
+
 	/*
-	int w, h;
-	if (claw::render::get_size(renderer, &w, &h))
-	{
-		
-		ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
-	}
-	*/
+	   int w, h;
+	   if (claw::render::get_size(renderer, &w, &h))
+	   {
+
+	        ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
+	   }
+	 */
 
 	claw::session::update(session, &s_ui_context, deltatime);
 	claw::session::draw(session, renderer);
@@ -88,7 +90,7 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 		{
 			putki::liveupdate::update(liveupdate);
 		}
-	}	
+	}
 }
 
 int main(int argc, char *argv[])
@@ -124,4 +126,3 @@ int main(int argc, char *argv[])
 	claw::render::destroy(renderer);
 	return 0;
 }
-

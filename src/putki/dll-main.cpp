@@ -6,7 +6,7 @@ namespace inki
 	void bind_ccg_ui();
 	void bind_ccg_ui_dll();
 	void bind_claw();
-	void bind_claw_dll();	
+	void bind_claw_dll();
 }
 
 void ccg_ui_register_handlers(putki::builder::data *builder);
@@ -20,7 +20,7 @@ void setup_builder(putki::builder::data *builder)
 
 extern "C"
 {
-	#if defined(_MSC_VER)	
+	#if defined(_MSC_VER)
 	__declspec(dllexport) putki::data_dll_i* __cdecl load_data_dll(const char *data_path)
 	#else
 	putki::data_dll_i* load_data_dll(const char *data_path)

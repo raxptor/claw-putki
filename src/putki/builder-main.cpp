@@ -25,7 +25,7 @@ void app_build_packages(putki::db::data *out, putki::build::packaging_config *pc
 		putki::package::add(pkg, "globalsettings", true);
 		putki::build::commit_package(pkg, pconf, "static.pkg");
 	}
-	
+
 	{
 		putki::package::data *pkg = putki::package::create(out);
 		putki::package::add(pkg, "ui/mainmenu/screen", true);

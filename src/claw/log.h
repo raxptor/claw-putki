@@ -13,30 +13,30 @@ namespace claw
 
 #if _DEBUG || true
 
-	// Logging enabled.
-	#define CLAW_INFO(stmt) {		           \
+// Logging enabled.
+	#define CLAW_INFO(stmt) {                          \
 		std::ostringstream __DPRINT_LINE;                  \
 		__DPRINT_LINE << __FILE__ << " (" << __LINE__ << "): " << stmt; \
 		claw::log(__DPRINT_LINE.str().c_str()); \
-	}
+}
 
 // Logging enabled.
-	#define CLAW_ERROR(stmt) {		           \
+	#define CLAW_ERROR(stmt) {                         \
 		std::ostringstream __DPRINT_LINE;                  \
 		__DPRINT_LINE << __FILE__ << " (" << __LINE__ << "): " << stmt; \
 		claw::error(__DPRINT_LINE.str().c_str()); \
-	}
+}
 
 #else
 
 	#define CLAW_INFO(stmt) { }
 
-	// Logging enabled.
-	#define CLAW_ERROR(stmt) {		           \
+// Logging enabled.
+	#define CLAW_ERROR(stmt) {                         \
 		std::ostringstream __DPRINT_LINE;                  \
 		__DPRINT_LINE << __FILE__ << " (" << __LINE__ << "): " << stmt; \
 		claw::error(__DPRINT_LINE.str().c_str()); \
-	}
+}
 
 
 #endif

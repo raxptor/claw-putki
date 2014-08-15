@@ -10,4 +10,3 @@ void claw_register_handlers(putki::builder::data *builder)
 	register_tilemap_builder(builder);
 	register_map_builder(builder);
 }
-

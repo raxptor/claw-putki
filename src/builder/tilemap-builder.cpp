@@ -15,13 +15,13 @@ struct tilemapbuilder : putki::builder::handler_i
 	{
 		inki::tilemap *tilemap = (inki::tilemap *) obj;
 		std::cout << "Processing tilemap [" << path << "]" << std::endl;
-				
+
 		ccgui::pngutil::loaded_png png;
 		if (ccgui::pngutil::load_info(putki::resource::real_path(builder, tilemap->texture->Source.c_str()).c_str(), &png))
 		{
 			int tilesx = png.width / tilemap->tile_width;
 			int tilesy = png.height / tilemap->tile_height;
-			
+
 			std::cout << "Tilemap is " << png.width << "x" << png.height << " and has " << tilesx << "x" << tilesy << " tiles " << std::endl;
 			for (int y=0;y<tilesy;y++)
 			{
@@ -41,8 +41,8 @@ struct tilemapbuilder : putki::builder::handler_i
 		{
 			std::cout << "!!! Failed to load png!" << std::endl;
 		}
-		
-		
+
+
 		return false;
 	}
 };
