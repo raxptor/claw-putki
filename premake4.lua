@@ -68,7 +68,7 @@ solution "Claw"
 
 		kind "ConsoleApp"
 		language "C++"
-		targetname "claw-tool"
+		targetname "claw-datatool"
 
 		files { "src/putki/tool-main.cpp" }
 
