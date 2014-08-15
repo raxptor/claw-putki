@@ -68,6 +68,8 @@ namespace claw
 				tex->refcount = 1;
 				tex->source = texture->id;
 
+				d->textures.insert(std::make_pair<std::string, loaded_texture*>(texture->id, tex));
+
 				glGenTextures(1, &tex->handle);
 				glBindTexture(GL_TEXTURE_2D, tex->handle);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);

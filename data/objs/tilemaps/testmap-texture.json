@@ -3,6 +3,7 @@
 	data: {
 			"_rtti_type": 33,
 			"Source": "tilemaps/testmap.png",
+			"Configuration" : "configs/texture-render",
 			"Output": "",
 			"id": "",
 			"NoOutput": 0,
