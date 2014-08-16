@@ -1,6 +1,6 @@
 solution "Claw"
 
-	if os.get() ~= "linux" then
+	if os.get() ~= "linux" and os.get() ~= "bsd" then
 		platforms { "x32" }
 	end
 		
@@ -80,6 +80,8 @@ solution "Claw"
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
+if os.get() ~= "linux" and os.get() ~= "bsd" then
+
 	project "claw-data-dll"
 
 		kind "SharedLib"
@@ -97,7 +99,6 @@ solution "Claw"
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
-if os.get() ~= "linux" then
 
  	project "claw-runtime"
 
