@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <squirrel.h>
+
 #include <putki/pkgloader.h>
 #include <putki/pkgmgr.h>
 #include <putki/liveupdate/liveupdate.h>
@@ -93,8 +95,36 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	}
 }
 
+
+
+void squirrel_print_func(HSQUIRRELVM vm, const SQChar *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    vfprintf(stdout, format, args);
+    va_end(args);
+}
+
 int main(int argc, char *argv[])
 {
+	CLAW_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
+	HSQUIRRELVM vm = sq_open(4096);
+
+	sq_setprintfunc(vm, squirrel_print_func, 0);
+
+	const char *buf = "::print(\"Gurken Schmidt\\n\");";
+	if (SQ_FAILED(sq_compilebuffer(vm, buf, strlen(buf), "gurka", false))) {
+		CLAW_ERROR("Compilation of main script failed");
+	} else {
+		sq_pushroottable(vm); 
+		if (SQ_FAILED(sq_call(vm, 1, false, false))) {
+			CLAW_ERROR("Call of main script failed");
+		}
+	}
+
+	sq_close(vm);
+	
+	/*
 	outki::bind_claw_loaders();
 	outki::bind_ccg_ui_loaders();
 
@@ -124,5 +154,6 @@ int main(int argc, char *argv[])
 
 	claw::session::free(session);
 	claw::render::destroy(renderer);
+	*/
 	return 0;
 }
