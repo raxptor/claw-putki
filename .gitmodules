@@ -4,3 +4,6 @@
 [submodule "external/ccg-ui"]
 	path = external/ccg-ui
 	url = https://github.com/raxptor/ccg-ui.git
+[submodule "external/squirrel-lang"]
+	path = external/squirrel-lang
+	url = https://github.com/pfalcon/squirrel-lang

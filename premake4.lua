@@ -80,6 +80,16 @@ solution "Claw"
 		links ( CCGUI_LIB_LINKS )
 		links ( PUTKI_LIB_LINKS )
 
+
+	project "squirrel-lang"
+		kind "SharedLib"
+		language "C++"
+		targetname "squirrel"
+		
+		files { "external/squirrel-lang/squirrel/*.cpp" }
+		includedirs { "external/squirrel-lang/squirrel", "external/squirrel-lang/include" }
+		
+
 if os.get() ~= "linux" and os.get() ~= "bsd" then
 
 	project "claw-data-dll"
@@ -117,9 +127,11 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 	includedirs { "src", "_gen" }
 	includedirs ( PUTKI_RT_INCLUDES )
 	includedirs ( CCGUI_RT_INCLUDES )
+	includedirs { "external/squirrel-lang/include" }
 
 	links {"ccg-runtime"}
 	links {"putki-runtime-lib"}
+	links {"squirrel-lang"}
 
             configuration {"windows"}
                     excludes {"src/**_osx*"}
