@@ -82,7 +82,7 @@ solution "Claw"
 
 
 	project "squirrel-lang"
-		kind "SharedLib"
+		kind "StaticLib"
 		language "C++"
 		targetname "squirrel"
 		
