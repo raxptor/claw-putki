@@ -232,7 +232,7 @@ namespace claw
 			
 			[d->window setContentView:d->view];
 			[d->window makeKeyAndOrderFront:nil];
-			[d->window setLevel:kCGMaximumWindowLevel];
+			[d->window setLevel:kCGNormalWindowLevel];
 			
 			[d->app activateIgnoringOtherApps:YES];
 			
