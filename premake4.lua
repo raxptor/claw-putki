@@ -15,6 +15,9 @@ solution "Claw"
 		flags {"StaticRuntime"}
 	end
 
+	configuration {"linux", "gmake"}
+		buildoptions {"-fPIC"}
+		
 	configuration "Debug"
 		defines {"DEBUG"}
 	configuration "Release"
