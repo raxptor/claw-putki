@@ -108,6 +108,16 @@ void squirrel_print_func(HSQUIRRELVM vm, const SQChar *format, ...)
 int main(int argc, char *argv[])
 {
 	CLAW_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
+	
+	outki::bind_claw_loaders();
+	outki::bind_ccg_ui_loaders();
+	putki::liveupdate::init();
+	game::load_static_package();
+
+	settings = game::get_global_settings();
+	assert(settings);
+	
+		
 	HSQUIRRELVM vm = sq_open(4096);
 
 	sq_setprintfunc(vm, squirrel_print_func, 0);
@@ -124,18 +134,7 @@ int main(int argc, char *argv[])
 
 	sq_close(vm);
 	
-	/*
-	outki::bind_claw_loaders();
-	outki::bind_ccg_ui_loaders();
-
-
-	putki::liveupdate::init();
-
-	game::load_static_package();
-
-	settings = game::get_global_settings();
-	assert(settings);
-
+/*
 	session = claw::session::create();
 
 
