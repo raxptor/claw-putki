@@ -2,10 +2,7 @@
 	type: "TextureConfiguration",
 	data: {
 			"_rtti_type": 40,
-			"OutputFormat": "configs/texture-render#aohb",
-			"OutputFormatCSharp": "",
-			"OutputFormatMacOSX": "",
-			"OutputFormatWindows": ""
+			"OutputFormatDefault": "configs/texture-render#aohb"
 	},
 	aux: [
 		{
