@@ -1,0 +1,11 @@
+{
+	type: "UIScreen",
+	data: {
+			"Config": "ui/screenconfigs/hud",
+			"Root": "ui/hud/rootwidget",
+			"Atlases": [],
+			"ScalingForSnapping": []
+	},
+	aux: [
+	      ]
+}
