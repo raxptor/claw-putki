@@ -9,7 +9,10 @@
 			ref: "#aohb",
 			type: "TextureOutputFormatOpenGL",
 			data: {
-				"ResizeMode": "RESIZE_NONE"
+				parent: {
+					"ResizeMode": "RESIZE_NONE",
+					"PremultiplyAlpha": 0
+				}
 			}
 		}
 	]

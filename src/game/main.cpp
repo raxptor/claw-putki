@@ -134,7 +134,6 @@ int main(int argc, char *argv[])
 
 	sq_close(vm);
 	
-/*
 	session = claw::session::create();
 
 
@@ -153,6 +152,5 @@ int main(int argc, char *argv[])
 
 	claw::session::free(session);
 	claw::render::destroy(renderer);
-	*/
 	return 0;
 }
