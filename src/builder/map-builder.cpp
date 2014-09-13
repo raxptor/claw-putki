@@ -14,6 +14,7 @@
 
 struct mapbuilder : putki::builder::handler_i
 {
+	const char *version() { return "mapbuilder-1"; }
 
 	static inline int mdpos(int x, int y)
 	{
