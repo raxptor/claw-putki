@@ -3,6 +3,7 @@
 #include <putki/builder/package.h>
 #include <putki/builder/resource.h>
 #include <putki/builder/build-db.h>
+#include <putki/builder/log.h>
 #include <putki/builder/db.h>
 #include <builder/pngutil.h>
 #include <iostream>
@@ -14,7 +15,6 @@ struct tilemapbuilder : putki::builder::handler_i
 	virtual bool handle(putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj, putki::db::data *output, int obj_phase)
 	{
 		inki::tilemap *tilemap = (inki::tilemap *) obj;
-		std::cout << "Processing tilemap [" << path << "]" << std::endl;
 
 		ccgui::pngutil::loaded_png png;
 		if (ccgui::pngutil::load_info(putki::resource::real_path(builder, tilemap->texture->Source.c_str()).c_str(), &png))
@@ -22,7 +22,7 @@ struct tilemapbuilder : putki::builder::handler_i
 			int tilesx = png.width / tilemap->tile_width;
 			int tilesy = png.height / tilemap->tile_height;
 
-			std::cout << "Tilemap is " << png.width << "x" << png.height << " and has " << tilesx << "x" << tilesy << " tiles " << std::endl;
+			RECORD_INFO(record, "Tilemap is " << png.width << "x" << png.height << " and has " << tilesx << "x" << tilesy << " tiles ")
 			for (int y=0;y<tilesy;y++)
 			{
 				for (int x=0;x<tilesx;x++)
@@ -39,9 +39,8 @@ struct tilemapbuilder : putki::builder::handler_i
 		}
 		else
 		{
-			std::cout << "!!! Failed to load png!" << std::endl;
+			RECORD_ERROR(record, "Failed to load png!")
 		}
-
 
 		return false;
 	}

@@ -3,6 +3,7 @@
 #include <putki/builder/package.h>
 #include <putki/builder/resource.h>
 #include <putki/builder/build-db.h>
+#include <putki/builder/log.h>
 #include <putki/builder/db.h>
 #include <builder/pngutil.h>
 
@@ -34,7 +35,6 @@ struct mapbuilder : putki::builder::handler_i
 	virtual bool handle(putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj, putki::db::data *output, int obj_phase)
 	{
 		inki::map *tilemap = (inki::map *) obj;
-		std::cout << "Processing map [" << path << "]" << std::endl;
 
 		std::vector<inki::tile_collision_line> all_lines;
 		std::vector<int> cancelled;
@@ -263,7 +263,7 @@ struct mapbuilder : putki::builder::handler_i
 			}
 		}
 
-		std::cout << "Generated " << tilemap->collision_lines.size() << " collision lines (" << iterations << " iterations). (Unprocessed " << all_lines.size() << " lines)" << std::endl;
+		RECORD_INFO(record, "Generated " << tilemap->collision_lines.size() << " collision lines (" << iterations << " iterations). (Unprocessed " << all_lines.size() << " lines)")
 
 		return false;
 	}

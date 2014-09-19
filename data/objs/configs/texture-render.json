@@ -2,12 +2,13 @@
 	type: "TextureConfiguration",
 	data: {
 			"_rtti_type": 40,
-			"OutputFormatDefault": "configs/texture-render#aohb"
+			"OutputFormatDefault": "configs/texture-render#aohb",
+			"OutputFormatServer": ""
 	},
 	aux: [
 		{
 			ref: "#aohb",
-			type: "TextureOutputFormatOpenGL",
+			type: "TextureOutputFormatPathOnly",
 			data: {
 				parent: {
 					"ResizeMode": "RESIZE_NONE",
