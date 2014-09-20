@@ -8,7 +8,7 @@
 	aux: [
 		{
 			ref: "#aohb",
-			type: "TextureOutputFormatPathOnly",
+			type: "TextureOutputFormatOpenGL",
 			data: {
 				parent: {
 					"ResizeMode": "RESIZE_NONE",
