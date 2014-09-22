@@ -6,6 +6,8 @@
 #include <putki/liveupdate/liveupdate.h>
 #include <memory.h>
 
+#include <iostream>
+
 namespace claw
 {
 	namespace level
@@ -107,11 +109,14 @@ namespace claw
 
 		void draw(instance *d, draw_info *di, render::data *renderer)
 		{
-			LIVE_UPDATE(&d->level);
+			if (LIVE_UPDATE(&d->level))
+				std::cout << "level updated" << std::endl;
 
 			for (unsigned int i=0;i<d->level->layers_size;i++)
 			{
-				LIVE_UPDATE(&d->level->layers[i]);
+				if (LIVE_UPDATE(&d->level->layers[i]))
+					std::cout << "layer updated " << std::endl;
+
 				if (LIVEUPDATE_ISNULL(d->level->layers[i]))
 				{
 					continue;

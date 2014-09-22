@@ -18,6 +18,7 @@ solution "Claw"
 	configuration {"linux", "gmake"}
 		buildoptions {"-fPIC"}
 		buildoptions ("-std=c++11")
+		buildoptions {"-mt"}
 		
 	configuration "Debug"
 		defines {"DEBUG"}
