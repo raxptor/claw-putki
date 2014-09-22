@@ -23,6 +23,7 @@ void app_build_packages(putki::db::data *out, putki::build::packaging_config *pc
 	{
 		putki::package::data *pkg = putki::package::create(out);
 		putki::package::add(pkg, "globalsettings", true);
+	//	putki::package::add(pkg, "test/root", true);
 		putki::build::commit_package(pkg, pconf, "static.pkg");
 	}
 

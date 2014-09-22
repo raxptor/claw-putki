@@ -8,11 +8,12 @@
 	aux: [
 		{
 			ref: "#aohb",
-			type: "TextureOutputFormatOpenGL",
+			type: "TextureOutputFormatRaw",
 			data: {
 				parent: {
 					"ResizeMode": "RESIZE_NONE",
-					"PremultiplyAlpha": 0
+					"PremultiplyAlpha": 0,
+					"StorageConfiguration": "configs/dc-bigtextures"
 				}
 			}
 		}

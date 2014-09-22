@@ -6,4 +6,8 @@ globalsettings [in, out]
 	u32 window_height
 }
 
+testnode [in, out]
+{
+	ptr[] testnode links
+}
 

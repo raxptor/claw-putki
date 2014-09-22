@@ -61,9 +61,20 @@ namespace claw
 				CLAW_ERROR("Trying to load a texture which has no generated output! [" << texture->id << "]");
 				return 0;
 			}
-
-			if (outki::TextureOutputOpenGL *gl_tex = texture->Output->exact_cast<outki::TextureOutputOpenGL>())
+			
+			outki::DataContainer *cont = texture->Output->Data;
+			if (!cont || !cont->Bytes_size)
 			{
+				CLAW_ERROR("Texture has no embedded data")
+				return 0;
+			}
+
+			if (outki::TextureOutputRaw *gl_tex = texture->Output->exact_cast<outki::TextureOutputRaw>())
+			{
+				if (cont->Bytes_size != 4 * texture->Width * texture->Height)
+				{
+					CLAW_ERROR("Texture is " << texture->Width << "x" << texture->Height << " but bytes are " << cont->Bytes_size)
+				}
 				loaded_texture *tex = new loaded_texture();
 				tex->refcount = 1;
 				tex->source = texture->id;
@@ -76,8 +87,8 @@ namespace claw
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, gl_tex->Width, gl_tex->Height,
-				             0, GL_RGBA, GL_UNSIGNED_BYTE, gl_tex->Bytes);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->Width, texture->Height,
+				             0, GL_RGBA, GL_UNSIGNED_BYTE, cont->Bytes);
 
 				CLAW_INFO("Bound texture [" << texture->id << "] to handle=" << tex->handle);
 				return tex;
