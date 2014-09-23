@@ -3,7 +3,7 @@
 #include <putki/pkgmgr.h>
 #include <putki/pkgloader.h>
 
-#include <claw/log.h>
+#include <log/log.h>
 
 namespace game
 {

@@ -1,6 +1,6 @@
 
 #include <ccg-ui/ccg-renderer.h>
-#include <claw/render.h>
+#include <render/render.h>
 
 #include <string>
 #include <map>

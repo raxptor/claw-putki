@@ -1,0 +1,10 @@
+{
+	type: "DataContainerConfiguration",
+	data: {
+		"Mode": "DCOUT_FILE",
+		"Streaming": "",
+		"FileBase": "app/app-files",
+	},
+	aux: [
+	]
+}

@@ -1,0 +1,8 @@
+{
+	type: "DataFileBase",
+	data: {
+		"PathPrefix": "appfiles"
+	},
+	aux: [
+	]
+}

@@ -1,12 +1,12 @@
-#include <game/level.h>
+#include <level/level.h>
 #include <putki/pkgloader.h>
 #include <putki/pkgmgr.h>
 
-#include <claw/render.h>
-#include <claw/log.h>
+#include <render/render.h>
+#include <log/log.h>
 
 #include <ccg-ui/uicontext.h>
-#include <claw/core/line.h>
+#include <core/line.h>
 
 #include <vector>
 

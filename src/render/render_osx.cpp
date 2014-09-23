@@ -1,4 +1,4 @@
-#include "appwindow.h"
+#include <environment/appwindow.h>
 
 #include <outki/types/ccg-ui/Texture.h>
 #include <OpenGL/gl.h>
@@ -178,6 +178,9 @@ namespace claw
 			glLoadIdentity();
 
 			glOrtho(0, (float)x1, (float)y1, 0, -1, 1);
+			
+			glEnable(GL_BLEND);
+			glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		void end(data *d)

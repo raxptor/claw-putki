@@ -6,10 +6,10 @@
 #include <putki/pkgmgr.h>
 #include <putki/liveupdate/liveupdate.h>
 
-#include <claw/appwindow.h>
-#include <claw/render.h>
-#include <claw/log.h>
-#include <claw/ccgui-renderer.h>
+#include <environment/appwindow.h>
+#include <render/render.h>
+#include <log/log.h>
+#include <ui/ccgui-renderer.h>
 
 #include <game/session.h>
 
@@ -40,7 +40,6 @@ namespace
 	claw::claw_ui_renderer *ui_renderer;
 	ccgui::uiscreen::instance *s_current_screen = 0;
 	ccgui::uicontext s_ui_context;
-
 	claw::session::instance *session = 0;
 }
 
@@ -75,7 +74,6 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 
 	claw::session::update(session, &s_ui_context, deltatime);
 //	claw::session::draw(session, renderer);
-
 	claw::render::end(renderer);
 	claw::render::present(renderer);
 

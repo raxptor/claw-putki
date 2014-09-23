@@ -1,8 +1,8 @@
 #pragma once
 
 #include <outki/types/claw/tiles.h>
-#include <claw/render.h>
-#include <claw/core/line.h>
+#include <render/render.h>
+#include <core/line.h>
 
 namespace claw
 {

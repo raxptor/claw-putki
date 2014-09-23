@@ -188,21 +188,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 {
    NSMenu *newMenu;
     NSMenuItem *newItem;
- 
-    // Add the submenu
-    newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"Flashy" action:NULL keyEquivalent:@""];
-    newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@"Flashy"];
-    [newItem setSubmenu:newMenu];
-    [newMenu release];
-    [[NSApp mainMenu] addItem:newItem];
-    [[NSApp mainMenu] setTitle:@"Kkkkk"];
-    [NSApp setMainMenu: newMenu];
-    [newItem release];
  }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	NSImage *img = [[NSImage alloc] initWithContentsOfFile: @"out/x32-default/icon.png"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfFile: @"out/x32-default/appfiles/app/icon_out_data.png"];
 	[NSApp setApplicationIconImage: img];
 	
 	id menubar = [[NSMenu new] autorelease];

@@ -1,7 +1,7 @@
 #include "level.h"
 
-#include <claw/log.h>
-#include <claw/render.h>
+#include <log/log.h>
+#include <render/render.h>
 
 #include <putki/liveupdate/liveupdate.h>
 #include <memory.h>

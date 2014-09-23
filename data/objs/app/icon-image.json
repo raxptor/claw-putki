@@ -1,0 +1,20 @@
+{
+	type: "TextureConfiguration",
+	data: {
+		"OutputFormatServer": "",
+		"OutputFormatDefault": "app/icon-image#jran",
+	},
+	aux: [
+		{
+			ref: "#jran",
+			type: "TextureOutputFormatPng",
+			data: {
+					"parent": {
+						"StorageConfiguration": "app/icon-file",
+						"ResizeMode": "RESIZE_NONE",
+						"PremultiplyAlpha": 0,
+					}
+			}
+		}
+	]
+}

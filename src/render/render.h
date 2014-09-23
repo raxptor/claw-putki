@@ -1,7 +1,7 @@
 #ifndef __CLAW_RENDER_H___
 #define __CLAW_RENDER_H___
 
-#include <claw/appwindow.h>
+#include <environment/appwindow.h>
 
 namespace outki
 {

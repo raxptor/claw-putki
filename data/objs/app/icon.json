@@ -1,0 +1,15 @@
+{
+	type: "Texture",
+	data: {
+		"Source": "app/clawicon.png",
+		"Output": "",
+		"id": "",
+		"Configuration": "app/icon-image",
+		"SourceWidth": 0,
+		"SourceHeight": 0,
+		"Width": 0,
+		"Height": 0,
+	},
+	aux: [
+	]
+}

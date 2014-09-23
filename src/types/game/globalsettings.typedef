@@ -1,9 +1,11 @@
+%include types/ccg-ui/Texture.typedef
 
 globalsettings [in, out]
 {
 	string windowtitle
 	u32 window_width
 	u32 window_height
+	ptr Texture icon
 }
 
 testnode [in, out]
