@@ -2,8 +2,7 @@
 	type: "TextureConfiguration",
 	data: {
 			"_rtti_type": 40,
-			"OutputFormatDefault": "configs/texture-render#aohb",
-			"OutputFormatServer": ""
+			"OutputFormatDefault": "configs/texture-render#aohb"
 	},
 	aux: [
 		{
