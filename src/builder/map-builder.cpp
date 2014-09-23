@@ -32,7 +32,7 @@ struct mapbuilder : putki::builder::handler_i
 		out->push_back(line);
 	}
 
-	virtual bool handle(putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj, putki::db::data *output, int obj_phase)
+	virtual bool handle(putki::builder::build_context *context, putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj)
 	{
 		inki::map *tilemap = (inki::map *) obj;
 
@@ -272,5 +272,5 @@ struct mapbuilder : putki::builder::handler_i
 void register_map_builder(putki::builder::data *builder)
 {
 	static mapbuilder fb;
-	putki::builder::add_data_builder(builder, "map", putki::builder::PHASE_INDIVIDUAL, &fb);
+	putki::builder::add_data_builder(builder, "map", &fb);
 }
