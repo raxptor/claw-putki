@@ -77,6 +77,7 @@ solution "Claw"
 		kind "StaticLib"
 		language "C++"
 		targetname "squirrel"
+		platforms { "x64" }
 		
 		files { "external/squirrel-lang/squirrel/*.cpp" }
 		includedirs { "external/squirrel-lang/squirrel", "external/squirrel-lang/include" }
@@ -100,6 +101,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		ccgui_use_builder_lib()
 
  	project "claw-runtime"
+	    platforms { "x64" }
 
                 kind "ConsoleApp"
                 language "C++"

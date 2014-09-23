@@ -15,28 +15,12 @@ struct update_info
 	ccgui::mouse_input mouse;
 };
 
-@interface AppDelegate : NSObject
-@end
-
-@implementation AppDelegate
-
--(void)applicationWillFinishLaunching:(NSNotification *)notification {
-
-}
-
-- (void)windowWillClose:(NSNotification *)notification {
-	printf("Window closing, terminating app!\n");
-	[[NSApplication sharedApplication] terminate: self];
-}
-
-@end
-
 @interface TestView : NSOpenGLView
 {
 	CVDisplayLinkRef displayLink; //display link for managing rendering thread
-	@public update_info uinfo;
-	@public int viewWidth;
-	@public int viewHeight;
+@public update_info uinfo;
+@public int viewWidth;
+@public int viewHeight;
 }
 
 -(void)drawRect:(NSRect)rect;
@@ -77,17 +61,17 @@ struct update_info
 }
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-    }
-    return self;
+	self = [super initWithFrame:frame];
+	if (self) {
+	}
+	return self;
 }
 
 - (void)resetCursorRects
 {
-    [super resetCursorRects];
-    printf("reset cursor rects\n");
-    [self addCursorRect:self.bounds cursor:[NSCursor crosshairCursor]];
+	[super resetCursorRects];
+	printf("reset cursor rects\n");
+	[self addCursorRect:self.bounds cursor:[NSCursor crosshairCursor]];
 }
 
 -(void)drawRect:(NSRect)rect {
@@ -150,10 +134,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	NSOpenGLContext *currentContext = [p openGLContext];
 	[currentContext makeCurrentContext];
-
+	
 	// must lock GL context because display link is threaded
 	CGLLockContext((CGLContextObj)[currentContext CGLContextObj]);
-		
+	
 	CVReturn result = [(TestView*)displayLinkContext getFrameForTime:outputTime];
 	
 	// draw here
@@ -190,6 +174,59 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 @end
 
 
+
+
+@interface AppDelegate : NSObject
+{
+@public NSView *view;
+}
+@end
+
+@implementation AppDelegate
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+   NSMenu *newMenu;
+    NSMenuItem *newItem;
+ 
+    // Add the submenu
+    newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"Flashy" action:NULL keyEquivalent:@""];
+    newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@"Flashy"];
+    [newItem setSubmenu:newMenu];
+    [newMenu release];
+    [[NSApp mainMenu] addItem:newItem];
+    [[NSApp mainMenu] setTitle:@"Kkkkk"];
+    [NSApp setMainMenu: newMenu];
+    [newItem release];
+ }
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+	NSImage *img = [[NSImage alloc] initWithContentsOfFile: @"out/x32-default/icon.png"];
+	[NSApp setApplicationIconImage: img];
+	
+	id menubar = [[NSMenu new] autorelease];
+	id appMenuItem = [[NSMenuItem new] autorelease];
+	[menubar addItem:appMenuItem];
+	[NSApp setMainMenu:menubar];
+	
+	NSMenu *appMenu = [[NSMenu new] autorelease];
+
+	id appName = [[NSProcessInfo processInfo] processName];
+	id quitTitle = [@"Quit " stringByAppendingString:appName];
+	id quitMenuItem = [[[NSMenuItem alloc] initWithTitle:quitTitle action:@selector(terminate:) keyEquivalent:@"q"] autorelease];
+	
+	[appMenu addItem:quitMenuItem];
+	[appMenuItem setSubmenu:appMenu];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+	printf("Window closing, terminating app!\n");
+	[[NSApplication sharedApplication] terminate: self];
+}
+
+@end
+
 namespace claw
 {
 	namespace appwindow
@@ -210,8 +247,6 @@ namespace claw
 			d->app = [NSApplication sharedApplication];
 			d->appdelegate = [[AppDelegate alloc] autorelease];
 			
-		
-			
 			NSRect frame = NSMakeRect( 100., 100., 100. + (float)width, 100. + (float)height );
 			
 			d->window = [[NSWindow alloc]
@@ -219,8 +254,6 @@ namespace claw
 					 styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
 					 backing:NSBackingStoreBuffered
 					 defer:false];
-			
-			[d->window setTitle:@"Testing"];
 			
 			d->view = [[[TestView alloc] initWithFrame:frame] autorelease];
 			d->view->uinfo.d = d;
@@ -232,9 +265,11 @@ namespace claw
 			
 			[d->window setContentView:d->view];
 			[d->window makeKeyAndOrderFront:nil];
-			[d->window setLevel:kCGNormalWindowLevel];
 			
 			[d->app activateIgnoringOtherApps:YES];
+			[d->app setActivationPolicy:NSApplicationActivationPolicyRegular];
+			
+			d->appdelegate->view = d->view;
 			
 			[NSApp setDelegate: (id)d->appdelegate];
 			[d->window setDelegate: (id)d->appdelegate];
@@ -244,13 +279,13 @@ namespace claw
 			
 			int opts = (NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved);
 			NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[d->view bounds]
-										 options:opts
-										   owner:(id) d->view
-										userInfo:nil];
+											    options:opts
+												owner:(id) d->view
+											   userInfo:nil];
 			[d->view addTrackingArea:(id)area];
-			
+		
+			set_title(d, title);
 			return d;
-			
 		}
 		
 		void destroy(data *d)
@@ -260,7 +295,9 @@ namespace claw
 		
 		void set_title(data *d, const char *title)
 		{
-			
+			id str = [[NSString alloc] initWithCString:title encoding: NSUTF8StringEncoding];
+			[d->window setTitle: str];
+			[str release];
 		}
 		
 		void get_client_rect(data *d, int *x0, int *y0, int *x1, int *y1)
