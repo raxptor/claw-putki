@@ -28,3 +28,6 @@
 [submodule "squirrel-lang"]
 	path = squirrel-lang
 	url = https://github.com/pfalcon/squirrel-lang
+[submodule "ext/squirrel-lang"]
+	path = ext/squirrel-lang
+	url = https://github.com/pfalcon/squirrel-lang

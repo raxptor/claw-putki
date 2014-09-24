@@ -81,8 +81,8 @@ solution "Claw"
 		targetname "squirrel"
 		platforms { "x64" }
 		
-		files { "external/squirrel-lang/squirrel/*.cpp" }
-		includedirs { "external/squirrel-lang/squirrel", "external/squirrel-lang/include" }
+		files { "ext/squirrel-lang/squirrel/*.cpp" }
+		includedirs { "ext/squirrel-lang/squirrel", "ext/squirrel-lang/include" }
 		
 
 if os.get() ~= "linux" and os.get() ~= "bsd" then
@@ -123,7 +123,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
                 excludes { "src/putki/**.*" }
 
 		includedirs { "src" }
-		includedirs { "external/squirrel-lang/include" }
+		includedirs { "ext/squirrel-lang/include" }
 
 		links {"squirrel-lang"}
 
