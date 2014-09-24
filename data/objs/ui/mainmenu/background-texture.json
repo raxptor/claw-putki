@@ -1,14 +1,15 @@
 {
 	type: "Texture",
 	data: {
-			"_rtti_type": 33,
-			"Source": "ui/mainmenu/background.png",
-			"Output": "",
-			"id": "",
-			"NoOutput": 0,
-			"Width": 0,
-			"Height": 0
+		"Source": "ui/mainmenu/background.png",
+		"Output": "",
+		"id": "",
+		"Configuration": "",
+		"SourceWidth": 0,
+		"SourceHeight": 0,
+		"Width": 0,
+		"Height": 0,
 	},
 	aux: [
-	      ]
+	]
 }
