@@ -1,6 +1,6 @@
 #pragma once
 
-#include <render/render.h>
+#include <kosmos/render/render.h>
 #include <ccg-ui/uicontext.h>
 
 namespace claw
@@ -12,7 +12,7 @@ namespace claw
 		instance *create();
 
 		void update(instance *i, ccgui::uicontext *,float timedelta);
-		void draw(instance *i, claw::render::data *renderer);
+		void draw(instance *i, kosmos::render::data *renderer);
 
 		void free(instance *);
 	}

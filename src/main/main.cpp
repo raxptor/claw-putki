@@ -7,8 +7,8 @@
 #include <putki/liveupdate/liveupdate.h>
 
 #include <environment/appwindow.h>
-#include <render/render.h>
-#include <log/log.h>
+#include <kosmos/render/render.h>
+#include <kosmos/log/log.h>
 #include <ui/ccgui-renderer.h>
 
 #include <game/session.h>
@@ -37,7 +37,7 @@ namespace
 	claw::appwindow::data *window;
 	putki::liveupdate::data *liveupdate;
 	outki::globalsettings *settings;
-	claw::render::data *renderer;
+	kosmos::render::data *renderer;
 	claw::claw_ui_renderer *ui_renderer;
 	ccgui::uiscreen::instance *s_current_screen = 0;
 	ccgui::uicontext s_ui_context;
@@ -64,10 +64,10 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 
 	s_ui_context.input.mouse = &input->mouse;
 
-	claw::render::begin(renderer, true, true, 0xff00ff);
+	kosmos::render::begin(renderer, true, true, 0xff00ff);
 
 	   int w, h;
-	   if (claw::render::get_size(renderer, &w, &h))
+	   if (kosmos::render::get_size(renderer, &w, &h))
 	   {
 
 	        ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
@@ -75,8 +75,8 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 
 	claw::session::update(session, &s_ui_context, deltatime);
 //	claw::session::draw(session, renderer);
-	claw::render::end(renderer);
-	claw::render::present(renderer);
+	kosmos::render::end(renderer);
+	kosmos::render::present(renderer);
 
 	if (liveupdate)
 	{
@@ -104,7 +104,7 @@ void squirrel_print_func(HSQUIRRELVM vm, const SQChar *format, ...)
 
 int main(int argc, char *argv[])
 {
-	CLAW_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
+	KOSMOS_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
 	
 	outki::bind_kosmos_loaders();
 	outki::bind_claw_loaders();
@@ -122,11 +122,11 @@ int main(int argc, char *argv[])
 
 	const char *buf = "::print(\"Gurken Schmidt\\n\");";
 	if (SQ_FAILED(sq_compilebuffer(vm, buf, strlen(buf), "gurka", false))) {
-		CLAW_ERROR("Compilation of main script failed");
+		KOSMOS_ERROR("Compilation of main script failed");
 	} else {
 		sq_pushroottable(vm); 
 		if (SQ_FAILED(sq_call(vm, 1, false, false))) {
-			CLAW_ERROR("Call of main script failed");
+			KOSMOS_ERROR("Call of main script failed");
 		}
 	}
 
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 
-	renderer = claw::render::create(window);
+	renderer = kosmos::render::create();
 
 	ui_renderer = new claw::claw_ui_renderer(renderer);
 
@@ -149,6 +149,6 @@ int main(int argc, char *argv[])
 	claw::appwindow::run_loop(window, &frame);
 
 	claw::session::free(session);
-	claw::render::destroy(renderer);
+	kosmos::render::destroy(renderer);
 	return 0;
 }

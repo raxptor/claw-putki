@@ -3,7 +3,7 @@
 #include <putki/pkgmgr.h>
 #include <putki/pkgloader.h>
 
-#include <log/log.h>
+#include <kosmos/log/log.h>
 
 namespace game
 {
@@ -18,7 +18,7 @@ namespace game
 		s_pkg = putki::pkgloader::from_file(s_static_package_name);
         if (!s_pkg)
         {
-            CLAW_ERROR("Failed to load required package[" << s_static_package_name << "]");
+            KOSMOS_ERROR("Failed to load required package[" << s_static_package_name << "]");
         }
 	}
 

@@ -2,11 +2,11 @@
 #include <putki/pkgloader.h>
 #include <putki/pkgmgr.h>
 
-#include <render/render.h>
-#include <log/log.h>
+#include <kosmos/render/render.h>
+#include <kosmos/log/log.h>
 
 #include <ccg-ui/uicontext.h>
-#include <core/line.h>
+#include <kosmos/core/line.h>
 
 #include <vector>
 
@@ -69,7 +69,7 @@ namespace claw
 			}
 		}
 
-		void draw(instance *d, claw::render::data *renderer)
+		void draw(instance *d, kosmos::render::data *renderer)
 		{
 			level::draw(d->level, &d->leveldraw, renderer);
 
@@ -83,14 +83,14 @@ namespace claw
 					float y1 = p->py + 500.0f * sinf(a + 0.01f * d->time);
 
 
-					claw::intersection perp;
+					kosmos::intersection perp;
 					if (level::line_map_intersection(d->level, p->px, p->py, x1, y1, &perp))
 					{
 						x1 = perp.x;
 						y1 = perp.y;
 					}
 
-					render::line(renderer, p->px, p->py, x1, y1, 0xff44ff);
+					kosmos::render::line(renderer, p->px, p->py, x1, y1, 0xff44ff);
 				}
 
 //				render::line(renderer, p->px - 4, p->py, p->px + 4, p->py, 0xffff00);
