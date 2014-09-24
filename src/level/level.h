@@ -19,7 +19,7 @@ namespace claw
 
 		bool line_map_intersection(instance *d, float x0, float y0, float x1, float y1, kosmos::intersection *res);
 
-		void draw(instance *, draw_info *di, kosmos::render::data *);
+		void draw(instance *, draw_info *di);
 		void free(instance *);
 	}
 }

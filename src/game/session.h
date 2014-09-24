@@ -12,7 +12,7 @@ namespace claw
 		instance *create();
 
 		void update(instance *i, ccgui::uicontext *,float timedelta);
-		void draw(instance *i, kosmos::render::data *renderer);
+		void draw(instance *i);
 
 		void free(instance *);
 	}

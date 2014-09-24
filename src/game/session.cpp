@@ -69,9 +69,9 @@ namespace claw
 			}
 		}
 
-		void draw(instance *d, kosmos::render::data *renderer)
+		void draw(instance *d)
 		{
-			level::draw(d->level, &d->leveldraw, renderer);
+			level::draw(d->level, &d->leveldraw);
 
 			for (unsigned int i=0;i<d->particles.size();i++)
 			{
@@ -90,11 +90,8 @@ namespace claw
 						y1 = perp.y;
 					}
 
-					kosmos::render::line(renderer, p->px, p->py, x1, y1, 0xff44ff);
+					kosmos::render::line(p->px, p->py, x1, y1, 0xff44ff);
 				}
-
-//				render::line(renderer, p->px - 4, p->py, p->px + 4, p->py, 0xffff00);
-//				render::line(renderer, p->px, p->py - 4, p->px, p->py + 4, 0xffff00);
 			}
 		}
 	}

@@ -157,10 +157,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 		uinfo.mouse.primary.wentUp = 0;
 		uinfo.mouse.primary.wentDown = 0;
 		uinfo.f(&ib, 0.005f);
-		
 	}
 	else
+	{
 		printf("Skipped frame\n");
+	}
 	return kCVReturnSuccess;
 }
 

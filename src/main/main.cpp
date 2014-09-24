@@ -37,8 +37,6 @@ namespace
 	claw::appwindow::data *window;
 	putki::liveupdate::data *liveupdate;
 	outki::globalsettings *settings;
-	kosmos::render::data *renderer;
-	claw::claw_ui_renderer *ui_renderer;
 	ccgui::uiscreen::instance *s_current_screen = 0;
 	ccgui::uicontext s_ui_context;
 	claw::session::instance *session = 0;
@@ -51,7 +49,7 @@ void init()
 
 	if (screen)
 	{
-		s_current_screen = ccgui::uiscreen::create(screen, ui_renderer, 0);
+		s_current_screen = ccgui::uiscreen::create(screen, 0);
 	}
 }
 
@@ -64,19 +62,15 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 
 	s_ui_context.input.mouse = &input->mouse;
 
-	kosmos::render::begin(renderer, true, true, 0xff00ff);
-
-	   int w, h;
-	   if (kosmos::render::get_size(renderer, &w, &h))
-	   {
-
-	        ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
-	   }
+	int x0, y0, x1, y1;
+	claw::appwindow::get_client_rect(window, &x0, &y0, &x1, &y1);
+	
+	kosmos::render::begin(x1-x0, y1-x0, true, true, 0xff00ff);
+	ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
 
 	claw::session::update(session, &s_ui_context, deltatime);
 //	claw::session::draw(session, renderer);
-	kosmos::render::end(renderer);
-	kosmos::render::present(renderer);
+	kosmos::render::end();
 
 	if (liveupdate)
 	{
@@ -137,10 +131,6 @@ int main(int argc, char *argv[])
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 
-	renderer = kosmos::render::create();
-
-	ui_renderer = new claw::claw_ui_renderer(renderer);
-
 	liveupdate = putki::liveupdate::connect();
 
 	init();
@@ -149,6 +139,5 @@ int main(int argc, char *argv[])
 	claw::appwindow::run_loop(window, &frame);
 
 	claw::session::free(session);
-	kosmos::render::destroy(renderer);
 	return 0;
 }

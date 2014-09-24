@@ -37,13 +37,13 @@ namespace claw
 			delete i;
 		}
 
-		void draw_layer(instance *i, unsigned int index, outki::maplayer_graphics *graphics, draw_info *di, kosmos::render::data *renderer)
+		void draw_layer(instance *i, unsigned int index, outki::maplayer_graphics *graphics, draw_info *di)
 		{
 			outki::tilemap *tiles = graphics->tiles;
 
 			if (i->layer_textures[index] && (!tiles || LIVE_UPDATE(&tiles->texture)))
 			{
-				kosmos::render::unload_texture(renderer, i->layer_textures[index]);
+				kosmos::render::unload_texture(i->layer_textures[index]);
 				i->layer_textures[index] = 0;
 			}
 
@@ -54,7 +54,7 @@ namespace claw
 					return;
 				}
 
-				i->layer_textures[index] = kosmos::render::load_texture(renderer, tiles->texture);
+				i->layer_textures[index] = kosmos::render::load_texture(tiles->texture);
 			}
 
 			kosmos::render::loaded_texture *tex = i->layer_textures[index];
@@ -80,7 +80,7 @@ namespace claw
 					float x1 = x0 + tiles->tile_width;
 					float y0 = y * tiles->tile_height + di->ofsy;
 					float y1 = y0 + tiles->tile_height;
-					kosmos::render::tex_rect(renderer, tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
+					kosmos::render::tex_rect(tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
 				}
 			}
 		}
@@ -107,7 +107,7 @@ namespace claw
 			return res->t != dummy;
 		}
 
-		void draw(instance *d, draw_info *di, kosmos::render::data *renderer)
+		void draw(instance *d, draw_info *di)
 		{
 			if (LIVE_UPDATE(&d->level))
 				std::cout << "level updated" << std::endl;
@@ -124,7 +124,7 @@ namespace claw
 
 				if (outki::maplayer_graphics *graphics = d->level->layers[i]->exact_cast<outki::maplayer_graphics>())
 				{
-					draw_layer(d, i, graphics, di, renderer);
+					draw_layer(d, i, graphics, di);
 				}
 			}
 
@@ -136,14 +136,14 @@ namespace claw
 				const float y0 = line->y0 + di->ofsy;
 				const float x1 = line->x1 + di->ofsx;
 				const float y1 = line->y1 + di->ofsy;
-				kosmos::render::line(renderer, x0, y0, x1, y1, 0xffff00ff);
+				kosmos::render::line(x0, y0, x1, y1, 0xffff00ff);
 
 				const float cx = 0.5f * (x0+x1);
 				const float cy = 0.5f * (y0+y1);
 
 				const float dx = (y1 - y0);
 				const float dy = (x0 - x1);
-				kosmos::render::line(renderer, cx, cy, cx + 0.25f * dx, cy + 0.25f * dy, 0xffff00);
+				kosmos::render::line(cx, cy, cx + 0.25f * dx, cy + 0.25f * dy, 0xffff00);
 			}
 		}
 
