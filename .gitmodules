@@ -16,3 +16,12 @@
 [submodule "kosmos"]
 	path = kosmos
 	url = https://github.com/raxptor/kosmos
+[submodule "ext/putki"]
+	path = ext/putki
+	url = https://github.com/raxptor/putki
+[submodule "ext/ccg-ui"]
+	path = ext/ccg-ui
+	url = https://github.com/raxptor/ccg-ui
+[submodule "ext/kosmos"]
+	path = ext/kosmos
+	url = https://github.com/raxptor/kosmos
