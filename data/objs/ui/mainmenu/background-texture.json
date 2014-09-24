@@ -4,7 +4,7 @@
 		"Source": "ui/mainmenu/background.png",
 		"Output": "",
 		"id": "",
-		"Configuration": "",
+		"Configuration": "configs/texture-render",
 		"SourceWidth": 0,
 		"SourceHeight": 0,
 		"Width": 0,

@@ -5,7 +5,7 @@
 		"height": 288.0000000000,
 		"handler": "",
 		"layers": [{
-			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns", "ui/mainmenu/rootwidget#kmes"]
+			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns", "ui/mainmenu/rootwidget#kmes", "ui/mainmenu/rootwidget#soae"]
 		}],
 	},
 	aux: [
@@ -78,16 +78,16 @@
 					"parent": {
 						"id": "",
 						"layout": {
-							"x": 400.0000000000,
-							"y": 10.0000000000,
-							"width": 100.0000000000,
-							"height": 100.0000000000
+							"x": 100.0000000000,
+							"y": 100.0000000000,
+							"width": 312.0000000000,
+							"height": 49.0000000000
 						},
 						"expansion": {
 							"x": 0.0000000000,
 							"y": 0.0000000000,
-							"width": 0.0000000000,
-							"height": 0.0000000000
+							"width": 1.0000000000,
+							"height": 1.0000000000
 						},
 						"color": {
 							"r": 255,
@@ -130,6 +130,41 @@
 					"TexturePressed": "",
 					"Text": "aoeuaeou",
 					"Event": ""
+			}
+		}
+		,
+		{
+			ref: "#soae",
+			type: "UITextElement",
+			data: {
+					"parent": {
+						"id": "",
+						"layout": {
+							"x": 100.0000000000,
+							"y": 100.0000000000,
+							"width": 200.0000000000,
+							"height": 200.0000000000
+						},
+						"expansion": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						},
+						"color": {
+							"r": 255,
+							"g": 255,
+							"b": 255,
+							"a": 255
+						},
+					},
+					"font": "fonts/great-vibes",
+					"pixelSize": 25,
+					"Text": "Great Vibes!",
+					"HorizontalAlignment": "UIHorizontalAlignment_Center",
+					"VerticalAlignment": "UIVerticalAlignment_Center",
+					"BackgroundFill": {
+					}
 			}
 		}
 	]

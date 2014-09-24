@@ -138,6 +138,8 @@ int main(int argc, char *argv[])
 
 	claw::appwindow::run_loop(window, &frame);
 
+	ccgui::uiscreen::free(s_current_screen);
+
 	claw::session::free(session);
 	return 0;
 }

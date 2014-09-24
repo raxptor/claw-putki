@@ -5,10 +5,15 @@ namespace clawputked
 	public partial class MapEditorWindow
 	{
 		private global::Gtk.HBox hbox1;
+		
 		private global::Gtk.ScrolledWindow m_scrolledWindow;
+		
 		private global::Gtk.VBox vbox2;
+		
 		private global::Gtk.VButtonBox vbuttonbox1;
+		
 		private global::Gtk.Button button1;
+		
 		private global::Gtk.TreeView m_layers;
 
 		protected virtual void Build ()
