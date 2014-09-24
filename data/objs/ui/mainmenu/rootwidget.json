@@ -163,8 +163,7 @@
 					"Text": "Great Vibes!",
 					"HorizontalAlignment": "UIHorizontalAlignment_Center",
 					"VerticalAlignment": "UIVerticalAlignment_Center",
-					"BackgroundFill": {
-					}
+					"BackgroundFill": ""
 			}
 		}
 	]

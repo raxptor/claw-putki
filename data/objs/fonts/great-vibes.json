@@ -5,7 +5,7 @@
 		"Latin1": 1,
 		"OutputPixelData": 1,
 		"Characters": [],
-		"PixelSizes": [],
+		"PixelSizes": [25, 50],
 		"TextureConfiguration": "configs/texture-render",
 		"Outputs": []
 	},
