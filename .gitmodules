@@ -25,3 +25,6 @@
 [submodule "ext/kosmos"]
 	path = ext/kosmos
 	url = https://github.com/raxptor/kosmos
+[submodule "squirrel-lang"]
+	path = squirrel-lang
+	url = https://github.com/pfalcon/squirrel-lang

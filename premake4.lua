@@ -28,9 +28,9 @@ solution "Claw"
 	-- Putki must always come first   --
 	------------------------------------
 
-	dofile "putki/libs.lua"
-	dofile "kosmos/libs.lua"
-	dofile "ccg-ui/libs.lua"
+	dofile "ext/putki/libs.lua"
+	dofile "ext/kosmos/libs.lua"
+	dofile "ext/ccg-ui/libs.lua"
 
 	project "claw-putki-lib"
 		language "C++"
