@@ -1,13 +1,14 @@
 #include "appwindow.h"
 
-#include <OpenGL/gl.h>
 #include <outki/types/ccg-ui/Texture.h>
-#include <stdio.h>
-
-#include <map>
-#include <string>
+#include <OpenGL/gl.h>
 
 #include <claw/log.h>
+#include <datacontainer/datacontainer.h>
+
+#include <stdio.h>
+#include <map>
+#include <string>
 
 namespace claw
 {
@@ -15,6 +16,7 @@ namespace claw
 	{
 		struct loaded_texture
 		{
+			outki::DataContainer *container;
 			GLuint handle;
 			std::string source;
 			int refcount;
@@ -61,23 +63,32 @@ namespace claw
 				CLAW_ERROR("Trying to load a texture which has no generated output! [" << texture->id << "]");
 				return 0;
 			}
-			
-			outki::DataContainer *cont = texture->Output->Data;
-			if (!cont || !cont->Bytes_size)
+
+			datacontainer::loaded_data *loaded = datacontainer::load(texture->Output->Data, true);
+			if (!loaded)
 			{
-				CLAW_ERROR("Texture has no embedded data")
+				CLAW_INFO("Could not load texture, no streaming yet")
 				return 0;
 			}
 
-			if (outki::TextureOutputRaw *gl_tex = texture->Output->exact_cast<outki::TextureOutputRaw>())
+			if (!loaded->size)
 			{
-				if (cont->Bytes_size != 4 * texture->Width * texture->Height)
+				CLAW_INFO("Empty texture?!")
+				datacontainer::release(loaded);
+				return 0;
+			}
+
+			if (texture->Output->rtti_type_ref() == outki::TextureOutputRaw::type_id())
+			{
+				if (loaded->size != 4 * texture->Width * texture->Height)
 				{
-					CLAW_ERROR("Texture is " << texture->Width << "x" << texture->Height << " but bytes are " << cont->Bytes_size)
+					CLAW_ERROR("Texture is " << texture->Width << "x" << texture->Height << " but bytes are " << loaded->size)
 				}
+
 				loaded_texture *tex = new loaded_texture();
 				tex->refcount = 1;
 				tex->source = texture->id;
+				tex->container = texture->Output->Data;
 
 				d->textures.insert(std::make_pair<std::string, loaded_texture*>(texture->id, tex));
 
@@ -88,14 +99,14 @@ namespace claw
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->Width, texture->Height,
-				             0, GL_RGBA, GL_UNSIGNED_BYTE, cont->Bytes);
+				             0, GL_RGBA, GL_UNSIGNED_BYTE, loaded->data);
 
 				CLAW_INFO("Bound texture [" << texture->id << "] to handle=" << tex->handle);
 				return tex;
 			}
 			else
 			{
-				CLAW_ERROR("Unknown texture encountered" << texture->id);
+				CLAW_ERROR("Unknown texture format encountered" << texture->id);
 				return 0;
 			}
 		}

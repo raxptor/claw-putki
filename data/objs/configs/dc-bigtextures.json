@@ -1,11 +1,10 @@
 {
 	type: "DataContainerConfiguration",
 	data: {
-		"Mode": "DCOUT_EMBED",
+		"Mode": "DCOUT_FILE",
 		"Streaming": "",
 		"FileBase": "configs/resources",
 	},
 	aux: [
 	]
 }
-
