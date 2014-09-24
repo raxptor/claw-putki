@@ -5,7 +5,7 @@
 #include <putki/builder/build-db.h>
 #include <putki/builder/log.h>
 #include <putki/builder/db.h>
-#include <builder/pngutil.h>
+#include <kosmos-builder-utils/pngutil.h>
 #include <iostream>
 
 #include <inki/types/claw/tiles.h>

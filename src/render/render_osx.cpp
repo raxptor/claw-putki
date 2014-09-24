@@ -1,12 +1,12 @@
 #include <environment/appwindow.h>
 
-#include <outki/types/ccg-ui/Texture.h>
+#include <outki/types/kosmos/Texture.h>
 #include <OpenGL/gl.h>
 
-#include <datacontainer/datacontainer.h>
+#include <kosmos/datacontainer/datacontainer.h>
 #include <putki/liveupdate/liveupdate.h>
 #include <putki/log/log.h>
-#include <claw/log.h>
+#include <log/log.h>
 #include <stdio.h>
 #include <map>
 #include <string>

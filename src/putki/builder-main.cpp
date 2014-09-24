@@ -5,15 +5,18 @@
 // generated.
 namespace inki
 {
+	void bind_kosmos();
 	void bind_claw();
 	void bind_ccg_ui();
 }
 
 void ccg_ui_register_handlers(putki::builder::data *builder);
 void claw_register_handlers(putki::builder::data *builder);
+void kosmos_register_handlers(putki::builder::data *builder);
 
 void app_register_handlers(putki::builder::data *builder)
 {
+	kosmos_register_handlers(builder);
 	ccg_ui_register_handlers(builder);
 	claw_register_handlers(builder);
 }
@@ -44,6 +47,7 @@ int main(int argc, char **argv)
 {
 	inki::bind_claw();
 	inki::bind_ccg_ui();
+	inki::bind_kosmos();
 
 	putki::builder::set_builder_configurator(&app_register_handlers);
 	putki::builder::set_packager(&app_build_packages);

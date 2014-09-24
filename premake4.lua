@@ -27,11 +27,10 @@ solution "Claw"
 	------------------------------------
 	-- Putki must always come first   --
 	------------------------------------
-	
-	dofile "external/putki/putkilib-premake.lua"
-	dofile "external/ccg-ui/ccg-ui-libs.lua"
-	
-	
+
+	dofile "putki/libs.lua"
+	dofile "kosmos/libs.lua"
+	dofile "ccg-ui/libs.lua"
 
 	project "claw-putki-lib"
 		language "C++"
@@ -39,6 +38,7 @@ solution "Claw"
 		kind "StaticLib"
 		
 		putki_use_builder_lib()
+		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
 		
 		putki_typedefs_builder("src/types", true)
@@ -50,11 +50,12 @@ solution "Claw"
 		targetname "claw-databuilder"
 
 		files { "src/putki/builder-main.cpp" }
-		files { "src/builder/**.*" }
+		files { "src/builder/**.cpp" }
 		links { "claw-putki-lib" }
 		includedirs { "src" }
 		
 		putki_use_builder_lib()
+		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
 		
 		putki_typedefs_builder("src/types", false)
@@ -68,6 +69,7 @@ solution "Claw"
 		files { "src/putki/tool-main.cpp" }
 
 		putki_use_builder_lib()
+		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
 
 		includedirs { "src" }
@@ -98,6 +100,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		
 		putki_typedefs_builder("src/types", false)
 		putki_use_builder_lib()
+		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
 
  	project "claw-runtime"
@@ -108,6 +111,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
                 targetname "claw"
                 
                 putki_use_runtime_lib()
+                kosmos_use_runtime_lib()
 		ccgui_use_runtime_lib()
 		
                 putki_typedefs_runtime("src/types", true)
@@ -122,7 +126,6 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		includedirs { "external/squirrel-lang/include" }
 
 		links {"squirrel-lang"}
-	
 
             configuration {"windows"}
                     excludes {"src/**_osx*"}

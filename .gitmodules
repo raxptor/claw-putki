@@ -7,3 +7,9 @@
 [submodule "external/squirrel-lang"]
 	path = external/squirrel-lang
 	url = https://github.com/pfalcon/squirrel-lang
+[submodule "putki"]
+	path = putki
+	url = https://github.com/raxptor/putki
+[submodule "ccg-ui"]
+	path = ccg-ui
+	url = https://github.com/raxptor/ccg-ui

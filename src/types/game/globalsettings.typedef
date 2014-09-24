@@ -1,4 +1,4 @@
-%include types/ccg-ui/Texture.typedef
+%include types/kosmos/Texture.typedef
 
 globalsettings [in, out]
 {

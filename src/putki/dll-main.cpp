@@ -3,6 +3,8 @@
 
 namespace inki
 {
+	void bind_kosmos();
+	void bind_kosmos_dll();
 	void bind_ccg_ui();
 	void bind_ccg_ui_dll();
 	void bind_claw();
@@ -26,6 +28,8 @@ extern "C"
 	putki::data_dll_i* load_data_dll(const char *data_path)
 	#endif
 	{
+		inki::bind_kosmos();
+		inki::bind_kosmos_dll();
 		inki::bind_ccg_ui();
 		inki::bind_ccg_ui_dll();
 		inki::bind_claw();
