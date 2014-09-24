@@ -40,6 +40,7 @@ solution "Claw"
 		
 		putki_use_builder_lib()
 		ccgui_use_builder_lib()
+		
 		putki_typedefs_builder("src/types", true)
 
 	project "claw-databuilder"
@@ -55,6 +56,7 @@ solution "Claw"
 		
 		putki_use_builder_lib()
 		ccgui_use_builder_lib()
+		
 		putki_typedefs_builder("src/types", false)
 
 	project "claw-datatool"
@@ -93,6 +95,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		links { "claw-putki-lib"}
 		includedirs { "src" }
 		
+		putki_typedefs_builder("src/types", false)
 		putki_use_builder_lib()
 		ccgui_use_builder_lib()
 
