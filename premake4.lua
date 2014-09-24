@@ -29,27 +29,18 @@ solution "Claw"
 	------------------------------------
 	
 	dofile "external/putki/putkilib-premake.lua"
-
-	-- Depends on putki
 	dofile "external/ccg-ui/ccg-ui-libs.lua"
+	
+	
 
 	project "claw-putki-lib"
-
 		language "C++"
 		targetname "claw-putki-lib"
-
 		kind "StaticLib"
 		
-		files { "src/types/**.typedef" }
-		files { "_gen/*putki-master.cpp", "_gen/inki/**.h", "_gen/data-dll/**.h" }
-
-		includedirs { "src", "_gen" }
-		includedirs ( PUTKI_LIB_INCLUDES )
-		includedirs ( CCGUI_LIB_INCLUDES )
-
-		links (CCGUI_LIB_LINKS)
-		links (PUTKI_LIB_LINKS)
-
+		putki_use_builder_lib()
+		ccgui_use_builder_lib()
+		putki_typedefs_builder("src/types", true)
 
 	project "claw-databuilder"
 
@@ -59,14 +50,12 @@ solution "Claw"
 
 		files { "src/putki/builder-main.cpp" }
 		files { "src/builder/**.*" }
-
-		includedirs { "src", "_gen" }
-		includedirs ( PUTKI_LIB_INCLUDES )
-		includedirs ( CCGUI_LIB_INCLUDES )
-		
 		links { "claw-putki-lib" }
-		links ( CCGUI_LIB_LINKS )
-		links ( PUTKI_LIB_LINKS )
+		includedirs { "src" }
+		
+		putki_use_builder_lib()
+		ccgui_use_builder_lib()
+		putki_typedefs_builder("src/types", false)
 
 	project "claw-datatool"
 
@@ -76,14 +65,11 @@ solution "Claw"
 
 		files { "src/putki/tool-main.cpp" }
 
-		includedirs { "src", "_gen" }
-		includedirs ( PUTKI_LIB_INCLUDES )
-		includedirs ( CCGUI_LIB_INCLUDES )
-		
-		links { "claw-putki-lib" }
-		links ( CCGUI_LIB_LINKS )
-		links ( PUTKI_LIB_LINKS )
+		putki_use_builder_lib()
+		ccgui_use_builder_lib()
 
+		includedirs { "src" }
+		links { "claw-putki-lib" }
 
 	project "squirrel-lang"
 		kind "StaticLib"
@@ -103,39 +89,35 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		targetname "claw-data-dll"
 
 		files { "src/putki/dll-main.cpp" }
-		files { "src/builder/**.*" }		
-
-		includedirs { "src", "_gen" }
-		includedirs ( PUTKI_LIB_INCLUDES )
-		includedirs ( CCGUI_LIB_INCLUDES )
-	
+		files { "src/builder/**.*" }
 		links { "claw-putki-lib"}
-		links ( CCGUI_LIB_LINKS )
-		links ( PUTKI_LIB_LINKS )
-
+		includedirs { "src" }
+		
+		putki_use_builder_lib()
+		ccgui_use_builder_lib()
 
  	project "claw-runtime"
 
-            kind "ConsoleApp"
-            language "C++"
-            targetname "claw"
+                kind "ConsoleApp"
+                language "C++"
+                targetname "claw"
+                
+                putki_use_runtime_lib()
+		ccgui_use_runtime_lib()
+		
+                putki_typedefs_runtime("src/types", true)
 
-            files { "_gen/outki/**.cpp", "_gen/outki/**.h" }
-            files { "src/**.cpp" }
-            files { "src/**.h" }
-            files { "src/**.typedef" }
+                files { "src/**.cpp" }
+                files { "src/**.h" }
 
-            excludes { "src/builder/**.*" }
-            excludes { "src/putki/**.*" }
+                excludes { "src/builder/**.*" }
+                excludes { "src/putki/**.*" }
 
-	includedirs { "src", "_gen" }
-	includedirs ( PUTKI_RT_INCLUDES )
-	includedirs ( CCGUI_RT_INCLUDES )
-	includedirs { "external/squirrel-lang/include" }
+		includedirs { "src" }
+		includedirs { "external/squirrel-lang/include" }
 
-	links {"ccg-runtime"}
-	links {"putki-runtime-lib"}
-	links {"squirrel-lang"}
+		links {"squirrel-lang"}
+	
 
             configuration {"windows"}
                     excludes {"src/**_osx*"}

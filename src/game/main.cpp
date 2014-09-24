@@ -66,17 +66,15 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 
 	claw::render::begin(renderer, true, true, 0xff00ff);
 
-	/*
 	   int w, h;
 	   if (claw::render::get_size(renderer, &w, &h))
 	   {
 
 	        ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)w, (float)h);
 	   }
-	 */
 
 	claw::session::update(session, &s_ui_context, deltatime);
-	claw::session::draw(session, renderer);
+//	claw::session::draw(session, renderer);
 
 	claw::render::end(renderer);
 	claw::render::present(renderer);

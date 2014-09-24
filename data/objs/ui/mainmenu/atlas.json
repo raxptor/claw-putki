@@ -1,10 +1,10 @@
 {
 	type: "Atlas",
 	data: {
-			"Inputs": ["ui/mainmenu/background-texture", "ui/buttons/b1-highlight", "ui/buttons/b1-normal"],
-			"TextureConfig" : "configs/texture-render",
-			"Outputs": []
+		"Inputs": ["ui/mainmenu/background-texture", "ui/buttons/b1-highlight", "ui/buttons/b1-normal"],
+		"OutputConfiguration": "configs/texture-render",
+		"Outputs": []
 	},
 	aux: [
-	      ]
+	]
 }
