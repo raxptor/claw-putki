@@ -104,7 +104,7 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
 		ccgui_use_builder_lib()
 
  	project "claw-runtime"
-	    platforms { "x64" }
+ 		platforms { "x64" }
 
                 kind "ConsoleApp"
                 language "C++"

@@ -13,3 +13,6 @@
 [submodule "ccg-ui"]
 	path = ccg-ui
 	url = https://github.com/raxptor/ccg-ui
+[submodule "kosmos"]
+	path = kosmos
+	url = https://github.com/raxptor/kosmos
