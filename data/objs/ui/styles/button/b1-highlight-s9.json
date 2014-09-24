@@ -1,19 +1,18 @@
 {
 	type: "UISlice9Fill",
 	data: {
-			"parent": {
-				"_rtti_type": 10
+		"parent": {
 		},
-			"texture": "ui/buttons/b1-highlight",
-			"MarginLeft": 15,
-			"MarginTop": 15,
-			"MarignRight": 15,
-			"MarginBottom": 15,
-			"ExpandLeft": 20,
-			"ExpandTop": 20,
-			"ExpandRight": 20,
-			"ExpandBottom": 20
+		"texture": "ui/buttons/b1-highlight",
+		"MarginLeft": 15,
+		"MarginTop": 15,
+		"MarignRight": 15,
+		"MarginBottom": 15,
+		"ExpandLeft": 5,
+		"ExpandTop": 5,
+		"ExpandRight": 5,
+		"ExpandBottom": 5
 	},
 	aux: [
-	      ]
+	]
 }
