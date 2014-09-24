@@ -38,8 +38,9 @@ namespace claw
 		claw::error(__DPRINT_LINE.str().c_str()); \
 }
 
-
 #endif
 
+#define CLAW_WARNING(x) CLAW_INFO("warn: " << x)
+#define CLAW_DEBUG(x) CLAW_INFO("debug:" << x)
 
 #endif

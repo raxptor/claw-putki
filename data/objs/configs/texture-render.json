@@ -1,19 +1,19 @@
 {
 	type: "TextureConfiguration",
 	data: {
-			"_rtti_type": 40,
-			"OutputFormatDefault": "configs/texture-render#aohb"
+		"OutputFormatServer": "",
+		"OutputFormatDefault": "configs/texture-render#aohb",
 	},
 	aux: [
 		{
 			ref: "#aohb",
 			type: "TextureOutputFormatRaw",
 			data: {
-				parent: {
-					"ResizeMode": "RESIZE_NONE",
-					"PremultiplyAlpha": 0,
-					"StorageConfiguration": "configs/dc-bigtextures"
-				}
+					"parent": {
+						"StorageConfiguration": "configs/dc-bigtextures",
+						"ResizeMode": "RESIZE_NONE",
+						"PremultiplyAlpha": 1,
+					}
 			}
 		}
 	]

@@ -3,9 +3,10 @@
 #include <outki/types/ccg-ui/Texture.h>
 #include <OpenGL/gl.h>
 
-#include <claw/log.h>
 #include <datacontainer/datacontainer.h>
-
+#include <putki/liveupdate/liveupdate.h>
+#include <putki/log/log.h>
+#include <claw/log.h>
 #include <stdio.h>
 #include <map>
 #include <string>
@@ -17,6 +18,7 @@ namespace claw
 		struct loaded_texture
 		{
 			outki::DataContainer *container;
+			outki::Texture *source_tex;
 			GLuint handle;
 			std::string source;
 			int refcount;
@@ -48,6 +50,71 @@ namespace claw
 			}
 		}
 
+		void empty_texture(GLuint tex)
+		{
+			glBindTexture(GL_TEXTURE_2D, tex);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST  );
+			unsigned char pixels[] = {0xff,0xff,0xff,0xff};
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1,
+				      0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
+		void update_texture(loaded_texture *tex)
+		{
+			datacontainer::loaded_data *loaded = datacontainer::load(tex->container, true);
+			if (!loaded || !loaded->size)
+			{
+				empty_texture(tex->handle);
+				if (loaded) datacontainer::release(loaded);
+				return;
+			}
+
+			if (!loaded->size)
+			{
+				CLAW_WARNING("Empty texture?!")
+				empty_texture(tex->handle);
+				if (loaded) datacontainer::release(loaded);
+				return;
+			}
+
+			switch (tex->source_tex->Output->rtti_type_ref())
+			{
+				case outki::TextureOutputRaw::TYPE_ID:
+				{
+					if (loaded->size != 4 * tex->source_tex->Width * tex->source_tex->Height)
+					{
+						CLAW_WARNING("Texture is " << tex->source_tex->Width << "x" << tex->source_tex->Height << " but bytes are " << loaded->size)
+						empty_texture(tex->handle);
+					}
+					else
+					{
+						glBindTexture(GL_TEXTURE_2D, tex->handle);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST  );
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->source_tex->Width, tex->source_tex->Height,
+							      0, GL_RGBA, GL_UNSIGNED_BYTE, loaded->data);
+						glBindTexture(GL_TEXTURE_2D, 0);
+						CLAW_INFO("Updated texture [" << tex->handle << "] with " << loaded->size << " bytes");
+					}
+					break;
+				}
+				default:
+				{
+					empty_texture(tex->handle);
+					CLAW_WARNING("Unsupported texture format");
+					break;
+				}
+			}
+
+			datacontainer::release(loaded);
+		}
+
 
 		loaded_texture * load_texture(data *d, outki::Texture *texture)
 		{
@@ -60,55 +127,21 @@ namespace claw
 
 			if (!texture->Output)
 			{
-				CLAW_ERROR("Trying to load a texture which has no generated output! [" << texture->id << "]");
+				CLAW_WARNING("Trying to load a texture which has no generated output! [" << texture->id << "]");
 				return 0;
 			}
 
-			datacontainer::loaded_data *loaded = datacontainer::load(texture->Output->Data, true);
-			if (!loaded)
-			{
-				CLAW_INFO("Could not load texture, no streaming yet")
-				return 0;
-			}
+			loaded_texture *tex = new loaded_texture();
+			tex->refcount = 1;
+			tex->source = texture->id;
+			tex->container = texture->Output->Data;
+			tex->source_tex = texture;
+			glGenTextures(1, &tex->handle);
 
-			if (!loaded->size)
-			{
-				CLAW_INFO("Empty texture?!")
-				datacontainer::release(loaded);
-				return 0;
-			}
+			d->textures.insert(LoadedTextures::value_type(texture->id, tex));
 
-			if (texture->Output->rtti_type_ref() == outki::TextureOutputRaw::type_id())
-			{
-				if (loaded->size != 4 * texture->Width * texture->Height)
-				{
-					CLAW_ERROR("Texture is " << texture->Width << "x" << texture->Height << " but bytes are " << loaded->size)
-				}
-
-				loaded_texture *tex = new loaded_texture();
-				tex->refcount = 1;
-				tex->source = texture->id;
-				tex->container = texture->Output->Data;
-
-				d->textures.insert(std::make_pair<std::string, loaded_texture*>(texture->id, tex));
-
-				glGenTextures(1, &tex->handle);
-				glBindTexture(GL_TEXTURE_2D, tex->handle);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->Width, texture->Height,
-				             0, GL_RGBA, GL_UNSIGNED_BYTE, loaded->data);
-
-				CLAW_INFO("Bound texture [" << texture->id << "] to handle=" << tex->handle);
-				return tex;
-			}
-			else
-			{
-				CLAW_ERROR("Unknown texture format encountered" << texture->id);
-				return 0;
-			}
+			update_texture(tex);
+			return tex;
 		}
 
 		void destroy(data *d)
@@ -118,6 +151,19 @@ namespace claw
 
 		void begin(data *d, bool clearcolor, bool cleardepth, unsigned int clear_color)
 		{
+			//
+			LoadedTextures::iterator i = d->textures.begin();
+			while (i != d->textures.end())
+			{
+				if (LIVE_UPDATE(&i->second->container))
+				{
+					CLAW_INFO("Texture live updated");
+					update_texture(i->second);
+				}
+
+				++i;
+			}
+
 			int x0, y0, x1, y1;
 			appwindow::get_client_rect(d->window, &x0, &y0, &x1, &y1);
 			glViewport(0, 0, x1, y1);

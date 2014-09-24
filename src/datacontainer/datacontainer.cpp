@@ -1,10 +1,10 @@
 #include <putki/config.h>
+#include <putki/log/log.h>
+
 #include <datacontainer/datacontainer.h>
 #include <iostream>
 #include <map>
 #include <fstream>
-
-#define DC_DEBUG(x) { std::cout << "datacontainer:" << x << std::endl; }
 
 namespace datacontainer
 {
@@ -23,7 +23,7 @@ namespace datacontainer
 		LoadMap::iterator i = s_loaded.find(container);
 		if (i != s_loaded.end())
 		{
-			DC_DEBUG("Had this loaded already, returning pointer to old record")
+			PTK_DEBUG("Had this loaded already, returning pointer to old record")
 			i->second->refcount++;
 			return i->second;
 		}
@@ -34,25 +34,26 @@ namespace datacontainer
 		nr->source = container;
 
 		outki::DataContainerOutput *output = container->Output;
-		DC_DEBUG("Loading data container with output " << output);
+		PTK_DEBUG("Loading data container with output " << output);
 
 		if (!output)
 		{
-			DC_DEBUG("Data was embedded");
+			PTK_DEBUG("Data was embedded");
 			nr->data = container->Bytes;
 			nr->size = (size_t) container->Bytes_size;
+			s_loaded.insert(LoadMap::value_type(container, nr));
 			return nr;
 		}
 		else if (outki::DataContainerOutputFile *file = output->exact_cast<outki::DataContainerOutputFile>())
 		{
 			char real_path[512];
 			putki::format_file_path(file->FilePath, real_path);
-			DC_DEBUG("Loading file [" << real_path << "]");
+			PTK_DEBUG("Loading file [" << real_path << "]");
 
 			std::ifstream in(real_path, std::ios::binary);
 			if (!in.good())
 			{
-				DC_DEBUG("Failed to open file [" << real_path << "]!");
+				PTK_DEBUG("Failed to open file [" << real_path << "]!");
 				delete nr;
 				return 0;
 			}
@@ -66,11 +67,12 @@ namespace datacontainer
 			in.seekg(0, std::ios_base::beg);
 			in.read((char*)nr->data, filesize);
 			in.close();
+			s_loaded.insert(LoadMap::value_type(container, nr));
 			return nr;
 		}
 		else
 		{
-			DC_DEBUG("Data was not embedded");
+			PTK_DEBUG("Data was not embedded");
 			return 0;
 		}
 	}
@@ -79,7 +81,12 @@ namespace datacontainer
 	{
 		loaded_data_internal *record = (loaded_data_internal*) d;
 		--record->refcount;
-		DC_DEBUG("Refcount is now " << record->refcount);
+		PTK_DEBUG("Refcount is now " << record->refcount);
+		if (!record->refcount)
+		{
+			delete record;
+			s_loaded.erase(s_loaded.find(record->source));
+		}
 	}
 
 }
