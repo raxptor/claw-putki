@@ -209,6 +209,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	[appMenu addItem:quitMenuItem];
 	[appMenuItem setSubmenu:appMenu];
+
+	[NSApp activateIgnoringOtherApps:YES];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -257,7 +259,6 @@ namespace claw
 			[d->window setContentView:d->view];
 			[d->window makeKeyAndOrderFront:nil];
 			
-			[d->app activateIgnoringOtherApps:YES];
 			[d->app setActivationPolicy:NSApplicationActivationPolicyRegular];
 			
 			d->appdelegate->view = d->view;
@@ -274,7 +275,7 @@ namespace claw
 												owner:(id) d->view
 											   userInfo:nil];
 			[d->view addTrackingArea:(id)area];
-		
+
 			set_title(d, title);
 			return d;
 		}
