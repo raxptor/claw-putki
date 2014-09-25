@@ -1,0 +1,14 @@
+{
+	type: "Font",
+	data: {
+		"Source": "fonts/Prototype.ttf",
+		"Latin1": 1,
+		"OutputPixelData": 0,
+		"Characters": [],
+		"PixelSizes": [25, 50],
+		"TextureConfiguration": "configs/texture-render",
+		"Outputs": []
+	},
+	aux: [
+	]
+}

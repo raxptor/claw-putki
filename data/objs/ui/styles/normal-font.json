@@ -1,0 +1,9 @@
+{
+	type: "UIFontStyle",
+	data: {
+		"Font": "fonts/prototype",
+		"PixelSize": 25
+	},
+	aux: [
+	]
+}

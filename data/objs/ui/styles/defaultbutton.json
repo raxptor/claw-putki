@@ -4,7 +4,7 @@
 		"Normal": "ui/styles/button/b1-normal-s9",
 		"Highlight": "ui/styles/button/b1-highlight-s9",
 		"Pressed": "ui/styles/button/b1-highlight-s9",
-		"FontStyle": "ui/styles/button-text"
+		"FontStyle": "ui/styles/normal-font"
 	},
 	aux: [
 	]

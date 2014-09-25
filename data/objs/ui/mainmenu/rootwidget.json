@@ -5,7 +5,7 @@
 		"height": 288.0000000000,
 		"handler": "",
 		"layers": [{
-			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns", "ui/mainmenu/rootwidget#kmes", "ui/mainmenu/rootwidget#soae"]
+			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf"]
 		}],
 	},
 	aux: [
@@ -39,64 +39,14 @@
 					"parent": {
 						"id": "btn1",
 						"layout": {
-							"x": 30.0000000000,
-							"y": 30.0000000000,
-							"width": 150.0000000000,
-							"height": 30.0000000000
-						},
-						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 0.0000000000,
-							"height": 0.0000000000
-						},
-					},
-					"Style": "ui/styles/defaultbutton",
-					"TextureNormal": "",
-					"TexturePressed": "",
-					"Text": "Blahonga!",
-					"Event": ""
-			}
-		}
-		,
-		{
-			ref: "#hjns",
-			type: "UIFillElement",
-			data: {
-					"parent": {
-						"id": "",
-						"layout": {
-							"x": 100.0000000000,
-							"y": 100.0000000000,
-							"width": 312.0000000000,
-							"height": 49.0000000000
-						},
-						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 1.0000000000,
-							"height": 1.0000000000
-						},
-					},
-					"fill": "ui/fills/testfill"
-			}
-		}
-		,
-		{
-			ref: "#kmes",
-			type: "UIButtonElement",
-			data: {
-					"parent": {
-						"id": "",
-						"layout": {
-							"x": 10.0000000000,
-							"y": 200.0000000000,
-							"width": 200.0000000000,
+							"x": 200.0000000000,
+							"y": 113.0000000000,
+							"width": 112.0000000000,
 							"height": 50.0000000000
 						},
 						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
+							"x": 0.5000000000,
+							"y": 0.5000000000,
 							"width": 0.0000000000,
 							"height": 0.0000000000
 						},
@@ -104,43 +54,8 @@
 					"Style": "ui/styles/defaultbutton",
 					"TextureNormal": "",
 					"TexturePressed": "",
-					"Text": "aoeuaeou",
+					"Text": "PLAY",
 					"Event": ""
-			}
-		}
-		,
-		{
-			ref: "#soae",
-			type: "UITextElement",
-			data: {
-					"parent": {
-						"id": "",
-						"layout": {
-							"x": 100.0000000000,
-							"y": 100.0000000000,
-							"width": 200.0000000000,
-							"height": 200.0000000000
-						},
-						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 0.0000000000,
-							"height": 0.0000000000
-						},
-					},
-					"font": "fonts/great-vibes",
-					"pixelSize": 25,
-					"color": {
-						"r": 255,
-						"g": 255,
-						"b": 255,
-						"a": 255
-					},
-					"Text": "Great Vibes!",
-					"HorizontalAlignment": "UIHorizontalAlignment_Center",
-					"VerticalAlignment": "UIVerticalAlignment_Center",
-					"BackgroundFill": "",
-					"AdjustFill": 0
 			}
 		}
 	]

@@ -8,10 +8,10 @@
 		"MarginTop": 15,
 		"MarignRight": 15,
 		"MarginBottom": 15,
-		"ExpandLeft": 5,
-		"ExpandTop": 5,
-		"ExpandRight": 5,
-		"ExpandBottom": 5
+		"ExpandLeft": 0,
+		"ExpandTop": 0,
+		"ExpandRight": 0,
+		"ExpandBottom": 0
 	},
 	aux: [
 	]
