@@ -3,9 +3,9 @@
 	data: {
 		"Source": "fonts/GreatVibes-Regular.ttf",
 		"Latin1": 1,
-		"OutputPixelData": 1,
+		"OutputPixelData": 0,
 		"Characters": [],
-		"PixelSizes": [25, 50],
+		"PixelSizes": [12, 15, 20, 35, 40, 65],
 		"TextureConfiguration": "configs/texture-render",
 		"Outputs": []
 	},
