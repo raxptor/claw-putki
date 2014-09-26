@@ -27,12 +27,6 @@
 							"width": 1.0000000000,
 							"height": 1.0000000000
 						},
-						"color": {
-							"r": 255,
-							"g": 255,
-							"b": 255,
-							"a": 255
-						},
 					},
 					"texture": "ui/mainmenu/background-texture"
 			}
@@ -45,22 +39,16 @@
 					"parent": {
 						"id": "btn1",
 						"layout": {
-							"x": 300.0000000000,
-							"y": 20.0000000000,
-							"width": 100.0000000000,
-							"height": 100.0000000000
+							"x": 30.0000000000,
+							"y": 30.0000000000,
+							"width": 150.0000000000,
+							"height": 30.0000000000
 						},
 						"expansion": {
 							"x": 0.0000000000,
 							"y": 0.0000000000,
 							"width": 0.0000000000,
 							"height": 0.0000000000
-						},
-						"color": {
-							"r": 255,
-							"g": 255,
-							"b": 255,
-							"a": 255
 						},
 					},
 					"Style": "ui/styles/defaultbutton",
@@ -89,12 +77,6 @@
 							"width": 1.0000000000,
 							"height": 1.0000000000
 						},
-						"color": {
-							"r": 255,
-							"g": 255,
-							"b": 255,
-							"a": 255
-						},
 					},
 					"fill": "ui/fills/testfill"
 			}
@@ -117,12 +99,6 @@
 							"y": 0.0000000000,
 							"width": 0.0000000000,
 							"height": 0.0000000000
-						},
-						"color": {
-							"r": 255,
-							"g": 255,
-							"b": 255,
-							"a": 255
 						},
 					},
 					"Style": "ui/styles/defaultbutton",
@@ -151,19 +127,20 @@
 							"width": 0.0000000000,
 							"height": 0.0000000000
 						},
-						"color": {
-							"r": 255,
-							"g": 255,
-							"b": 255,
-							"a": 255
-						},
 					},
 					"font": "fonts/great-vibes",
 					"pixelSize": 25,
+					"color": {
+						"r": 255,
+						"g": 255,
+						"b": 255,
+						"a": 255
+					},
 					"Text": "Great Vibes!",
 					"HorizontalAlignment": "UIHorizontalAlignment_Center",
 					"VerticalAlignment": "UIVerticalAlignment_Center",
-					"BackgroundFill": ""
+					"BackgroundFill": "",
+					"AdjustFill": 0
 			}
 		}
 	]
