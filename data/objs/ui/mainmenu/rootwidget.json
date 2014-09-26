@@ -5,7 +5,7 @@
 		"height": 288.0000000000,
 		"handler": "",
 		"layers": [{
-			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf"]
+			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns"]
 		}],
 	},
 	aux: [
@@ -56,6 +56,41 @@
 					"TexturePressed": "",
 					"Text": "PLAY",
 					"Event": ""
+			}
+		}
+		,
+		{
+			ref: "#hjns",
+			type: "UITextElement",
+			data: {
+					"parent": {
+						"id": "",
+						"layout": {
+							"x": 100.0000000000,
+							"y": 100.0000000000,
+							"width": 400.0000000000,
+							"height": 0.0000000000
+						},
+						"expansion": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						},
+					},
+					"font": "fonts/great-vibes",
+					"pixelSize": 50,
+					"color": {
+						"r": 255,
+						"g": 255,
+						"b": 255,
+						"a": 255
+					},
+					"Text": "Rawr! OpenGL!",
+					"HorizontalAlignment": "UIHorizontalAlignment_Center",
+					"VerticalAlignment": "UIVerticalAlignment_Center",
+					"BackgroundFill": "",
+					"AdjustFill": 0
 			}
 		}
 	]

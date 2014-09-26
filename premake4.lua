@@ -133,6 +133,6 @@ if os.get() ~= "linux" and os.get() ~= "bsd" then
             configuration {"macosx"}
                     excludes {"src/**_win32*"}
                     files {"src/**.mm"}
-                    links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
+            links {"AppKit.framework", "QuartzCore.framework", "OpenGL.framework"}
 
 end

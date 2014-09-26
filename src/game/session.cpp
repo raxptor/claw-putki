@@ -82,7 +82,6 @@ namespace claw
 					float x1 = p->px + 500.0f * cosf(a + 0.01f * d->time);
 					float y1 = p->py + 500.0f * sinf(a + 0.01f * d->time);
 
-
 					kosmos::intersection perp;
 					if (level::line_map_intersection(d->level, p->px, p->py, x1, y1, &perp))
 					{

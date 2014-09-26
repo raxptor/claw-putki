@@ -66,10 +66,12 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	claw::appwindow::get_client_rect(window, &x0, &y0, &x1, &y1);
 	
 	kosmos::render::begin(x1-x0, y1-x0, true, true, 0xff00ff);
-	ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
 
 	claw::session::update(session, &s_ui_context, deltatime);
-//	claw::session::draw(session, renderer);
+	
+//	ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
+	
+	claw::session::draw(session);
 	kosmos::render::end();
 
 	if (liveupdate)
