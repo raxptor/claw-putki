@@ -4,7 +4,9 @@
 		"windowtitle": "Claw! Powered by Putki!",
 		"window_width": 640,
 		"window_height": 480,
-		"icon": "app/icon"
+		"icon": "app/icon",
+		"shader_solid": "shaders/solid",
+		"shader_texture": "shaders/textured"
 	},
 	aux: [
 	]

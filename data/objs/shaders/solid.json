@@ -1,0 +1,9 @@
+{
+	type: "ShaderProgram",
+	data: {
+		"VertexShader": "shaders/ui-solid-vert",
+		"FragmentShader": "shaders/ui-solid-frag"
+	},
+	aux: [
+	]
+}

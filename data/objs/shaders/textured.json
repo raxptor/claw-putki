@@ -1,0 +1,9 @@
+{
+	type: "ShaderProgram",
+	data: {
+		"VertexShader": "shaders/ui-textured-vert",
+		"FragmentShader": "shaders/ui-textured-frag"
+	},
+	aux: [
+	]
+}

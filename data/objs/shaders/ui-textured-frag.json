@@ -1,0 +1,11 @@
+{
+	type: "FragmentShader",
+	data: {
+		"parent": {
+			"SourceFile": "shaders/ui-textured-frag.glsl",
+			"Data": ""
+		}
+	},
+	aux: [
+	]
+}

@@ -8,8 +8,9 @@
 
 #include <environment/appwindow.h>
 #include <kosmos/render/render.h>
+#include <kosmos/render/render2d.h>
+#include <kosmos/render/shader.h>
 #include <kosmos/log/log.h>
-#include <ui/ccgui-renderer.h>
 
 #include <game/session.h>
 
@@ -23,6 +24,9 @@
 
 #include <cassert>
 #include <stdio.h>
+
+#include <OpenGL/gl.h>
+
 
 // binding up the blob loads.
 namespace outki
@@ -53,6 +57,9 @@ void init()
 	}
 }
 
+kosmos::shader::program *prog = 0;
+kosmos::render2d::stream *stream = 0;
+
 void frame(claw::appwindow::input_batch *input, float deltatime)
 {
 	if (LIVE_UPDATE(&settings))
@@ -66,13 +73,28 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	claw::appwindow::get_client_rect(window, &x0, &y0, &x1, &y1);
 	
 	kosmos::render::begin(x1-x0, y1-x0, true, true, 0xff00ff);
+	
+	if (!stream)
+	{
+		stream = kosmos::render2d::stream_create(256);
+	}
+	
+	kosmos::render2d::set_viewport(stream, x1-x0, y1-y0);
+	kosmos::render2d::use_programs(stream,
+		 kosmos::shader::program_get(settings->shader_solid),
+		 kosmos::shader::program_get(settings->shader_texture)
+	);
 
-	claw::session::update(session, &s_ui_context, deltatime);
+//	claw::session::update(session, &s_ui_context, deltatime);
+//	claw::session::draw(session);
 	
-//	ccgui::uiscreen::draw(s_current_screen, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
-	
-	claw::session::draw(session);
+	ccgui::uiscreen::draw(s_current_screen, stream, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
+	kosmos::render2d::solid_rect(stream, 0, 0, 200, 200, 0xff003388);
+
+	kosmos::render2d::stream_done(stream);
 	kosmos::render::end();
+	
+	
 
 	if (liveupdate)
 	{
@@ -128,13 +150,13 @@ int main(int argc, char *argv[])
 
 	sq_close(vm);
 	
-	session = claw::session::create();
+//	session = claw::session::create();
 
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
 
-	liveupdate = putki::liveupdate::connect();
 
+	liveupdate = putki::liveupdate::connect();
 	init();
 
 
@@ -142,6 +164,6 @@ int main(int argc, char *argv[])
 
 	ccgui::uiscreen::free(s_current_screen);
 
-	claw::session::free(session);
+//	claw::session::free(session);
 	return 0;
 }

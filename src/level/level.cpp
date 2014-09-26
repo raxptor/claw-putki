@@ -80,7 +80,7 @@ namespace claw
 					float x1 = x0 + tiles->tile_width;
 					float y0 = y * tiles->tile_height + di->ofsy;
 					float y1 = y0 + tiles->tile_height;
-					kosmos::render::tex_rect(tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
+					//kosmos::render::tex_rect(tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
 				}
 			}
 		}
