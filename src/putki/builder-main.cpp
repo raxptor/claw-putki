@@ -33,13 +33,12 @@ void app_build_packages(putki::db::data *out, putki::build::packaging_config *pc
 		putki::package::add(pkg, "ui/mainmenu/screen", true);
 		putki::build::commit_package(pkg, pconf, "mainmenu.pkg");
 	}
-/*
 	{
 		putki::package::data *pkg = putki::package::create(out);
 		putki::package::add(pkg, "maps/testmap/testmap", true);
 		putki::build::commit_package(pkg, pconf, "testmap.pkg");
 	}
-*/
+
 }
 
 int run_putki_builder(int argc, char **argv);

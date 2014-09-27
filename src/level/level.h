@@ -1,7 +1,7 @@
 #pragma once
 
 #include <outki/types/claw/tiles.h>
-#include <kosmos/render/render.h>
+#include <kosmos/render/render2d.h>
 #include <kosmos/core/line.h>
 
 namespace claw
@@ -13,6 +13,7 @@ namespace claw
 		struct draw_info
 		{
 			float ofsx, ofsy;
+			kosmos::render2d::stream *stream;
 		};
 
 		instance *create(outki::map *level);

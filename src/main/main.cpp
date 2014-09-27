@@ -76,7 +76,7 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	
 	if (!stream)
 	{
-		stream = kosmos::render2d::stream_create(256);
+		stream = kosmos::render2d::stream_create(4096);
 	}
 	
 	kosmos::render2d::set_viewport(stream, x1-x0, y1-y0);
@@ -84,12 +84,11 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 		 kosmos::shader::program_get(settings->shader_solid),
 		 kosmos::shader::program_get(settings->shader_texture)
 	);
-
-//	claw::session::update(session, &s_ui_context, deltatime);
-//	claw::session::draw(session);
+	
+	claw::session::update(session, &s_ui_context, deltatime);
+	claw::session::draw(session, stream);
 	
 	ccgui::uiscreen::draw(s_current_screen, stream, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
-	kosmos::render2d::solid_rect(stream, 0, 0, 200, 200, 0xff003388);
 
 	kosmos::render2d::stream_done(stream);
 	kosmos::render::end();
@@ -150,7 +149,7 @@ int main(int argc, char *argv[])
 
 	sq_close(vm);
 	
-//	session = claw::session::create();
+	session = claw::session::create();
 
 
 	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
@@ -164,6 +163,6 @@ int main(int argc, char *argv[])
 
 	ccgui::uiscreen::free(s_current_screen);
 
-//	claw::session::free(session);
+	claw::session::free(session);
 	return 0;
 }

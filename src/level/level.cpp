@@ -39,6 +39,7 @@ namespace claw
 
 		void draw_layer(instance *i, unsigned int index, outki::maplayer_graphics *graphics, draw_info *di)
 		{
+			kosmos::render2d::set_2d_transform(di->stream, 1, 1, 0, 0);
 			outki::tilemap *tiles = graphics->tiles;
 
 			if (i->layer_textures[index] && (!tiles || LIVE_UPDATE(&tiles->texture)))
@@ -80,7 +81,7 @@ namespace claw
 					float x1 = x0 + tiles->tile_width;
 					float y0 = y * tiles->tile_height + di->ofsy;
 					float y1 = y0 + tiles->tile_height;
-					//kosmos::render::tex_rect(tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
+					kosmos::render2d::tex_rect(di->stream, tex, x0, y0, x1, y1, info->u0, info->v0, info->u1, info->v1, 0xffffffff);
 				}
 			}
 		}
@@ -127,7 +128,7 @@ namespace claw
 					draw_layer(d, i, graphics, di);
 				}
 			}
-
+/*
 			for (unsigned int i=0;i<d->level->collision_lines_size;i++)
 			{
 				outki::tile_collision_line *line = &d->level->collision_lines[i];
@@ -145,6 +146,7 @@ namespace claw
 				const float dy = (x0 - x1);
 				kosmos::render::line(cx, cy, cx + 0.25f * dx, cy + 0.25f * dy, 0xffff00);
 			}
+*/
 		}
 
 	}

@@ -69,8 +69,9 @@ namespace claw
 			}
 		}
 
-		void draw(instance *d)
+		void draw(instance *d, kosmos::render2d::stream *stream)
 		{
+			d->leveldraw.stream = stream;
 			level::draw(d->level, &d->leveldraw);
 
 			for (unsigned int i=0;i<d->particles.size();i++)
@@ -89,7 +90,7 @@ namespace claw
 						y1 = perp.y;
 					}
 
-					kosmos::render::line(p->px, p->py, x1, y1, 0xff44ff);
+//					kosmos::render::line(p->px, p->py, x1, y1, 0xff44ff);
 				}
 			}
 		}
