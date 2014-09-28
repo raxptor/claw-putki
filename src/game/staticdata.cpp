@@ -10,7 +10,7 @@ namespace game
 	namespace
 	{
 		putki::pkgmgr::loaded_package *s_pkg = 0;
-        const char *s_static_package_name = "static.pkg";
+		const char *s_static_package_name = "static.pkg";
 	}
 
 	void load_static_package()
