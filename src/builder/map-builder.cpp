@@ -50,15 +50,15 @@ struct mapbuilder : putki::builder::handler_i
 				continue;
 			}
 
-			// need to rebuild collision map if any of the layers change.
-			putki::build_db::add_input_dependency(record, putki::db::pathof(input, layer));
-
 			inki::maplayer_graphics *graphics = (inki::maplayer_graphics*) layer;
 			inki::tilemap *tiles = graphics->tiles;
 			if (!tiles || !tiles->texture)
 			{
 				continue;
 			}
+
+			// need to rebuild collision map if tiles are updated
+			putki::build_db::add_input_dependency(record, putki::db::pathof(input, tiles));
 
 			ccgui::pngutil::loaded_png png;
 			if (!ccgui::pngutil::load_info(putki::resource::real_path(builder, tiles->texture->Source.c_str()).c_str(), &png))

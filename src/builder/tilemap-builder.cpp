@@ -39,7 +39,7 @@ struct tilemapbuilder : putki::builder::handler_i
 		}
 		else
 		{
-			RECORD_ERROR(record, "Failed to load png!")
+			RECORD_WARNING(record, "Failed to load png!")
 		}
 
 		return false;

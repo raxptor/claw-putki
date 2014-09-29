@@ -61,7 +61,7 @@ namespace claw
 			kosmos::render::loaded_texture *tex = i->layer_textures[index];
 			if (!tex)
 			{
-				KOSMOS_ERROR("Texture load failed on layer " << index);
+				KOSMOS_WARNING("Texture load failed on layer " << index);
 				return;
 			}
 
@@ -111,12 +111,18 @@ namespace claw
 		void draw(instance *d, draw_info *di)
 		{
 			if (LIVE_UPDATE(&d->level))
+			{
+				memset(d->layer_textures, 0x00, sizeof(d->layer_textures));
 				std::cout << "level updated" << std::endl;
+			}
 
 			for (unsigned int i=0;i<d->level->layers_size;i++)
 			{
 				if (LIVE_UPDATE(&d->level->layers[i]))
+				{
+					d->layer_textures[i] = 0;
 					std::cout << "layer updated " << std::endl;
+				}
 
 				if (LIVEUPDATE_ISNULL(d->level->layers[i]))
 				{
