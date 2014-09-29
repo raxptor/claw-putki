@@ -1,7 +1,7 @@
 {
 	type: "Texture",
 	data: {
-		"Source": "tilemaps/testmap.png",
+		"Source": "tilemaps/clawgame-tiles.png",
 		"Output": "",
 		"id": "",
 		"Configuration": "configs/texture-render",

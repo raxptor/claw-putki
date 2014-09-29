@@ -1,0 +1,17 @@
+{
+	type: "tilemap",
+	data: {
+		"texture": "tilemaps/claw-texture",
+		"tile_width": 64,
+		"tile_height": 64,
+		"collision_tiles": [{
+			"x": 0,
+			"y": 1,
+			"prefab": "TILE_COLLISION_FULLBLOCK",
+			"lines": []
+		}],
+		"tiles": []
+	},
+	aux: [
+	]
+}

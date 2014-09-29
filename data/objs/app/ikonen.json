@@ -1,0 +1,12 @@
+{
+	type: "DataContainer",
+	data: {
+		"Config": "app/icon-file",
+		"SourceFile": "app/clawicon.png",
+		"Bytes": "",
+		"FileType": "",
+		"Output": ""
+	},
+	aux: [
+	]
+}

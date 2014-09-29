@@ -1,0 +1,9 @@
+{
+	type: "UIFontStyle",
+	data: {
+		"Font": "fonts/great-vibes",
+		"PixelSize": 20
+	},
+	aux: [
+	]
+}
