@@ -91,7 +91,7 @@ namespace clawputked
 
 		protected override bool OnButtonReleaseEvent(Gdk.EventButton ev)
 		{
-			if (ev.Button == 2)
+			if (ev.Button == 2 || (ev.Button == 1 &&m_pickTile))
 			{
 				m_pickTile = false;
 				if (m_selectedTile != -1)
@@ -105,18 +105,19 @@ namespace clawputked
 		{
 			if (ev.Device.HasCursor)
 			{
-				if (ev.Button == 1)
+				if ((ev.Button == 2 || ((ev.Button == 1) && (ev.State & Gdk.ModifierType.ControlMask) != 0)) && m_editLayer != null)
+				{
+					m_pickTile = true;
+					m_selectedTile = m_drawTile;
+					QueueDraw();
+				}
+				else if (ev.Button == 1)
 				{
 					PaintTile(true);
 				}
 				else if (ev.Button == 3)
 				{
 					PaintTile(false);
-				}
-				else if (ev.Button == 2 && m_editLayer != null)
-				{
-					m_pickTile = true;
-					m_selectedTile = m_drawTile;
 				}
 			}
 			return base.OnButtonPressEvent(ev);
@@ -311,8 +312,6 @@ namespace clawputked
 						dataIndex++;
 						continue;
 					}
-				
-					bool highLighted = (m_hoverTile == dataIndex);
 
 					if (dataIndex < maxData)
 					{

@@ -128,7 +128,7 @@ namespace claw
 					draw_layer(d, i, graphics, di);
 				}
 			}
-/*
+
 			for (unsigned int i=0;i<d->level->collision_lines_size;i++)
 			{
 				outki::tile_collision_line *line = &d->level->collision_lines[i];
@@ -137,16 +137,15 @@ namespace claw
 				const float y0 = line->y0 + di->ofsy;
 				const float x1 = line->x1 + di->ofsx;
 				const float y1 = line->y1 + di->ofsy;
-				kosmos::render::line(x0, y0, x1, y1, 0xffff00ff);
+				kosmos::render2d::solid_line(di->stream, x0, y0, x1, y1, 0xffff00ff);
 
 				const float cx = 0.5f * (x0+x1);
 				const float cy = 0.5f * (y0+y1);
 
 				const float dx = (y1 - y0);
 				const float dy = (x0 - x1);
-				kosmos::render::line(cx, cy, cx + 0.25f * dx, cy + 0.25f * dy, 0xffff00);
+				kosmos::render2d::solid_line(di->stream, cx, cy, cx + 0.25f * dx, cy + 0.25f * dy, 0xffff00);
 			}
-*/
 		}
 
 	}
