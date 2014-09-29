@@ -13,8 +13,7 @@ make
 popd
 ext/putki/compiler/build/compiler
 premake4 gmake
-cd build
-make -e -j2
+./make.sh -e -j2
 popd
 rm -rf out
 ./build/claw-databuilder
