@@ -87,6 +87,7 @@ namespace clawputked
 						m_hl_layer.set_data(m_hoverTile, -1);
 				}
 			}
+			QueueDrawArea(m_hl_x0, m_hl_y0, m_hl_x1 - m_hl_x0, m_hl_y1 - m_hl_y0);
 		}
 
 		protected override bool OnButtonReleaseEvent(Gdk.EventButton ev)

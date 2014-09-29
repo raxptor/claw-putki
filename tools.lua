@@ -19,7 +19,6 @@ solution "Tools"
 	defines("PUTKI_ENABLE_LOG")
 	defines("KOSMOS_ENABLE_LOG")
 
-
 	if os.get() == "windows" then
 		flags {"StaticRuntime"}
 	end
@@ -48,9 +47,10 @@ solution "Tools"
 		targetname "claw-putki-lib"
 		kind "StaticLib"
 		
-		putki_use_builder_lib()
+		-- putki last here
 		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		putki_use_builder_lib()
 		
 		putki_typedefs_builder("src/types", true)
 
@@ -65,9 +65,9 @@ solution "Tools"
 		links { "claw-putki-lib" }
 		includedirs { "src" }
 		
-		putki_use_builder_lib()
 		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		putki_use_builder_lib()
 		
 		putki_typedefs_builder("src/types", false)
 
@@ -79,9 +79,10 @@ solution "Tools"
 
 		files { "src/putki/tool-main.cpp" }
 
-		putki_use_builder_lib()
 		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		putki_use_builder_lib()
+
 		links { "claw-putki-lib" }
 
 		includedirs { "src" }
@@ -98,6 +99,6 @@ solution "Tools"
 		includedirs { "src" }
 		
 		putki_typedefs_builder("src/types", false)
-		putki_use_builder_lib()
 		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		putki_use_builder_lib()

@@ -1,27 +1,15 @@
 {
-	type: "tilemap",
+	type: "Texture",
 	data: {
-			"texture": "tilemaps/claw-texture",
-			"tile_width": 64,
-			"tile_height": 64,
-			"collision_tiles": [{
-				"x": 3,
-				"y": 0,
-				"prefab": "TILE_COLLISION_FULLBLOCK",
-				"lines": []
-		}, {
-				"x": 6,
-				"y": 0,
-				"prefab": "TILE_COLLISION_RAMP_UR",
-				"lines": []
-		}, {
-				"x": 7,
-				"y": 0,
-				"prefab": "TILE_COLLISION_RAMP_DR",
-				"lines": []
-		}],
-			"tiles": []
+		"Source": "tilemaps/clawgame-tiles.png",
+		"Output": "",
+		"id": "",
+		"Configuration": "configs/texture-render",
+		"SourceWidth": 0,
+		"SourceHeight": 0,
+		"Width": 0,
+		"Height": 0
 	},
 	aux: [
-	      ]
+	]
 }
