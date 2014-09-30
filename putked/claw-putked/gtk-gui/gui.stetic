@@ -10,7 +10,7 @@
     <widget-library name="../../../ext/putki/putked/putked/bin/Debug/PutkEd.exe" />
     <widget-library name="../bin/Debug/claw-putked.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="563 450">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>

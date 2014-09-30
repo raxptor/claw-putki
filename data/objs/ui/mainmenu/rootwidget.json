@@ -6,7 +6,7 @@
 		"handler": "",
 		"layers": [{
 			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns"]
-		}],
+		}]
 	},
 	aux: [
 		{
@@ -26,7 +26,7 @@
 							"y": 0.0000000000,
 							"width": 1.0000000000,
 							"height": 1.0000000000
-						},
+						}
 					},
 					"texture": "ui/mainmenu/background-texture"
 			}
@@ -49,7 +49,7 @@
 							"y": 0.5000000000,
 							"width": 0.0000000000,
 							"height": 0.0000000000
-						},
+						}
 					},
 					"Style": "ui/styles/defaultbutton",
 					"TextureNormal": "",
@@ -69,14 +69,14 @@
 							"x": 100.0000000000,
 							"y": 100.0000000000,
 							"width": 400.0000000000,
-							"height": 0.0000000000
+							"height": 100.0000000000
 						},
 						"expansion": {
 							"x": 0.0000000000,
 							"y": 0.0000000000,
 							"width": 0.0000000000,
 							"height": 0.0000000000
-						},
+						}
 					},
 					"font": "fonts/great-vibes",
 					"pixelSize": 50,
