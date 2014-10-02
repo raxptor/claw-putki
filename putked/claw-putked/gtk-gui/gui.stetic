@@ -6,9 +6,9 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../../ext/ccg-ui/putked/ccgui-putked-plugin/bin/Release/ccgui-putked-plugin.exe" />
-    <widget-library name="../../../ext/putki/putked/putked/bin/Release/PutkEd.exe" />
-    <widget-library name="../bin/Release/claw-putked.exe" internal="true" />
+    <widget-library name="../../../ext/ccg-ui/putked/ccgui-putked-plugin/bin/Debug/ccgui-putked-plugin.exe" />
+    <widget-library name="../../../ext/putki/putked/putked/bin/x86/Debug/x64/PutkEd.exe" />
+    <widget-library name="../bin/Debug/claw-putked.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="563 450">
     <property name="MemberName" />

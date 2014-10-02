@@ -2,7 +2,7 @@
 	type: "TextureConfiguration",
 	data: {
 		"OutputFormatServer": "",
-		"OutputFormatDefault": "configs/texture-render#aohb",
+		"OutputFormatDefault": "configs/texture-render#aohb"
 	},
 	aux: [
 		{
@@ -12,7 +12,7 @@
 					"parent": {
 						"StorageConfiguration": "configs/dc-bigtextures",
 						"ResizeMode": "RESIZE_NONE",
-						"PremultiplyAlpha": 1,
+						"PremultiplyAlpha": 1
 					}
 			}
 		}

@@ -1,14 +1,13 @@
 {
 	type: "UIWidget",
 	data: {
-			"_rtti_type": 16,
-			"width": 1280,
-			"height": 720,
-			"handler": "",
-			"layers": [{
-				"elements": [""]
+		"width": 1280.0000000000,
+		"height": 720.0000000000,
+		"handler": "",
+		"layers": [{
+			"elements": [""]
 		}]
 	},
 	aux: [
-	      ]
+	]
 }

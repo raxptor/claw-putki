@@ -1,8 +1,14 @@
 {
 	type: "ShaderProgram",
 	data: {
-		"VertexShader": "shaders/ui-solid-vert",
-		"FragmentShader": "shaders/ui-solid-frag"
+		"VertexShader": "",
+		"FragmentShader": "",
+		"VertexText": {
+			"data": "attribute vec2 vpos;\u000aattribute vec2 uv0;\u000aattribute vec4 color;\u000a\u000avarying vec4 frag_color;\u000a\u000auniform mat4 proj;\u000a\u000avoid main(void)\u000a{\u000a        frag_color = color;\u000a        gl_Position = proj * vec4(vpos.x, vpos.y, 0.0, 1.0);\u000a}\u000a\u000a\u000a\u000a"
+		},
+		"FragmentText": {
+			"data": "varying vec4 frag_color;\u000a\u000avoid main(void)\u000a{\u000a        gl_FragColor = frag_color;\u000a}"
+		}
 	},
 	aux: [
 	]
