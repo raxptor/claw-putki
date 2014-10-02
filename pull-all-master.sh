@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 git checkout master
 git pull --rebase origin master
 git submodule update
