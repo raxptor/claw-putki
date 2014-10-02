@@ -180,6 +180,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 @interface AppDelegate : NSObject
 {
 @public NSView *view;
+@public NSString *windowIcon;
 }
 @end
 
@@ -187,13 +188,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
-   NSMenu *newMenu;
-    NSMenuItem *newItem;
- }
+
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	NSImage *img = [[NSImage alloc] initWithContentsOfFile: @"out/x32-default/appfiles/app/icon_out_data.png"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfFile: windowIcon];
 	[NSApp setApplicationIconImage: img];
 	
 	id menubar = [[NSMenu new] autorelease];
@@ -210,6 +210,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	[appMenu addItem:quitMenuItem];
 	[appMenuItem setSubmenu:appMenu];
 
+	[windowIcon release];
 	[NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -233,13 +234,15 @@ namespace claw
 			AppDelegate *appdelegate;
 		};
 		
-		data * create(const char *title, int width, int height)
+		data * create(const char *title, int width, int height, const char *iconfile)
 		{
 			data *d = new data();
 			d->pool = [NSAutoreleasePool new];
 			d->app = [NSApplication sharedApplication];
 			d->appdelegate = [[AppDelegate alloc] autorelease];
-			
+
+			d->appdelegate->windowIcon = [NSString stringWithCString:iconfile encoding:NSUTF8StringEncoding];
+
 			NSRect frame = NSMakeRect( 100., 100., 100. + (float)width, 100. + (float)height );
 			
 			d->window = [[NSWindow alloc]

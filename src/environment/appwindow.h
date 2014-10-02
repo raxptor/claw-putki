@@ -15,7 +15,7 @@ namespace claw
 
 		typedef void (*updatefunc)(input_batch *input, float deltatime);
 
-		data* create(const char *title, int width, int height);
+		data* create(const char *title, int width, int height, const char *iconfile);
 
 		void destroy(data *);
 		void set_title(data *, const char *title);

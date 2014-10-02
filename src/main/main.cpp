@@ -4,6 +4,7 @@
 
 #include <putki/pkgloader.h>
 #include <putki/pkgmgr.h>
+#include <putki/config.h>
 #include <putki/liveupdate/liveupdate.h>
 
 #include <environment/appwindow.h>
@@ -151,8 +152,15 @@ int main(int argc, char *argv[])
 	
 	session = claw::session::create();
 
+	// icon
+	const char *iconFile = kosmos::render::get_texture_file_path(settings->icon);
+	if (iconFile)
+	{
+		char buf[1024];
+		iconFile = putki::format_file_path(iconFile, buf);
+	}
 
-	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height);
+	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height, iconFile);
 
 
 	liveupdate = putki::liveupdate::connect();

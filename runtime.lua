@@ -14,6 +14,7 @@ solution "Claw"
 		
 	configuration {"Ship"}
 		defines("SHIP")
+		defines("PUTKI_NO_RT_PATH_PREFIX")
 		
 	configuration {"Release or Ship"}
 		flags {"Optimize"}

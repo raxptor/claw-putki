@@ -2,6 +2,7 @@
 #include <putki/builder/builder.h>
 #include <putki/builder/resource.h>
 #include <putki/builder/build-db.h>
+#include <putki/builder/db.h>
 #include <putki/builder/log.h>
 
 #include <kosmos-builder-utils/pngutil.h>
