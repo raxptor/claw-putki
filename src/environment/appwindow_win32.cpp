@@ -38,7 +38,7 @@ namespace claw
 			return d->window;
 		}
 
-		data* create(const char *title, int width, int height)
+		data* create(const char *title, int width, int height, const char *icon)
 		{
 			data *d = new data;
 
@@ -104,7 +104,13 @@ namespace claw
 					}
 				}
 
-				f();
+				struct input_batch ib;
+				ib.mouse.primary.isDown = 0;
+				ib.mouse.primary.wentDown = 0;
+				ib.mouse.primary.wentUp = 0;
+				ib.mouse.x = 0;
+				ib.mouse.y = 0;
+				f(&ib, 0.01f);
 
 			} while (true);
 		}
