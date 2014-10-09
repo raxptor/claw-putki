@@ -65,8 +65,8 @@ solution "Tools"
 		links { "claw-putki-lib" }
 		includedirs { "src" }
 		
-		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		kosmos_use_builder_lib()
 		putki_use_builder_lib()
 		
 		putki_typedefs_builder("src/types", false)
@@ -79,8 +79,8 @@ solution "Tools"
 
 		files { "src/putki/tool-main.cpp" }
 
-		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		kosmos_use_builder_lib()
 		putki_use_builder_lib()
 
 		links { "claw-putki-lib" }
@@ -99,6 +99,6 @@ solution "Tools"
 		includedirs { "src" }
 		
 		putki_typedefs_builder("src/types", false)
-		kosmos_use_builder_lib()
 		ccgui_use_builder_lib()
+		kosmos_use_builder_lib()
 		putki_use_builder_lib()
