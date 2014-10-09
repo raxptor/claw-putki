@@ -1,0 +1,29 @@
+
+NetAuthenticate @- @netki
+{
+	string username
+	string password
+	string service
+	int access_level
+}
+
+PlayerDescription @netki
+{
+	string name
+	int flags
+}
+
+PlayerList @netki
+{
+	string[] names
+}
+
+PlayerListDetailed @netki
+{
+	PlayerDescription[] players
+}
+
+IsInBoth @netki
+{
+	int lalle
+}

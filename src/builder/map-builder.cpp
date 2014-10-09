@@ -190,7 +190,7 @@ struct mapbuilder : putki::builder::handler_i
 
 		// construct lookup based on start
 		for (unsigned int i=0;i<tomerge.size();i++)
-			lookup.insert(std::make_pair<int, int>(mdpos(tomerge[i].x0, tomerge[i].y0), i));
+			lookup.insert(MM::value_type(mdpos(tomerge[i].x0, tomerge[i].y0), i));
 
 		int iterations = 0;
 		while (iterations++ < 100)

@@ -40,10 +40,10 @@ project "claw-runtime"
         kind "ConsoleApp"
         language "C++"
         targetname "claw"
-        
-        putki_use_runtime_lib()
-        kosmos_use_runtime_lib()
+
         ccgui_use_runtime_lib()
+        kosmos_use_runtime_lib()
+        putki_use_runtime_lib()
         
         putki_typedefs_runtime("src/types", true)
 

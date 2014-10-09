@@ -26,7 +26,7 @@
 #include <cassert>
 #include <stdio.h>
 
-#include <OpenGL/gl.h>
+#include <kosmos/glwrap/gl.h>
 
 
 // binding up the blob loads.

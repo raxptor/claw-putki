@@ -4,11 +4,11 @@
 namespace inki
 {
 	void bind_kosmos();
-	void bind_kosmos_dll();
+	void bind_kosmos_editor();
 	void bind_ccg_ui();
-	void bind_ccg_ui_dll();
+	void bind_ccg_ui_editor();
 	void bind_claw();
-	void bind_claw_dll();
+	void bind_claw_editor();
 }
 
 void ccg_ui_register_handlers(putki::builder::data *builder);
@@ -29,11 +29,11 @@ extern "C"
 	#endif
 	{
 		inki::bind_kosmos();
-		inki::bind_kosmos_dll();
+		inki::bind_kosmos_editor();
 		inki::bind_ccg_ui();
-		inki::bind_ccg_ui_dll();
+		inki::bind_ccg_ui_editor();
 		inki::bind_claw();
-		inki::bind_claw_dll();
+		inki::bind_claw_editor();
 
 		putki::builder::set_builder_configurator(&setup_builder);
 
