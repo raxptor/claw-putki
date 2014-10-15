@@ -1,12 +1,12 @@
 {
 	type: "Font",
 	data: {
-		"Source": "fonts/Prototype.ttf",
+		"Source": "fonts/lucida.ttf",
 		"Latin1": 1,
-		"OutputPixelData": 0,
+		"OutputPixelData": 1,
 		"Characters": [],
-		"PixelSizes": [25, 50],
-		"TextureConfiguration": "configs/texture-render",
+		"PixelSizes": [10, 12, 14, 16, 28, 20, 24, 26, 28, 8, 9, 32, 40, 50, 60, 70, 5, 6],
+		"TextureConfiguration": "",
 		"Outputs": []
 	},
 	aux: [

@@ -28,6 +28,8 @@
 
 #include <kosmos/glwrap/gl.h>
 
+#include <ccg-ui/glyphcache.h>
+
 
 // binding up the blob loads.
 namespace outki
@@ -47,6 +49,10 @@ namespace
 	claw::session::instance *session = 0;
 }
 
+kosmos::shader::program *prog = 0;
+kosmos::render2d::stream *stream = 0;
+ccgui::glyphcache::data *glyphcache = 0;
+
 void init()
 {
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
@@ -56,10 +62,9 @@ void init()
 	{
 		s_current_screen = ccgui::uiscreen::create(screen, 0);
 	}
-}
 
-kosmos::shader::program *prog = 0;
-kosmos::render2d::stream *stream = 0;
+	glyphcache = ccgui::glyphcache::create(1024, 1024);
+}
 
 void frame(claw::appwindow::input_batch *input, float deltatime)
 {
@@ -90,7 +95,7 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	claw::session::update(session, &s_ui_context, deltatime);
 	claw::session::draw(session, stream);
 
-	ccgui::uiscreen::draw(s_current_screen, stream, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
+	ccgui::uiscreen::draw(s_current_screen, stream, glyphcache, &s_ui_context, 0, 0, (float)(x1-x0), (float)(y1-y0));
 
 	kosmos::render2d::stream_done(stream);
 	kosmos::render::end();

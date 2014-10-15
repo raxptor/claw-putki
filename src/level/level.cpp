@@ -20,7 +20,7 @@ namespace claw
 		struct instance
 		{
 			outki::map *level;
-			kosmos::render::loaded_texture *layer_textures[MAX_LAYERS];
+			kosmos::render::texture_ref *layer_textures[MAX_LAYERS];
 		};
 
 		instance *create(outki::map *level)
@@ -28,7 +28,7 @@ namespace claw
 			instance *i = new instance();
 			i->level = level;
 
-			memset(i->layer_textures, 0x00, sizeof(kosmos::render::loaded_texture*) * MAX_LAYERS);
+			memset(i->layer_textures, 0x00, sizeof(kosmos::render::texture_ref*) * MAX_LAYERS);
 			return i;
 		}
 
@@ -58,7 +58,7 @@ namespace claw
 				i->layer_textures[index] = kosmos::render::load_texture(tiles->texture);
 			}
 
-			kosmos::render::loaded_texture *tex = i->layer_textures[index];
+			kosmos::render::texture_ref *tex = i->layer_textures[index];
 			if (!tex)
 			{
 				KOSMOS_WARNING("Texture load failed on layer " << index);
