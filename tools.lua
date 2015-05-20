@@ -1,104 +1,100 @@
 solution "Tools"
 
-	if os.get() ~= "linux" and os.get() ~= "bsd" then
-		platforms { "x32" }
-	end
-		
-	configurations {"Release", "Debug"}
-	
-	flags { "Symbols" }
+    configurations {"Release", "Debug"}
 
-	location "build"
-	targetdir "build"
-	
-	defines {"_CRT_SECURE_NO_WARNINGS"}
-	
-	defines("BUILDER_DEFAULT_RUNTIME=x64")
-	
-	defines("LIVEUPDATE_ENABLE")
-	defines("PUTKI_ENABLE_LOG")
-	defines("KOSMOS_ENABLE_LOG")
+    flags { "Symbols" }
 
-	if os.get() == "windows" then
-		flags {"StaticRuntime"}
-	end
+    location "build"
+    targetdir "build"
 
-	configuration {"linux", "gmake"}
-		buildoptions {"-fPIC"}
-		buildoptions ("-std=c++11")
-		
-	configuration "Debug"
-		defines {"DEBUG"}
-	configuration "Release"
-		flags {"Optimize"}
-		
-	configuration {}
-	
-	------------------------------------
-	-- Putki must always come first   --
-	------------------------------------
+    defines {"_CRT_SECURE_NO_WARNINGS"}
 
-	dofile "ext/putki/libs.lua"
-	dofile "ext/kosmos/libs.lua"
-	dofile "ext/ccg-ui/libs.lua"
+    defines("BUILDER_DEFAULT_RUNTIME=x64")
 
-	project "claw-putki-lib"
-		language "C++"
-		targetname "claw-putki-lib"
-		kind "StaticLib"
-		
-		-- putki last here
-		kosmos_use_builder_lib()
-		ccgui_use_builder_lib()
-		putki_use_builder_lib()
-		
-		putki_typedefs_builder("src/types", true)
+    defines("LIVEUPDATE_ENABLE")
+    defines("PUTKI_ENABLE_LOG")
+    defines("KOSMOS_ENABLE_LOG")
 
-	project "claw-databuilder"
+    if os.get() == "windows" then
+        flags {"StaticRuntime"}
+    end
 
-		kind "ConsoleApp"
-		language "C++"
-		targetname "claw-databuilder"
+    configuration {"linux", "gmake"}
+        buildoptions {"-fPIC"}
+        buildoptions ("-std=c++11")
 
-		files { "src/putki/builder-main.cpp" }
-		files { "src/builder/**.cpp" }
-		links { "claw-putki-lib" }
-		includedirs { "src" }
-		
-		ccgui_use_builder_lib()
-		kosmos_use_builder_lib()
-		putki_use_builder_lib()
-		
-		putki_typedefs_builder("src/types", false)
+    configuration "Debug"
+        defines {"DEBUG"}
+    configuration "Release"
+        flags {"Optimize"}
 
-	project "claw-datatool"
+    configuration {}
 
-		kind "ConsoleApp"
-		language "C++"
-		targetname "claw-datatool"
+    ------------------------------------
+    -- Putki must always come first   --
+    ------------------------------------
 
-		files { "src/putki/tool-main.cpp" }
+    dofile "ext/putki/libs.lua"
+    dofile "ext/kosmos/libs.lua"
+    dofile "ext/ccg-ui/libs.lua"
 
-		ccgui_use_builder_lib()
-		kosmos_use_builder_lib()
-		putki_use_builder_lib()
+    project "claw-putki-lib"
+        language "C++"
+        targetname "claw-putki-lib"
+        kind "StaticLib"
 
-		links { "claw-putki-lib" }
+        -- putki last here
+        kosmos_use_builder_lib()
+        ccgui_use_builder_lib()
+        putki_use_builder_lib()
 
-		includedirs { "src" }
-		
-	project "claw-data-dll"
+        putki_typedefs_builder("src/types", true)
 
-		kind "SharedLib"
-		language "C++"
-		targetname "claw-data-dll"
+    project "claw-databuilder"
 
-		files { "src/putki/dll-main.cpp" }
-		files { "src/builder/**.*" }
-		links { "claw-putki-lib"}
-		includedirs { "src" }
-		
-		putki_typedefs_builder("src/types", false)
-		ccgui_use_builder_lib()
-		kosmos_use_builder_lib()
-		putki_use_builder_lib()
+        kind "ConsoleApp"
+        language "C++"
+        targetname "claw-databuilder"
+
+        files { "src/putki/builder-main.cpp" }
+        files { "src/builder/**.cpp" }
+        links { "claw-putki-lib" }
+        includedirs { "src" }
+
+        ccgui_use_builder_lib()
+        kosmos_use_builder_lib()
+        putki_use_builder_lib()
+
+        putki_typedefs_builder("src/types", false)
+
+    project "claw-datatool"
+
+        kind "ConsoleApp"
+        language "C++"
+        targetname "claw-datatool"
+
+        files { "src/putki/tool-main.cpp" }
+
+        ccgui_use_builder_lib()
+        kosmos_use_builder_lib()
+        putki_use_builder_lib()
+
+        links { "claw-putki-lib" }
+
+        includedirs { "src" }
+
+    project "claw-data-dll"
+
+        kind "SharedLib"
+        language "C++"
+        targetname "claw-data-dll"
+
+        files { "src/putki/dll-main.cpp" }
+        files { "src/builder/**.*" }
+        links { "claw-putki-lib"}
+        includedirs { "src" }
+
+        putki_typedefs_builder("src/types", false)
+        ccgui_use_builder_lib()
+        kosmos_use_builder_lib()
+        putki_use_builder_lib()
