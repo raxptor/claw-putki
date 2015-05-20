@@ -24,8 +24,9 @@
     <classpath>
       <pathelement path="${classpath}" />
     </classpath>
-	<src path="src" />
+    <src path="src" />
     </javac>
+    <copy file="../build/libclaw-data-dll.dylib" tofile="${build}/native/libclaw-data-dll.dylib" />
   </target>
 
   <target name="dist" depends="compile">
