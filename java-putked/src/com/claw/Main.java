@@ -6,7 +6,7 @@ public class Main
 	{
 		putked.Main.addPluginDesc(
 				new putked.DefaultBuildLoader(Main.class, 
-						"interop.dylib", "libclaw-data-dll.dylib", new String[] {}
+						"interop.dylib", "libclaw-data-dll.dylib", "claw-databuilder", new String[] {}
 				)
 		);
 		putked.Main.main(args);

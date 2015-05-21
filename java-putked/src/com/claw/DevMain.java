@@ -11,7 +11,7 @@ class DevLoader implements putked.EditorPluginDescription
 	@Override
 	public void start() {
 		java.io.File f = new java.io.File("../ext/putki/putked/interopdll/libputked-java-interop.dylib");
-		putked.Main.interopInit(f.getAbsolutePath(), "../build/libclaw-data-dll.dylib");
+		putked.Main.interopInit(f.getAbsolutePath(), "../build/libclaw-data-dll.dylib", "../build/claw-databuilder");
 	}
 }
 

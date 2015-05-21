@@ -7,11 +7,13 @@
   <property name="dist" location="dist"/>
   <property name="putki-putked" location="../ext/putki/putked" />
   <property name="kosmos-plugin" location="../ext/kosmos/putked-plugin" />
+  <property name="ccgui-plugin" location="../ext/ccg-ui/putked-plugin" />
 
   <target name="build-deps">
 	<ant antfile="${putki-putked}/putked-lib/build.xml" dir="${putki-putked}/putked-lib" target="compile"/>
 	<ant antfile="${putki-putked}/editor/build.xml" dir="${putki-putked}/editor" target="compile"/>
 	<ant antfile="${kosmos-plugin}/build.xml" dir="${kosmos-plugin}" target="compile"/>
+	<ant antfile="${ccgui-plugin}/build.xml" dir="${ccgui-plugin}" target="compile"/>
   </target>
                         
   <target name="init">
