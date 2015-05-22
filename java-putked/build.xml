@@ -28,8 +28,11 @@
     </classpath>
     <src path="src" />
     </javac>
-    <copy file="../build/libclaw-data-dll.dylib" tofile="${build}/native/libclaw-data-dll.dylib" />
-  </target>
+    <copy file="../build/libclaw-data-dll.dylib" tofile="${build}/native/libclaw-data-dll.dylib" failonerror="false" />
+    <copy file="../build/claw-databuilder" tofile="${build}/native/claw-databuilder" failonerror="false" />
+    <copy file="../build/claw-data-dll.dll" tofile="${build}/native/claw-data-dll.dll" failonerror="false" />
+    <copy file="../build/claw-databuilder.exe" tofile="${build}/native/claw-databuilder.exe" failonerror="false" />
+   </target>
 
   <target name="dist" depends="compile">
     <mkdir dir="${dist}" />
