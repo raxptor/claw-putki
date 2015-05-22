@@ -1,5 +1,7 @@
 package com.claw;
 
+import java.io.File;
+
 class DevLoader implements putked.EditorPluginDescription
 {
 	@Override
@@ -10,8 +12,11 @@ class DevLoader implements putked.EditorPluginDescription
 	public PluginType getType() { return PluginType.PLUGIN_PROJECT_DEV_BUILD; }
 	@Override
 	public void start() {
-		java.io.File f = new java.io.File("../ext/putki/putked/interopdll/libputked-java-interop.dylib");
-		putked.Main.interopInit(f.getAbsolutePath(), "../build/libclaw-data-dll.dylib", "../build/claw-databuilder");
+		File projRoot = new File(putked.Main.getProjectPath());
+		File interop = new File(projRoot, "ext/putki/putked/interopdll/libputked-java-interop.dylib");
+		File dll = new File(projRoot, "build/libclaw-data-dll.dylib");
+		File builder = new File(projRoot, "build/claw-databuilder");
+		putked.Main.interopInit(interop.getAbsolutePath(), dll.getAbsolutePath(), builder.getAbsolutePath());
 	}
 }
 
