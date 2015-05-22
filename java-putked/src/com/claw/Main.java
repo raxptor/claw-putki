@@ -4,7 +4,7 @@ public class Main
 {
 	public static void main(String[] args) 
 	{
-		if (System.getProperty("os.arch").contains("Windows")) {
+		if (System.getProperty("os.name").contains("Windows")) {
 			putked.Main.addPluginDesc(
 					new putked.DefaultBuildLoader(Main.class, "interop.dll", "claw-data-dll.dll", "claw-databuilder.exe", new String[] {})
 				);			
