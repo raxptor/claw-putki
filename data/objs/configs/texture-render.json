@@ -1,12 +1,26 @@
 {
 	type: "TextureConfiguration",
 	data: {
-		"OutputFormatServer": "",
-		"OutputFormatDefault": "configs/texture-render#aohb"
+		"OutputFormatServer": "configs/texture-render#139835",
+		"OutputFormatDefault": "configs/texture-render#4ef8c4"
 	},
 	aux: [
 		{
-			ref: "#aohb",
+			ref: "#139835",
+			type: "TextureOutputFormatJpeg",
+			data: {
+					"parent": {
+						"StorageConfiguration": "",
+						"ResizeMode": "RESIZE_NONE",
+						"PremultiplyAlpha": 1
+					},
+					"Quality": 85,
+					"Twopass": 0
+			}
+		}
+		,
+		{
+			ref: "#4ef8c4",
 			type: "TextureOutputFormatRaw",
 			data: {
 					"parent": {
