@@ -5,9 +5,55 @@
 		"height": 720.0000000000,
 		"handler": "",
 		"layers": [{
-			"elements": [""]
+			"elements": ["ui/hud/rootwidget#2cc976", "ui/hud/rootwidget#c280f1"]
 		}]
 	},
 	aux: [
+		{
+			ref: "#2cc976",
+			type: "UIWidgetElement",
+			data: {
+					"parent": {
+						"id": "",
+						"layout": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						},
+						"expansion": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						}
+					},
+					"widget": ""
+			}
+		}
+		,
+		{
+			ref: "#c280f1",
+			type: "UISliderElement",
+			data: {
+					"parent": {
+						"id": "",
+						"layout": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						},
+						"expansion": {
+							"x": 0.0000000000,
+							"y": 0.0000000000,
+							"width": 0.0000000000,
+							"height": 0.0000000000
+						}
+					},
+					"BackgroundFill": "",
+					"Knob": "tilemaps/mario-texture"
+			}
+		}
 	]
 }

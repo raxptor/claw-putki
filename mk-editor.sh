@@ -24,5 +24,6 @@ premake4 gmake
 cd build
 make -f Tools.make clean
 make -f Tools.make
+cd ..
 cd java-putked
 ant
