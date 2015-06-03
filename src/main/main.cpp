@@ -70,7 +70,6 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 {
 	if (LIVE_UPDATE(&settings))
 	{
-		
 		claw::appwindow::set_title(window, settings->windowtitle);
 	}
 
