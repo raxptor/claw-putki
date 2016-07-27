@@ -62,7 +62,7 @@ struct mapbuilder : putki::builder::handler_i
 			putki::build_db::add_input_dependency(record, putki::db::pathof(input, tiles));
 
 			ccgui::pngutil::loaded_png png;
-			if (!ccgui::pngutil::load_info(putki::resource::real_path(builder, tiles->texture->Source.c_str()).c_str(), &png))
+			if (!ccgui::pngutil::load_info(putki::resource::real_path(builder, tiles->texture->source.c_str()).c_str(), &png))
 			{
 				continue;
 			}

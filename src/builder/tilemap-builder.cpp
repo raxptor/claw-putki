@@ -22,7 +22,7 @@ struct tilemapbuilder : putki::builder::handler_i
 		}
 
 		ccgui::pngutil::loaded_png png;
-		if (ccgui::pngutil::load_info(putki::resource::real_path(builder, tilemap->texture->Source.c_str()).c_str(), &png))
+		if (ccgui::pngutil::load_info(putki::resource::real_path(builder, tilemap->texture->source.c_str()).c_str(), &png))
 		{
 			int tilesx = png.width / tilemap->tile_width;
 			int tilesy = png.height / tilemap->tile_height;

@@ -3,6 +3,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
+#include <kosmos/glwrap/gl.h>
+
 namespace claw
 {
 	namespace appwindow
@@ -69,6 +71,8 @@ namespace claw
 			                            NULL, NULL, wc.hInstance, NULL );
 
 			ShowWindow(d->window, true);
+
+			glewInit();
 
 			return d;
 		}

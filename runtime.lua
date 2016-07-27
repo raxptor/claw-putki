@@ -24,7 +24,7 @@ solution "Claw"
 	flags { "Symbols" }
 	libdirs {"/usr/lib"}
 
-	dofile("ext/putki/runtime.lua")
+	dofile("ext/putki/runtime/premake.lua")
 	dofile("ext/kosmos/runtime.lua")
 	dofile("ext/ccg-ui/runtime.lua")
 	

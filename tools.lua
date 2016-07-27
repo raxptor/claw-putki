@@ -34,7 +34,7 @@ solution "Tools"
     -- Putki must always come first   --
     ------------------------------------
 
-    dofile "ext/putki/libs.lua"
+    dofile "ext/putki/builder/premake.lua"
     dofile "ext/kosmos/libs.lua"
     dofile "ext/ccg-ui/libs.lua"
 
@@ -64,37 +64,4 @@ solution "Tools"
         ccgui_use_builder_lib()
         kosmos_use_builder_lib()
         putki_use_builder_lib()
-
         putki_typedefs_builder("src/types", false)
-
-    project "claw-datatool"
-
-        kind "ConsoleApp"
-        language "C++"
-        targetname "claw-datatool"
-
-        files { "src/putki/tool-main.cpp" }
-
-        ccgui_use_builder_lib()
-        kosmos_use_builder_lib()
-        putki_use_builder_lib()
-
-        links { "claw-putki-lib" }
-
-        includedirs { "src" }
-
-    project "claw-data-dll"
-
-        kind "SharedLib"
-        language "C++"
-        targetname "claw-data-dll"
-
-        files { "src/putki/dll-main.cpp" }
-        files { "src/builder/**.*" }
-        links { "claw-putki-lib"}
-        includedirs { "src" }
-
-        putki_typedefs_builder("src/types", false)
-        ccgui_use_builder_lib()
-        kosmos_use_builder_lib()
-        putki_use_builder_lib()

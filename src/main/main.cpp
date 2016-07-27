@@ -34,9 +34,9 @@
 // binding up the blob loads.
 namespace outki
 {
-	void bind_kosmos_loaders();
-	void bind_claw_loaders();
-	void bind_ccg_ui_loaders();
+	void bind_kosmos();
+	void bind_claw();
+	void bind_ccg_ui();
 }
 
 namespace
@@ -56,7 +56,7 @@ ccgui::glyphcache::data *glyphcache = 0;
 void init()
 {
 	putki::pkgmgr::loaded_package *menu_pkg = putki::pkgloader::from_file("mainmenu.pkg");
-	outki::UIScreen *screen = (outki::UIScreen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
+	outki::ui_screen *screen = (outki::ui_screen*) putki::pkgmgr::resolve(menu_pkg, "ui/mainmenu/screen");
 
 	if (screen)
 	{
@@ -128,9 +128,9 @@ int main(int argc, char *argv[])
 {
 	KOSMOS_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
 	
-	outki::bind_kosmos_loaders();
-	outki::bind_claw_loaders();
-	outki::bind_ccg_ui_loaders();
+	outki::bind_kosmos();
+	outki::bind_claw();
+	outki::bind_ccg_ui();
 	putki::liveupdate::init();
 	game::load_static_package();
 
