@@ -1,15 +1,15 @@
 {
-	type: "ShaderProgram",
-	data: {
+	"type": "ShaderProgram",
+	"data": {
 		"VertexShader": "",
 		"FragmentShader": "",
 		"VertexText": {
-			"data": "attribute vec2 vpos;\u000aattribute vec2 uv0;\u000aattribute vec4 color;\u000a\u000avarying vec4 frag_color;\u000avarying vec2 texcoord0;\u000a\u000auniform mat4 proj;\u000a\u000avoid main(void)\u000a{\u000a        frag_color = color;\u000a        texcoord0 = uv0;\u000a        gl_Position = proj * vec4(vpos.x, vpos.y, 0, 1);\u000a}\u000a"
+			"data": "attribute vec2 vpos\u003b\u000aattribute vec2 uv0\u003b\u000aattribute vec4 color\u003b\u000a\u000avarying vec4 frag_color\u003b\u000avarying vec2 texcoord0\u003b\u000a\u000auniform mat4 proj\u003b\u000a\u000avoid main(void)\u000a{\u000a        frag_color \u003d color\u003b\u000a        texcoord0 \u003d uv0\u003b\u000a        gl_Position \u003d proj * vec4(vpos\u002ex\u002c vpos\u002ey\u002c 0\u002c 1)\u003b\u000a}\u000a"
 		},
 		"FragmentText": {
-			"data": "varying vec4 frag_color;\u000avarying vec2 texcoord0;\u000auniform sampler2D texture;\u000a\u000avoid main(void)\u000a{\u000a        vec4 tex = texture2D(texture, texcoord0);\u000a        gl_FragColor = tex * vec4(1,1,1,1) * frag_color;\u000a}\u000a"
+			"data": "varying vec4 frag_color\u003bvarying vec2 texcoord0\u003buniform sampler2D texture\u003bvoid main(void){        vec4 tex \u003d texture2D(texture\u002c texcoord0)\u003b        gl_FragColor \u003d tex * vec4(1\u002c1\u002c1\u002c1) * frag_color\u003b}"
 		}
 	},
-	aux: [
+	"aux": [
 	]
 }

@@ -16,20 +16,53 @@ namespace claw
 
 		LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 		{
-			switch( msg )
+			switch (msg)
 			{
 				case WM_DESTROY:
-					PostQuitMessage( 0 );
+				{
+					PostQuitMessage(0);
 					return 0;
-
-				case WM_PAINT:
-					ValidateRect( hWnd, NULL );
-					return 0;
-
+				}
 				case WM_SIZE:
+				{
 					RECT r;
 					GetClientRect(hWnd, &r);
 					return 0;
+				}
+				case WM_CREATE:
+				{
+					PIXELFORMATDESCRIPTOR pfd =
+					{
+						sizeof(PIXELFORMATDESCRIPTOR),
+						1,
+						PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+						PFD_TYPE_RGBA,
+						32,
+						0, 0, 0, 0, 0, 0,
+						0,
+						0,
+						0,
+						0, 0, 0, 0,
+						24,
+						8,
+						0,
+						PFD_MAIN_PLANE,
+						0,
+						0, 0, 0
+					};
+
+					HDC hdc = GetDC(hWnd);
+					int  cpf = ChoosePixelFormat(hdc, &pfd);
+					SetPixelFormat(hdc, cpf, &pfd);
+
+					HGLRC rc = wglCreateContext(hdc);
+					wglMakeCurrent(hdc, rc);
+
+					glewInit();
+
+					// MessageBoxA(0, (char*)glGetString(GL_VERSION), "OPENGL VERSION", 0);
+				}
+				break;
 			}
 
 			return DefWindowProc( hWnd, msg, wParam, lParam );
@@ -71,9 +104,7 @@ namespace claw
 			                            NULL, NULL, wc.hInstance, NULL );
 
 			ShowWindow(d->window, true);
-
-			glewInit();
-
+			
 			return d;
 		}
 
@@ -94,6 +125,7 @@ namespace claw
 
 		void run_loop(data *d, updatefunc f)
 		{
+			HDC dc = GetDC(d->window);
 			do
 			{
 				MSG m;
@@ -116,7 +148,10 @@ namespace claw
 				ib.mouse.y = 0;
 				f(&ib, 0.01f);
 
+				SwapBuffers(dc);
+				
 			} while (true);
+
 		}
 
 		void destroy(data *d)

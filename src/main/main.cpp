@@ -31,6 +31,7 @@
 #include <ccg-ui/glyphcache.h>
 
 
+
 // binding up the blob loads.
 namespace outki
 {
@@ -78,7 +79,7 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 	int x0, y0, x1, y1;
 	claw::appwindow::get_client_rect(window, &x0, &y0, &x1, &y1);
 	
-	kosmos::render::begin(x1-x0, y1-x0, true, true, 0xff00ff);
+	kosmos::render::begin(x1-x0, y1-x0, true, true, 0xffffff);
 	
 	if (!stream)
 	{
@@ -127,7 +128,7 @@ void squirrel_print_func(HSQUIRRELVM vm, const SQChar *format, ...)
 int main(int argc, char *argv[])
 {
 	KOSMOS_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
-	
+
 	outki::bind_kosmos();
 	outki::bind_claw();
 	outki::bind_ccg_ui();
