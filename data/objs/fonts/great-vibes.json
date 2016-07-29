@@ -1,14 +1,19 @@
 {
-	type: "Font",
-	data: {
-		"Source": "fonts/GreatVibes-Regular.ttf",
+	"type": "Font",
+	"data": {
+		"Source": "fonts/GreatVibes-Regular\u002ettf",
 		"Latin1": 1,
-		"OutputPixelData": 1,
+		"OutputPixelData": 0,
 		"Characters": [],
-		"PixelSizes": [10, 14, 20, 80],
-		"TextureConfiguration": "",
-		"Outputs": []
+		"PixelSizes": [10,
+		14,
+		20,
+		80],
+		"TextureConfiguration": "configs/texture-render",
+		"Outputs": [],
+		"RLEData": [],
+		"OutlineWidth": 0
 	},
-	aux: [
+	"aux": [
 	]
 }

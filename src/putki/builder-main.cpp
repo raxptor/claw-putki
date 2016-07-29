@@ -13,6 +13,7 @@ namespace inki
 void ccg_ui_register_handlers(putki::builder::data *builder);
 void claw_register_handlers(putki::builder::data *builder);
 void kosmos_register_handlers(putki::builder::data *builder);
+void kosmos_register_postbuild();
 
 void app_register_handlers(putki::builder::data *builder)
 {
@@ -51,6 +52,8 @@ int main(int argc, char **argv)
 	
 	putki::build::set_builder_configurator(&app_register_handlers);
 	putki::build::set_packager(&app_build_packages);
+    
+    kosmos_register_postbuild();
 	
 	return run_putki_builder(argc, argv);
 }

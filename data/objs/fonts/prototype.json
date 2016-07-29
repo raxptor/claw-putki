@@ -1,14 +1,18 @@
 {
-	type: "Font",
-	data: {
-		"Source": "fonts/lucida.ttf",
+	"type": "Font",
+	"data": {
+		"Source": "fonts/lucida\u002ettf",
 		"Latin1": 1,
-		"OutputPixelData": 1,
+		"OutputPixelData": 0,
 		"Characters": [],
-		"PixelSizes": [10, 12, 14, 16, 28, 20, 24, 26, 28, 8, 9, 32, 40, 50, 60, 70, 5, 6],
-		"TextureConfiguration": "",
-		"Outputs": []
+		"PixelSizes": [20,
+		30,
+		50],
+		"TextureConfiguration": "configs/texture-render",
+		"Outputs": [],
+		"RLEData": [],
+		"OutlineWidth": 0
 	},
-	aux: [
+	"aux": [
 	]
 }
