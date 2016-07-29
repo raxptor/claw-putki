@@ -21,7 +21,7 @@ void app_register_handlers(putki::builder::data *builder)
 	claw_register_handlers(builder);
 }
 
-void app_build_packages(putki::db::data *out, putki::build::packaging_config *pconf)
+void app_build_packages(putki::objstore::data *out, putki::build::packaging_config *pconf)
 {
 	{
 		putki::package::data *pkg = putki::package::create(out);
@@ -48,9 +48,9 @@ int main(int argc, char **argv)
 	inki::bind_claw();
 	inki::bind_ccg_ui();
 	inki::bind_kosmos();
-
-	putki::builder::set_builder_configurator(&app_register_handlers);
-	putki::builder::set_packager(&app_build_packages);
-
+	
+	putki::build::set_builder_configurator(&app_register_handlers);
+	putki::build::set_packager(&app_build_packages);
+	
 	return run_putki_builder(argc, argv);
 }

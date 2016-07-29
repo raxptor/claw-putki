@@ -1,8 +1,6 @@
 #include <putki/builder/build.h>
 #include <putki/builder/builder.h>
-#include <putki/builder/resource.h>
 #include <putki/builder/build-db.h>
-#include <putki/builder/db.h>
 #include <putki/builder/log.h>
 
 #include <kosmos-builder-utils/pngutil.h>
@@ -12,10 +10,8 @@
 
 #include <inki/types/claw/tiles.h>
 
-struct mapbuilder : putki::builder::handler_i
+namespace
 {
-	const char *version() { return "mapbuilder-1"; }
-
 	static inline int mdpos(int x, int y)
 	{
 		return x * 10000 + y;
@@ -31,50 +27,53 @@ struct mapbuilder : putki::builder::handler_i
 		out->push_back(line);
 	}
 
-	virtual bool handle(putki::builder::build_context *context, putki::builder::data *builder, putki::build_db::record *record, putki::db::data *input, const char *path, putki::instance_t obj)
+	bool build_map(const putki::builder::build_info* info)
 	{
-		inki::map *tilemap = (inki::map *) obj;
+		inki::map *tilemap = (inki::map *) info->object;
 
 		std::vector<inki::tile_collision_line> all_lines;
 		std::vector<int> cancelled;
 
 		for (unsigned int i=0;i<tilemap->layers.size();i++)
 		{
-			inki::maplayer *layer = tilemap->layers[i];
-			if (!layer)
+			putki::ptr<const inki::maplayer> layer = tilemap->layers[i];
+			if (!layer.get())
 			{
 				continue;
 			}
 
-			if (layer->rtti_type_ref() != inki::maplayer_graphics::type_id())
+			if (layer->rtti_type_id() != inki::maplayer_graphics::type_id())
 			{
 				continue;
 			}
 
-			inki::maplayer_graphics *graphics = (inki::maplayer_graphics*) layer;
-			inki::tilemap *tiles = graphics->tiles;
-			if (!tiles || !tiles->texture)
+			inki::maplayer_graphics *graphics = (inki::maplayer_graphics*) layer.get();
+			const inki::tilemap *tiles = graphics->tiles.get();
+			if (!tiles || !tiles->texture.get())
 			{
 				continue;
 			}
 
-			// need to rebuild collision map if tiles are updated
-			putki::build_db::add_input_dependency(record, putki::db::pathof(input, tiles));
-
-			ccgui::pngutil::loaded_png png;
-			if (!ccgui::pngutil::load_info(putki::resource::real_path(builder, tiles->texture->source.c_str()).c_str(), &png))
+			kosmos::pngutil::loaded_png png;
+			if (!kosmos::pngutil::load_from_resource(info, tiles->texture->source.c_str(), &png))
 			{
 				continue;
 			}
 
 			const int tilesx = png.width / tiles->tile_width;
 			const int tilesy = png.height / tiles->tile_height;
+			if (tilesx == 0 || tilesy == 0)
+			{
+				RECORD_WARNING(info->record, "Texture is smaller than one tile!");
+				kosmos::pngutil::free(&png);
+				continue;
+			}
 
 			// First construct the collision map which mirrors layer's data but points into the
 			// tile collision data.
 
-			inki::tile_collision **collision_map = new inki::tile_collision*[graphics->width * graphics->height];
-			inki::tile_collision **pos = collision_map;
+			inki::tile_collision const ** collision_map = new inki::tile_collision const *[graphics->width * graphics->height];
+			inki::tile_collision const ** pos = collision_map;
 
 			for (int y=0;y<graphics->height;y++)
 			{
@@ -110,7 +109,7 @@ struct mapbuilder : putki::builder::handler_i
 					const int oy = y * tiles->tile_height;
 
 					const int pos = y * graphics->width + x;
-					inki::tile_collision *cur    = collision_map[pos];
+					const inki::tile_collision *cur = collision_map[pos];
 					if (!cur)
 					{
 						continue;
@@ -168,6 +167,7 @@ struct mapbuilder : putki::builder::handler_i
 				} // x
 			} // y
 
+			kosmos::pngutil::free(&png);
 			// done with this now
 			delete [] collision_map;
 		}
@@ -262,14 +262,16 @@ struct mapbuilder : putki::builder::handler_i
 			}
 		}
 
-		RECORD_INFO(record, "Generated " << tilemap->collision_lines.size() << " collision lines (" << iterations << " iterations). (Unprocessed " << all_lines.size() << " lines)")
+		RECORD_INFO(info->record, "Generated " << tilemap->collision_lines.size() << " collision lines (" << iterations << " iterations). (Unprocessed " << all_lines.size() << " lines)")
 
-		return false;
+		return true;
 	}
 };
 
 void register_map_builder(putki::builder::data *builder)
 {
-	static mapbuilder fb;
-	putki::builder::add_data_builder(builder, "map", &fb);
+	putki::builder::handler_info info[1] = {
+		{ inki::map::type_id(), "map-builder-1", build_map, 0 }
+	};
+	putki::builder::add_handlers(builder, &info[0], &info[1]);
 }
