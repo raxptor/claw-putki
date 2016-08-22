@@ -12,7 +12,7 @@
 					"parent": {
 						"StorageConfiguration": "app/icon-file",
 						"ResizeMode": "RESIZE_NONE",
-						"PremultiplyAlpha": 0,
+						"PremultiplyAlpha": 1,
 					}
 			}
 		}

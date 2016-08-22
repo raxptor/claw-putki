@@ -11,6 +11,7 @@
 #include <kosmos/render/render.h>
 #include <kosmos/render/render2d.h>
 #include <kosmos/render/shader.h>
+#include <kosmos/datacontainer/datacontainer.h>
 #include <kosmos/log/log.h>
 
 #include <game/session.h>
@@ -137,8 +138,10 @@ int main(int argc, char *argv[])
 
 	settings = game::get_global_settings();
 	assert(settings);
+
+	kosmos::datacontainer::init();
 	
-		
+	/*
 	HSQUIRRELVM vm = sq_open(4096);
 
 	sq_setprintfunc(vm, squirrel_print_func, 0);
@@ -154,19 +157,10 @@ int main(int argc, char *argv[])
 	}
 
 	sq_close(vm);
+	*/
 	
 	session = claw::session::create();
-
-	// icon
-	const char *iconFile = kosmos::render::get_texture_file_path(settings->icon);
-	if (iconFile)
-	{
-		char buf[1024];
-		iconFile = putki::format_file_path(iconFile, buf);
-	}
-
-	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height, iconFile);
-
+	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height, 0);
 
 	liveupdate = putki::liveupdate::connect();
 	init();
@@ -177,5 +171,7 @@ int main(int argc, char *argv[])
 	ccgui::uiscreen::free(s_current_screen);
 
 	claw::session::free(session);
+
+	kosmos::datacontainer::destroy();
 	return 0;
 }

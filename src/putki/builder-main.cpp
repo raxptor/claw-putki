@@ -25,18 +25,18 @@ void app_register_handlers(putki::builder::data *builder)
 void app_build_packages(putki::objstore::data *out, putki::build::packaging_config *pconf)
 {
 	{
-		putki::package::data *pkg = putki::package::create(out);
-		putki::package::add(pkg, "globalsettings", true);
+		putki::package::data *pkg = putki::build::create_package(pconf);
+		putki::package::add(pkg, "globalsettings", true, true);
 		putki::build::commit_package(pkg, pconf, "static.pkg");
 	}
 	{
-		putki::package::data *pkg = putki::package::create(out);
-		putki::package::add(pkg, "ui/mainmenu/screen", true);
+		putki::package::data *pkg = putki::build::create_package(pconf);
+		putki::package::add(pkg, "ui/mainmenu/screen", true, true);
 		putki::build::commit_package(pkg, pconf, "mainmenu.pkg");
 	}
 	{
-		putki::package::data *pkg = putki::package::create(out);
-		putki::package::add(pkg, "maps/testmap/testmap", true);
+		putki::package::data *pkg = putki::build::create_package(pconf);
+		putki::package::add(pkg, "maps/testmap/testmap", true, true);
 		putki::build::commit_package(pkg, pconf, "testmap.pkg");
 	}
 
