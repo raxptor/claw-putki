@@ -241,7 +241,10 @@ namespace claw
 			d->app = [NSApplication sharedApplication];
 			d->appdelegate = [[AppDelegate alloc] autorelease];
 
-			d->appdelegate->windowIcon = [NSString stringWithCString:iconfile encoding:NSUTF8StringEncoding];
+			if (iconfile)
+			{
+				d->appdelegate->windowIcon = [NSString stringWithCString:iconfile encoding:NSUTF8StringEncoding];
+			}
 
 			NSRect frame = NSMakeRect( 100., 100., 100. + (float)width, 100. + (float)height );
 			
