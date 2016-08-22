@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	putki::build::set_builder_configurator(&app_register_handlers);
 	putki::build::set_packager(&app_build_packages);
     
-    kosmos_register_postbuild();
+	kosmos_register_postbuild();
 	
 	return run_putki_builder(argc, argv);
 }
