@@ -1,8 +1,7 @@
 {
 	"type": "DataContainerConfiguration",
 	"data": {
-		"Mode": "DCOUT_STREAMING",
-		"FileBase": ""
+		"Mode": "DCOUT_STREAMING"
 	},
 	"aux": [
 	]

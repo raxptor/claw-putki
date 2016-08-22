@@ -5,6 +5,7 @@
 #include <putki/pkgloader.h>
 #include <putki/pkgmgr.h>
 #include <putki/config.h>
+#include <putki/log/log.h>
 #include <putki/liveupdate/liveupdate.h>
 
 #include <environment/appwindow.h>
@@ -128,6 +129,7 @@ void squirrel_print_func(HSQUIRRELVM vm, const SQChar *format, ...)
 
 int main(int argc, char *argv[])
 {
+	putki::set_loglevel(putki::LOG_DEBUG);
 	KOSMOS_INFO("Launching claw [SQ: " << SQUIRREL_VERSION << "]");
 
 	outki::bind_kosmos();

@@ -3,7 +3,7 @@
 	"data": {
 		"Source": "fonts/GreatVibes-Regular\u002ettf",
 		"Latin1": 1,
-		"OutputPixelData": 0,
+		"OutputPixelData": 1,
 		"Characters": [],
 		"PixelSizes": [10,
 		14,

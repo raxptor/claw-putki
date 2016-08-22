@@ -3,7 +3,7 @@
 	"data": {
 		"Source": "fonts/lucida\u002ettf",
 		"Latin1": 1,
-		"OutputPixelData": 0,
+		"OutputPixelData": 1,
 		"Characters": [],
 		"PixelSizes": [20,
 		30,
