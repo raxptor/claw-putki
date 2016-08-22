@@ -20,6 +20,7 @@ namespace game
         {
             KOSMOS_ERROR("Failed to load required package[" << s_static_package_name << "]");
         }
+		putki::pkgmgr::register_for_liveupdate(s_pkg);
 	}
 
 	outki::globalsettings *get_global_settings()

@@ -8,7 +8,7 @@
 		"PixelSizes": [10,
 		14,
 		20,
-		80],
+		120],
 		"TextureConfiguration": "configs/texture-render",
 		"Outputs": [],
 		"RLEData": [],

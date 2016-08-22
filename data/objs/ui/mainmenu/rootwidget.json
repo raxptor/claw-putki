@@ -66,13 +66,13 @@
 					"id": "",
 					"layout": {
 						"x": 0,
-						"y": 100,
+						"y": 35,
 						"width": 512,
 						"height": 100
 					},
 					"expansion": {
 						"x": 0,
-						"y": 0,
+						"y": 0.25,
 						"width": 0,
 						"height": 0
 					}
