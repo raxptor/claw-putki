@@ -1,96 +1,96 @@
 {
-	type: "UIWidget",
-	data: {
-		"width": 512.0000000000,
-		"height": 288.0000000000,
+	"type": "UIWidget",
+	"data": {
+		"width": 512,
+		"height": 288,
 		"handler": "",
 		"layers": [{
-			"elements": ["ui/mainmenu/rootwidget#aohb", "ui/mainmenu/rootwidget#djaf", "ui/mainmenu/rootwidget#hjns"]
-		}]
+				"elements": ["#aohb",
+				"#djaf",
+				"#hjns"]
+			}
+		]
 	},
-	aux: [
+	"aux": [
 		{
-			ref: "#aohb",
-			type: "UIBitmapElement",
-			data: {
-					"parent": {
-						"id": "",
-						"layout": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 512.0000000000,
-							"height": 288.0000000000
-						},
-						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 1.0000000000,
-							"height": 1.0000000000
-						}
+			"ref": "#aohb",
+			"type": "UIBitmapElement",
+			"data": {
+				"parent": {
+					"id": "",
+					"layout": {
+						"x": 0,
+						"y": 0,
+						"width": 512,
+						"height": 288
 					},
-					"texture": "ui/mainmenu/background-texture"
+					"expansion": {
+						"x": 0,
+						"y": 0,
+						"width": 1,
+						"height": 1
+					}
+				},
+				"texture": "ui/mainmenu/background-texture"
 			}
-		}
-		,
-		{
-			ref: "#djaf",
-			type: "UIButtonElement",
-			data: {
-					"parent": {
-						"id": "btn1",
-						"layout": {
-							"x": 200.0000000000,
-							"y": 113.0000000000,
-							"width": 112.0000000000,
-							"height": 50.0000000000
-						},
-						"expansion": {
-							"x": 0.5000000000,
-							"y": 0.5000000000,
-							"width": 0.0000000000,
-							"height": 0.0000000000
-						}
+		}, {
+			"ref": "#djaf",
+			"type": "UIButtonElement",
+			"data": {
+				"parent": {
+					"id": "btn1",
+					"layout": {
+						"x": 200,
+						"y": 113,
+						"width": 112,
+						"height": 50
 					},
-					"Style": "ui/styles/defaultbutton",
-					"TextureNormal": "",
-					"TexturePressed": "",
-					"Text": "SPELA",
-					"Event": ""
+					"expansion": {
+						"x": 0.5,
+						"y": 0.5,
+						"width": 0,
+						"height": 0
+					}
+				},
+				"Style": "ui/styles/defaultbutton",
+				"TextureNormal": "",
+				"TexturePressed": "",
+				"Text": "SPELA",
+				"Event": ""
 			}
-		}
-		,
-		{
-			ref: "#hjns",
-			type: "UITextElement",
-			data: {
-					"parent": {
-						"id": "",
-						"layout": {
-							"x": 100.0000000000,
-							"y": 100.0000000000,
-							"width": 400.0000000000,
-							"height": 100.0000000000
-						},
-						"expansion": {
-							"x": 0.0000000000,
-							"y": 0.0000000000,
-							"width": 0.0000000000,
-							"height": 0.0000000000
-						}
+		}, {
+			"ref": "#hjns",
+			"type": "UITextElement",
+			"data": {
+				"parent": {
+					"id": "",
+					"layout": {
+						"x": 0,
+						"y": 100,
+						"width": 512,
+						"height": 100
 					},
-					"font": "fonts/great-vibes",
-					"pixelSize": 50,
-					"color": {
-						"r": 255,
-						"g": 255,
-						"b": 255,
-						"a": 255
-					},
-					"Text": "Rawr! OpenGL!",
-					"HorizontalAlignment": "UIHorizontalAlignment_Center",
-					"VerticalAlignment": "UIVerticalAlignment_Center",
-					"BackgroundFill": "",
-					"AdjustFill": 0
+					"expansion": {
+						"x": 0,
+						"y": 0,
+						"width": 0,
+						"height": 0
+					}
+				},
+				"font": "fonts/great-vibes",
+				"pixelSize": 50,
+				"color": {
+					"r": 255,
+					"g": 255,
+					"b": 255,
+					"a": 255
+				},
+				"Text": "Welcome!",
+				"HorizontalAlignment": "UIHorizontalAlignment_Center",
+				"VerticalAlignment": "UIVerticalAlignment_Center",
+				"BackgroundFill": "",
+				"AdjustFill": 0,
+				"WordWrap": 0
 			}
 		}
 	]
