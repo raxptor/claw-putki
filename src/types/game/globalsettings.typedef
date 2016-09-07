@@ -1,18 +1,13 @@
 %include types/kosmos/Texture.typedef
 %include types/kosmos/Shader.typedef
 
-globalsettings [in, out]
+GlobalSettings [in, out]
 {
-	string windowtitle
-	u32 window_width
-	u32 window_height
-	ptr Texture icon
-	ptr ShaderProgram shader_solid
-	ptr ShaderProgram shader_texture
-}
-
-testnode [in, out]
-{
-	ptr[] testnode links
+	string WindowTitle
+	u32 WindowWidth
+	u32 WindowHeight
+	ptr Texture Icon
+	ptr ShaderProgram ShaderSolid
+	ptr ShaderProgram ShaderTexture
 }
 

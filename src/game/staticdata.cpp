@@ -23,9 +23,9 @@ namespace game
 		putki::pkgmgr::register_for_liveupdate(s_pkg);
 	}
 
-	outki::globalsettings *get_global_settings()
+	outki::global_settings *get_global_settings()
 	{
-		return (outki::globalsettings *)putki::pkgmgr::resolve(s_pkg, "globalsettings");
+		return (outki::global_settings *)putki::pkgmgr::resolve(s_pkg, "globalsettings");
 	}
 
 }

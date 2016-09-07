@@ -1,10 +1,12 @@
 {
-	type: "tilemap",
-	data: {
-			"texture": "tilemaps/testmap-texture",
-			"tile_width": 16,
-			"tile_height": 16
+	"type": "TileMap",
+	"data": {
+		"Texture": "tilemaps/testmap-texture",
+		"TileWidth": 128,
+		"TileHeight": 128,
+		"CollisionTiles": [],
+		"Tiles": []
 	},
-	aux: [
-	      ]
+	"aux": [
+	]
 }

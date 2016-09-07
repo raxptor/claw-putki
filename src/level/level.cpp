@@ -37,10 +37,10 @@ namespace claw
 			delete i;
 		}
 
-		void draw_layer(instance *i, unsigned int index, outki::maplayer_graphics *graphics, draw_info *di)
+		void draw_layer(instance *i, unsigned int index, outki::map_layer_graphics *graphics, draw_info *di)
 		{
 			kosmos::render2d::set_2d_transform(di->stream, 1, 1, 0, 0);
-			outki::tilemap *tiles = graphics->tiles;
+			outki::tile_map *tiles = graphics->tiles;
 
 			if (i->layer_textures[index] && (!tiles || LIVE_UPDATE(&tiles->texture)))
 			{
@@ -75,7 +75,7 @@ namespace claw
 						continue;
 					}
 
-					outki::tileinfo *info = &tiles->tiles[tile];
+					outki::tile_info *info = &tiles->tiles[tile];
 
 					float x0 = x * tiles->tile_width + di->ofsx;
 					float x1 = x0 + tiles->tile_width;
@@ -89,7 +89,7 @@ namespace claw
 
 		bool line_map_intersection(instance *d, float _x0, float _y0, float _x1, float _y1, kosmos::intersection *res)
 		{
-			const float dummy = 99999999;
+			const float dummy = 99999999.0f;
 			res->t = dummy;
 
 			for (unsigned int i=0;i<d->level->collision_lines_size;i++)
@@ -129,7 +129,7 @@ namespace claw
 					continue;
 				}
 
-				if (outki::maplayer_graphics *graphics = d->level->layers[i]->exact_cast<outki::maplayer_graphics>())
+				if (outki::map_layer_graphics *graphics = d->level->layers[i]->exact_cast<outki::map_layer_graphics>())
 				{
 					draw_layer(d, i, graphics, di);
 				}

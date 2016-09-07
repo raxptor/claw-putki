@@ -46,7 +46,7 @@ namespace
 {
 	claw::appwindow::data *window;
 	putki::liveupdate::data *liveupdate;
-	outki::globalsettings *settings;
+	outki::global_settings *settings;
 	ccgui::uiscreen::instance *s_current_screen = 0;
 	ccgui::uicontext s_ui_context;
 	claw::session::instance *session = 0;
@@ -73,7 +73,7 @@ void frame(claw::appwindow::input_batch *input, float deltatime)
 {
 	if (LIVE_UPDATE(&settings))
 	{
-		claw::appwindow::set_title(window, settings->windowtitle);
+		claw::appwindow::set_title(window, settings->window_title);
 	}
 
 	s_ui_context.input.mouse = &input->mouse;
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
 	*/
 	
 	session = claw::session::create();
-	window = claw::appwindow::create(settings->windowtitle, settings->window_width, settings->window_height, 0);
+	window = claw::appwindow::create(settings->window_title, settings->window_width, settings->window_height, 0);
 
 	liveupdate = putki::liveupdate::connect();
 	init();
